@@ -35,32 +35,84 @@
     <div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
       <div class="flex items-center gap-10">
         <span class="font-bold text-[16px] text-gray-900 tracking-tight">Danish Us-Salam</span>
-                <div class="hidden md:flex items-center gap-7 text-[13px] text-gray-500 font-medium">
+        <div class="hidden md:flex items-center gap-7 text-[13px] text-gray-500 font-medium">
           <a href="index.html" class="hover:text-gray-900 transition-colors">Home</a>
           <a href="publications.html" class="hover:text-gray-900 transition-colors">Publications</a>
           <a href="wip.html" class="hover:text-gray-900 transition-colors">Work in Progress</a>
           <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Research Tools</a>
         </div>
       </div>
-      <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank"
-         class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">
-        Download CV
-      </a>
+      <div class="flex items-center gap-3">
+        <div class="md:hidden flex items-center gap-4 text-[13px] text-gray-600 font-medium">
+          <a href="index.html" class="hover:text-gray-900 transition-colors">Home</a>
+          <a href="publications.html" class="hover:text-gray-900 transition-colors">Pub</a>
+          <a href="wip.html" class="hover:text-gray-900 transition-colors">WIP</a>
+          <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Tools</a>
+        </div>
+        <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank"
+           class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">
+          Download CV
+        </a>
+      </div>
     </div>
   </nav>
 
-
-  <section class="bg-white pt-24 pb-32" style="min-height:100vh; display:flex; align-items:center; margin-top:64px;">
-    <div class="max-w-[1200px] mx-auto px-6 text-center w-full">
-      <div class="inline-block bg-gray-100 rounded-full px-4 py-1.5 mb-6">
-        <span class="text-[12px] text-gray-600 font-semibold uppercase">Coming Soon</span>
+  <!-- Research Tools section -->
+  <section class="py-24 bg-[#f6f5f4]">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="mb-12">
+        <p class="text-[11px] font-semibold text-[#097fe8] uppercase tracking-widest mb-3">Available Tools</p>
+        <h2 class="text-[40px] md:text-[52px] font-bold text-gray-900 tracking-tight leading-[1.05]">Tools.</h2>
       </div>
-      <h1 class="text-5xl font-bold text-gray-900 mb-4">Research Tools</h1>
-      <p class="text-lg text-gray-600 max-w-md mx-auto">
-        This section is being developed. Check back soon for research tools and resources.
-      </p>
+
+      <div class="grid md:grid-cols-3 gap-4">
+
+        <!-- Tile 1: Search Term Generator (Live) -->
+        <div class="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-md transition-shadow">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+            <span class="text-[10px] bg-green-100 text-green-700 px-2.5 py-0.5 rounded-full font-semibold">Live</span>
+          </div>
+          <h4 class="text-[15px] font-bold text-gray-900 mb-2 leading-snug">
+            Search Term Generator
+          </h4>
+          <p class="text-[12px] text-gray-500 leading-relaxed mb-4">
+            Convert any research question into optimised Boolean search strings for Google Scholar, Scopus, and Web of Science.
+          </p>
+          <a href="search-term-generator.html" class="inline-flex items-center gap-1.5 text-du-blue hover:text-[#0858b8] text-[13px] font-semibold transition-colors">
+            Launch Tool
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Tile 2: More Tools Coming Soon (Placeholder) -->
+        <div class="bg-white rounded-xl p-6 border border-gray-200 opacity-60">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m6 2a2 2 0 11-4 0m0 0V4m0 2a2 2 0 11-4 0m0 0V4m6 2v10m6 0a2 2 0 11-4 0m0 0a2 2 0 11-4 0m0 0V8m0 10a2 2 0 11-4 0"/>
+              </svg>
+            </div>
+            <span class="text-[10px] bg-gray-100 text-gray-600 px-2.5 py-0.5 rounded-full font-semibold">Coming Soon</span>
+          </div>
+          <h4 class="text-[15px] font-bold text-gray-900 mb-2 leading-snug">
+            More Tools in Development
+          </h4>
+          <p class="text-[12px] text-gray-500 leading-relaxed">
+            Additional research tools are being built to support your workflow. Check back soon for more resources.
+          </p>
+        </div>
+
+      </div>
     </div>
   </section>
+
   <section style="height:64px;"></section>
   <!-- ─── Footer ───────────────────────────────────────────────── -->
   <footer class="bg-[#0b1628] border-t border-white/8 py-8">
@@ -78,7 +130,5 @@
     </div>
   </footer>
 
-</body>
-</html>
 </body>
 </html>

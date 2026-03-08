@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Term Generator – Danish Us-Salam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'du-dark': '#16213e',
+            'du-blue': '#097fe8',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+
+    .spinner {
+      border: 3px solid rgba(9, 127, 232, 0.1);
+      border-top: 3px solid #097fe8;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200" style="height:64px;">
+    <div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
+      <div class="flex items-center gap-10">
+        <span class="font-bold text-[16px] text-gray-900 tracking-tight">Danish Us-Salam</span>
+        <div class="hidden md:flex items-center gap-7 text-[13px] text-gray-500 font-medium">
+          <a href="index.html" class="hover:text-gray-900 transition-colors">Home</a>
+          <a href="publications.html" class="hover:text-gray-900 transition-colors">Publications</a>
+          <a href="wip.html" class="hover:text-gray-900 transition-colors">Work in Progress</a>
+          <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Research Tools</a>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="md:hidden flex items-center gap-4 text-[13px] text-gray-600 font-medium">
+          <a href="index.html" class="hover:text-gray-900 transition-colors">Home</a>
+          <a href="publications.html" class="hover:text-gray-900 transition-colors">Pub</a>
+          <a href="wip.html" class="hover:text-gray-900 transition-colors">WIP</a>
+          <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Tools</a>
+        </div>
+        <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank"
+           class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">
+          Download CV
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header with breadcrumb -->
+  <section class="bg-gradient-to-br from-du-dark via-du-dark to-du-blue/20 pt-24 pb-12">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <a href="research-tools.html" class="inline-flex items-center gap-2 text-[12px] text-[#7eb3e0] font-medium mb-6 hover:text-white transition-colors">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back to Research Tools
+      </a>
+      <h1 class="text-[46px] md:text-[56px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
+        Search Term Generator
+      </h1>
+      <p class="text-[15px] text-white/60 max-w-[640px] leading-[1.75]">
+        Convert any research question into three ready-to-paste Boolean search strings optimized for Google Scholar, Scopus, and Web of Science.
+        Powered by AI with expert-designed search logic.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Tool Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-[1000px] mx-auto px-6">
+      <!-- Tool Card -->
+      <div class="bg-[#f6f5f4] rounded-2xl p-10 border border-gray-200">
+
+        <!-- Input -->
+        <div class="mb-10">
+          <label for="question" class="block text-[14px] font-semibold text-gray-900 mb-4">
+            Enter your research question
+          </label>
+          <textarea
+            id="question"
+            placeholder="e.g., How do financial disclosure regulations affect consumer debt behaviour? OR What is the impact of randomized asset transfers on household resilience?"
+            rows="5"
+            class="w-full px-5 py-4 bg-white border-2 border-gray-200 rounded-lg font-[15px] text-gray-900 focus:outline-none focus:border-du-blue focus:ring-2 focus:ring-du-blue/10 resize-none"
+          ></textarea>
+          <p class="text-[12px] text-gray-500 mt-2">
+            Tip: Be specific about your research topic, population, and outcome of interest for better results.
+          </p>
+        </div>
+
+        <!-- Generate Button -->
+        <button id="generate-btn"
+                class="w-full bg-gradient-to-r from-du-blue to-[#0858b8] text-white px-6 py-3.5 rounded-lg font-semibold text-[14px] hover:shadow-lg hover:shadow-du-blue/30 transition-all duration-200 active:scale-95 disabled:opacity-60">
+          Generate Search Terms
+        </button>
+
+        <!-- Loading State -->
+        <div id="loading" class="mt-10 text-center" style="display: none;">
+          <div class="flex justify-center mb-4">
+            <div class="spinner"></div>
+          </div>
+          <p class="text-[14px] text-gray-600 font-medium">Generating your search strings...</p>
+          <p class="text-[12px] text-gray-400 mt-2">This usually takes 2-5 seconds</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error" class="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-[13px]" style="display: none;"></div>
+
+        <!-- Results -->
+        <div id="results-section" style="display: none;">
+          <div class="mt-10 pt-10 border-t border-gray-300">
+            <h3 class="text-[18px] font-bold text-gray-900 mb-2">Your Search Strings</h3>
+            <p class="text-[12px] text-gray-500 mb-8">
+              Click <strong>Copy</strong> to copy any string. Paste it directly into your database search box.
+            </p>
+
+            <!-- Three Results Grid -->
+            <div class="grid md:grid-cols-3 gap-5">
+              <!-- Narrow -->
+              <div class="bg-white border-2 border-gray-200 rounded-xl p-6">
+                <div class="mb-4">
+                  <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-1">Strategy 1</p>
+                  <h4 class="text-[16px] font-bold text-gray-900">Narrow</h4>
+                  <p class="text-[11px] text-gray-500 mt-1">High precision, fewer results</p>
+                </div>
+                <div id="result-narrow" class="bg-gray-50 p-4 rounded-lg font-mono text-[12px] text-gray-800 min-h-[120px] max-h-[180px] overflow-y-auto border border-gray-200 mb-4 whitespace-pre-wrap break-words"></div>
+                <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 py-2.5 rounded-lg font-medium text-[13px] transition-colors" onclick="copyResult('result-narrow')">
+                  Copy String
+                </button>
+              </div>
+
+              <!-- Balanced -->
+              <div class="bg-white border-2 border-du-blue rounded-xl p-6 ring-2 ring-du-blue/10">
+                <div class="mb-4">
+                  <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-1">Strategy 2 (Recommended)</p>
+                  <h4 class="text-[16px] font-bold text-gray-900">Balanced</h4>
+                  <p class="text-[11px] text-gray-500 mt-1">Medium breadth, best coverage</p>
+                </div>
+                <div id="result-balanced" class="bg-blue-50 p-4 rounded-lg font-mono text-[12px] text-gray-800 min-h-[120px] max-h-[180px] overflow-y-auto border border-du-blue/20 mb-4 whitespace-pre-wrap break-words"></div>
+                <button class="w-full bg-du-blue hover:bg-[#0858b8] text-white py-2.5 rounded-lg font-medium text-[13px] transition-colors" onclick="copyResult('result-balanced')">
+                  Copy String
+                </button>
+              </div>
+
+              <!-- Broad -->
+              <div class="bg-white border-2 border-gray-200 rounded-xl p-6">
+                <div class="mb-4">
+                  <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-1">Strategy 3</p>
+                  <h4 class="text-[16px] font-bold text-gray-900">Broad</h4>
+                  <p class="text-[11px] text-gray-500 mt-1">High sensitivity, more results</p>
+                </div>
+                <div id="result-broad" class="bg-gray-50 p-4 rounded-lg font-mono text-[12px] text-gray-800 min-h-[120px] max-h-[180px] overflow-y-auto border border-gray-200 mb-4 whitespace-pre-wrap break-words"></div>
+                <button class="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 py-2.5 rounded-lg font-medium text-[13px] transition-colors" onclick="copyResult('result-broad')">
+                  Copy String
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p class="text-[12px] text-green-700 font-medium mb-2">Pro tip: Try all three strategies</p>
+              <p class="text-[12px] text-green-600">Start with <strong>Balanced</strong> for a good coverage. Use <strong>Narrow</strong> for highly specific topics, and <strong>Broad</strong> for exploratory scans.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Use Section -->
+  <section class="py-24 bg-[#f6f5f4]">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="mb-16">
+        <p class="text-[11px] font-semibold text-du-blue uppercase tracking-widest mb-3">How It Works</p>
+        <h2 class="text-[40px] md:text-[52px] font-bold text-gray-900 tracking-tight leading-[1.05]">Three search strategies.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Narrow -->
+        <div class="bg-white rounded-xl p-8 border border-gray-200">
+          <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7"/>
+            </svg>
+          </div>
+          <h3 class="text-[16px] font-bold text-gray-900 mb-3">Narrow Search</h3>
+          <p class="text-[13px] text-gray-600 leading-relaxed mb-4">
+            Highly specific search with exact phrases and all major concepts required. Best for focused literature reviews or when you want fewer, highly relevant results.
+          </p>
+          <ul class="text-[12px] text-gray-600 space-y-2">
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>Exact phrases in quotes</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>3–4 concept groups</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>Includes methodology filter</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>High precision, low recall</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Balanced -->
+        <div class="bg-white rounded-xl p-8 border-2 border-du-blue ring-2 ring-du-blue/10">
+          <div class="w-10 h-10 bg-du-blue rounded-lg flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-[16px] font-bold text-gray-900 mb-3">Balanced Search</h3>
+          <p class="text-[13px] text-gray-600 leading-relaxed mb-4">
+            <strong>Most commonly used.</strong> Good synonym expansion with moderate breadth. Ideal for systematic reviews and general scoping of a research area.
+          </p>
+          <ul class="text-[12px] text-gray-600 space-y-2">
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>Expanded synonyms</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>2–3 concept groups</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>Uses truncation & wildcards</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>Balanced precision & recall</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Broad -->
+        <div class="bg-white rounded-xl p-8 border border-gray-200">
+          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-[16px] font-bold text-gray-900 mb-3">Broad Search</h3>
+          <p class="text-[13px] text-gray-600 leading-relaxed mb-4">
+            Maximum sensitivity to capture all relevant studies. Best for exploratory research or when casting a wide net to understand a topic.
+          </p>
+          <ul class="text-[12px] text-gray-600 space-y-2">
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>Many synonyms & variations</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>2 core concept groups</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>No methodology filter</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-du-blue font-bold mt-0.5">•</span>
+              <span>High recall, low precision</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Where to Use Section -->
+  <section class="py-24 bg-white">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="mb-16">
+        <p class="text-[11px] font-semibold text-du-blue uppercase tracking-widest mb-3">Compatible Platforms</p>
+        <h2 class="text-[40px] md:text-[52px] font-bold text-gray-900 tracking-tight leading-[1.05]">Where to use these strings.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Google Scholar -->
+        <div class="bg-[#f6f5f4] rounded-2xl p-8 border border-gray-200">
+          <div class="flex items-start gap-4 mb-6">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23407cbf'%3E%3Cpath d='M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm0 19.35c-4.04 0-7.35-3.31-7.35-7.35S7.96 4.65 12 4.65s7.35 3.31 7.35 7.35-3.31 7.35-7.35 7.35z'/%3E%3C/svg%3E" alt="Google Scholar" class="w-10 h-10">
+            <div>
+              <h3 class="text-[16px] font-bold text-gray-900">Google Scholar</h3>
+              <p class="text-[12px] text-gray-500">scholar.google.com</p>
+            </div>
+          </div>
+          <p class="text-[13px] text-gray-600 mb-4">
+            Paste your search string into the main search box. Google Scholar supports AND, OR, NOT operators and phrase searching with quotation marks.
+          </p>
+          <p class="text-[12px] text-gray-500 italic">
+            💡 <strong>Tip:</strong> Google Scholar's main search bar has character limits. If your string is too long, use their Advanced Search option.
+          </p>
+        </div>
+
+        <!-- Scopus -->
+        <div class="bg-[#f6f5f4] rounded-2xl p-8 border border-gray-200">
+          <div class="flex items-start gap-4 mb-6">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff6600'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3C/svg%3E" alt="Scopus" class="w-10 h-10">
+            <div>
+              <h3 class="text-[16px] font-bold text-gray-900">Scopus</h3>
+              <p class="text-[12px] text-gray-500">scopus.com</p>
+            </div>
+          </div>
+          <p class="text-[13px] text-gray-600 mb-4">
+            Use the Advanced Search → Search Field → Select "Title, Abstract, Keywords" or paste into the main search box. Scopus is very Boolean-friendly.
+          </p>
+          <p class="text-[12px] text-gray-500 italic">
+            💡 <strong>Tip:</strong> For best results, use the field tag <code class="bg-gray-200 px-1 rounded">TITLE-ABS-KEY(...)</code> wrapping your search string.
+          </p>
+        </div>
+
+        <!-- Web of Science -->
+        <div class="bg-[#f6f5f4] rounded-2xl p-8 border border-gray-200">
+          <div class="flex items-start gap-4 mb-6">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236f42c1'%3E%3Crect width='24' height='24' rx='4'/%3E%3C/svg%3E" alt="Web of Science" class="w-10 h-10">
+            <div>
+              <h3 class="text-[16px] font-bold text-gray-900">Web of Science</h3>
+              <p class="text-[12px] text-gray-500">webofscience.com</p>
+            </div>
+          </div>
+          <p class="text-[13px] text-gray-600 mb-4">
+            Go to Core Collection → Advanced Search. Use the field tag <code class="bg-gray-200 px-1 rounded text-[11px]">TS=(...)</code> for topic search (title, abstract, keywords).
+          </p>
+          <p class="text-[12px] text-gray-500 italic">
+            💡 <strong>Tip:</strong> WoS supports proximity operators like <code class="bg-gray-200 px-1 rounded text-[11px]">NEAR/5</code> for more advanced searching.
+          </p>
+        </div>
+
+        <!-- PubMed -->
+        <div class="bg-[#f6f5f4] rounded-2xl p-8 border border-gray-200">
+          <div class="flex items-start gap-4 mb-6">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236ecf63'%3E%3Crect width='24' height='24' rx='4'/%3E%3C/svg%3E" alt="PubMed" class="w-10 h-10">
+            <div>
+              <h3 class="text-[16px] font-bold text-gray-900">PubMed</h3>
+              <p class="text-[12px] text-gray-500">pubmed.ncbi.nlm.nih.gov</p>
+            </div>
+          </div>
+          <p class="text-[13px] text-gray-600 mb-4">
+            Paste directly into the search box. PubMed supports Boolean operators. For best results, use the Advanced Search builder.
+          </p>
+          <p class="text-[12px] text-gray-500 italic">
+            💡 <strong>Tip:</strong> PubMed has MeSH controlled vocabulary — consider using MeSH terms for clinical/health topics.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Examples Section -->
+  <section class="py-24 bg-[#f6f5f4]">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="mb-12">
+        <p class="text-[11px] font-semibold text-du-blue uppercase tracking-widest mb-3">Examples</p>
+        <h2 class="text-[40px] md:text-[52px] font-bold text-gray-900 tracking-tight leading-[1.05]">See it in action.</h2>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Example 1 -->
+        <div class="bg-white rounded-xl p-8 border border-gray-200">
+          <h4 class="text-[14px] font-bold text-gray-900 mb-4">Example: Financial disclosure and consumer debt</h4>
+          <div class="space-y-3">
+            <div>
+              <p class="text-[11px] font-semibold text-orange-600 uppercase tracking-wider mb-1">Narrow</p>
+              <code class="block bg-orange-50 p-3 rounded border border-orange-200 text-[11px] text-gray-800 font-mono overflow-x-auto">
+                ("financial disclosure" OR "disclosure requirement*") AND ("consumer debt" OR "household debt") AND ("RCT" OR "field experiment")
+              </code>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-du-blue uppercase tracking-wider mb-1">Balanced</p>
+              <code class="block bg-blue-50 p-3 rounded border border-du-blue/20 text-[11px] text-gray-800 font-mono overflow-x-auto">
+                ("financial disclosure" OR "disclosure requirement*" OR "transparency regulation") AND ("consumer credit" OR "household borrow*" OR "debt market*") AND ("behavio?r" OR "decision-making")
+              </code>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-green-600 uppercase tracking-wider mb-1">Broad</p>
+              <code class="block bg-green-50 p-3 rounded border border-green-200 text-[11px] text-gray-800 font-mono overflow-x-auto">
+                ("disclosure" OR "information provision" OR "transparency" OR "warning*") AND ("consumer credit" OR "household debt" OR "loan*" OR "borrow*")
+              </code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Example 2 -->
+        <div class="bg-white rounded-xl p-8 border border-gray-200">
+          <h4 class="text-[14px] font-bold text-gray-900 mb-4">Example: Crypto asset adoption and risk perception</h4>
+          <div class="space-y-3">
+            <div>
+              <p class="text-[11px] font-semibold text-orange-600 uppercase tracking-wider mb-1">Narrow</p>
+              <code class="block bg-orange-50 p-3 rounded border border-orange-200 text-[11px] text-gray-800 font-mono overflow-x-auto">
+                ("cryptocurrency" OR "Bitcoin" OR "digital asset*") AND ("risk perception" OR "risk comprehension") AND ("experiment" OR "RCT")
+              </code>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-du-blue uppercase tracking-wider mb-1">Balanced</p>
+              <code class="block bg-blue-50 p-3 rounded border border-du-blue/20 text-[11px] text-gray-800 font-mono overflow-x-auto">
+                ("crypto*" OR "digital currency" OR "digital asset*" OR "DeFi" OR "decentralised finance") AND ("risk" OR "volatility" OR "loss" OR "speculation") AND ("retail investor*" OR "household")
+              </code>
+            </div>
+            <div>
+              <p class="text-[11px] font-semibold text-green-600 uppercase tracking-wider mb-1">Broad</p>
+              <code class="block bg-green-50 p-3 rounded border border-green-200 text-[11px] text-gray-800 font-mono overflow-x-auto">
+                ("crypto*" OR "bitcoin" OR "blockchain" OR "digital asset*" OR "virtual currency") AND ("investor*" OR "trader*" OR "adoption" OR "behavio?r")
+              </code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-24 bg-white">
+    <div class="max-w-[800px] mx-auto px-6">
+      <div class="mb-12">
+        <p class="text-[11px] font-semibold text-du-blue uppercase tracking-widest mb-3">Questions?</p>
+        <h2 class="text-[40px] md:text-[52px] font-bold text-gray-900 tracking-tight leading-[1.05]">Frequently asked.</h2>
+      </div>
+
+      <div class="space-y-4">
+        <details class="bg-[#f6f5f4] rounded-lg p-6 group cursor-pointer">
+          <summary class="flex items-center justify-between font-bold text-gray-900 select-none">
+            <span class="text-[14px]">What's the difference between the three search strategies?</span>
+            <svg class="w-5 h-5 text-gray-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+          </summary>
+          <p class="text-[13px] text-gray-600 mt-4 leading-relaxed">
+            <strong>Narrow</strong> uses exact phrases and all concepts, best for highly specific topics.
+            <strong>Balanced</strong> adds synonyms and uses wildcards—best for most systematic reviews.
+            <strong>Broad</strong> drops the methodology filter and includes many variations—best for exploratory scoping.
+            We recommend starting with <strong>Balanced</strong>.
+          </p>
+        </details>
+
+        <details class="bg-[#f6f5f4] rounded-lg p-6 group cursor-pointer">
+          <summary class="flex items-center justify-between font-bold text-gray-900 select-none">
+            <span class="text-[14px]">Can I modify the search strings after generating them?</span>
+            <svg class="w-5 h-5 text-gray-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+          </summary>
+          <p class="text-[13px] text-gray-600 mt-4 leading-relaxed">
+            Absolutely! The strings generated are templates optimized for your research question. You can add, remove, or refine terms based on what you find in early searches.
+            Feel free to adjust database-specific syntax and add field tags like <code class="bg-gray-200 px-1 rounded text-[11px]">TITLE-ABS-KEY()</code> for Scopus.
+          </p>
+        </details>
+
+        <details class="bg-[#f6f5f4] rounded-lg p-6 group cursor-pointer">
+          <summary class="flex items-center justify-between font-bold text-gray-900 select-none">
+            <span class="text-[14px]">How is the AI generating these search strings?</span>
+            <svg class="w-5 h-5 text-gray-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+          </summary>
+          <p class="text-[13px] text-gray-600 mt-4 leading-relaxed">
+            The tool uses a specialized AI model (Llama 3.3 70B) trained to understand academic research and Boolean search logic.
+            It follows strict rules about operator formatting (AND/OR/NOT uppercase), phrase quoting, truncation (*), and wildcards (?)
+            to ensure compatibility with all major academic databases.
+          </p>
+        </details>
+
+        <details class="bg-[#f6f5f4] rounded-lg p-6 group cursor-pointer">
+          <summary class="flex items-center justify-between font-bold text-gray-900 select-none">
+            <span class="text-[14px]">Is this tool free? Will my research question be stored?</span>
+            <svg class="w-5 h-5 text-gray-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+          </summary>
+          <p class="text-[13px] text-gray-600 mt-4 leading-relaxed">
+            Yes, completely free! No account or login required. Your research questions are processed in real-time by the AI
+            and are <strong>never stored</strong>. No tracking, no cookies, no data collection. Use it as many times as you like
+            without cost or restrictions.
+          </p>
+        </details>
+
+        <details class="bg-[#f6f5f4] rounded-lg p-6 group cursor-pointer">
+          <summary class="flex items-center justify-between font-bold text-gray-900 select-none">
+            <span class="text-[14px]">What if the search strings don't capture the right papers?</span>
+            <svg class="w-5 h-5 text-gray-600 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+          </summary>
+          <p class="text-[13px] text-gray-600 mt-4 leading-relaxed">
+            Try iterating! Generate strings multiple times, refining your question each time.
+            Compare results from all three strategies—sometimes the <strong>Broad</strong> search catches papers the <strong>Narrow</strong>
+            one misses. Also consider backward and forward citation searching to find related work.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#0b1628] border-t border-white/8 py-8">
+    <div class="max-w-[1200px] mx-auto px-6 flex flex-wrap justify-between items-center gap-4">
+      <div>
+        <p class="text-[13px] font-semibold text-white mb-0.5">Danish Us-Salam</p>
+        <p class="text-[11px] text-white/35">Economist · Central Bank of Ireland · Dublin, Ireland</p>
+      </div>
+      <div class="flex items-center gap-5 text-[12px] text-white/35">
+        <a href="mailto:ussalamd@tcd.ie" class="hover:text-white/65 transition-colors">ussalamd@tcd.ie</a>
+        <a href="https://www.linkedin.com/in/danishussalam/" target="_blank" class="hover:text-white/65 transition-colors">LinkedIn</a>
+        <a href="https://twitter.com/DanishUsSalam2" target="_blank" class="hover:text-white/65 transition-colors">Twitter</a>
+        <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank" class="hover:text-white/65 transition-colors">CV</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="search-term-generator-page.js"></script>
+</body>
+</html>
