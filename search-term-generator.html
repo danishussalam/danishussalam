@@ -153,7 +153,7 @@
               </div>
 
               <!-- Balanced -->
-              <div class="bg-white border-2 border-du-blue rounded-xl p-6 ring-2 ring-du-blue/10">
+              <div class="bg-white border-2 border-gray-200 rounded-xl p-6">
                 <div class="mb-4">
                   <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-1">Strategy 2 (Recommended)</p>
                   <h4 class="text-[16px] font-bold text-gray-900">Balanced</h4>
@@ -221,7 +221,7 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
-              <span>Includes methodology filter</span>
+              <span>Methodology filter if specified</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
@@ -231,7 +231,7 @@
         </div>
 
         <!-- Balanced -->
-        <div class="bg-white rounded-xl p-8 border-2 border-du-blue ring-2 ring-du-blue/10">
+        <div class="bg-white rounded-xl p-8 border border-gray-200">
           <div class="w-10 h-10 bg-du-blue rounded-lg flex items-center justify-center mb-5">
             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -391,7 +391,7 @@
             <div>
               <p class="text-[11px] font-semibold text-orange-600 uppercase tracking-wider mb-1">Narrow</p>
               <code class="block bg-orange-50 p-3 rounded border border-orange-200 text-[11px] text-gray-800 font-mono overflow-x-auto">
-                ("financial disclosure" OR "disclosure requirement*") AND ("consumer debt" OR "household debt") AND ("RCT" OR "field experiment")
+                ("financial disclosure" OR "disclosure requirement*") AND ("consumer debt" OR "household debt") AND (consumer* OR household*)
               </code>
             </div>
             <div>
@@ -411,12 +411,12 @@
 
         <!-- Example 2 -->
         <div class="bg-white rounded-xl p-8 border border-gray-200">
-          <h4 class="text-[14px] font-bold text-gray-900 mb-4">Example: Crypto asset adoption and risk perception</h4>
+          <h4 class="text-[14px] font-bold text-gray-900 mb-4">Example: Crypto asset adoption and behavioral factors</h4>
           <div class="space-y-3">
             <div>
               <p class="text-[11px] font-semibold text-orange-600 uppercase tracking-wider mb-1">Narrow</p>
               <code class="block bg-orange-50 p-3 rounded border border-orange-200 text-[11px] text-gray-800 font-mono overflow-x-auto">
-                ("cryptocurrency" OR "Bitcoin" OR "digital asset*") AND ("risk perception" OR "risk comprehension") AND ("experiment" OR "RCT")
+                ("cryptocurrency" OR "Bitcoin" OR "digital asset*") AND ("risk perception" OR "risk comprehension") AND (behavio?r OR adoption)
               </code>
             </div>
             <div>
