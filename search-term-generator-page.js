@@ -1,7 +1,11 @@
-// Cloudflare Worker URL - update this after deployment
+// Cloudflare Worker URL
 const WORKER_URL = "https://search-term-generator.danishussalam.workers.dev";
-// CORS proxy for firewall bypass
-const CORS_PROXY = "https://api.allorigins.win/raw?url=";
+// Multiple CORS proxies to try if direct access fails
+const CORS_PROXIES = [
+  "https://corsproxy.io/?",
+  "https://api.codetabs.com/v1/proxy?quest=",
+  "https://cors-anywhere.herokuapp.com/",
+];
 
 const questionInput = document.getElementById("question");
 const generateBtn = document.getElementById("generate-btn");
@@ -31,13 +35,59 @@ async function generateSearchTerms() {
   generateBtn.disabled = true;
 
   try {
-    const response = await fetch(WORKER_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ question }),
-    });
+    let response;
+    let lastError;
+
+    // Try direct fetch first
+    try {
+      response = await Promise.race([
+        fetch(WORKER_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ question }),
+        }),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Direct fetch timeout")), 5000)
+        ),
+      ]);
+    } catch (directError) {
+      lastError = directError;
+      console.log("Direct fetch failed, trying CORS proxies...", directError.message);
+
+      // Try each CORS proxy
+      for (const proxy of CORS_PROXIES) {
+        try {
+          const proxyUrl = proxy + encodeURIComponent(WORKER_URL);
+          response = await Promise.race([
+            fetch(proxyUrl, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ question }),
+            }),
+            new Promise((_, reject) =>
+              setTimeout(() => reject(new Error("Proxy timeout")), 5000)
+            ),
+          ]);
+
+          if (response.ok) {
+            console.log("Proxy succeeded:", proxy);
+            break;
+          }
+        } catch (proxyError) {
+          lastError = proxyError;
+          console.log("Proxy failed:", proxy, proxyError.message);
+          continue;
+        }
+      }
+
+      if (!response) {
+        throw lastError || new Error("All fetch attempts failed");
+      }
+    }
 
     if (!response.ok) {
       const errorData = await response.json();
