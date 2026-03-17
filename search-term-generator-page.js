@@ -31,27 +31,13 @@ async function generateSearchTerms() {
   generateBtn.disabled = true;
 
   try {
-    // Try direct fetch first, fallback to CORS proxy if it fails
-    let response;
-    try {
-      response = await fetch(WORKER_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ question }),
-      });
-    } catch (directError) {
-      // If direct fetch fails, try with CORS proxy
-      console.log("Direct fetch failed, trying CORS proxy...");
-      response = await fetch(CORS_PROXY + encodeURIComponent(WORKER_URL), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ question }),
-      });
-    }
+    const response = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ question }),
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
