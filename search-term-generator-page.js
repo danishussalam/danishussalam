@@ -38,7 +38,7 @@ async function generateSearchTerms() {
     let response;
     let lastError;
 
-    // Try direct fetch first
+    // Try direct fetch first (POST)
     try {
       response = await Promise.race([
         fetch(WORKER_URL, {
@@ -54,38 +54,27 @@ async function generateSearchTerms() {
       ]);
     } catch (directError) {
       lastError = directError;
-      console.log("Direct fetch failed, trying CORS proxies...", directError.message);
+      console.log("Direct POST failed, trying GET with proxy...", directError.message);
 
-      // Try each CORS proxy
-      for (const proxy of CORS_PROXIES) {
-        try {
-          const proxyUrl = proxy + encodeURIComponent(WORKER_URL);
-          response = await Promise.race([
-            fetch(proxyUrl, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ question }),
-            }),
-            new Promise((_, reject) =>
-              setTimeout(() => reject(new Error("Proxy timeout")), 5000)
-            ),
-          ]);
+      // Fallback: use GET request through CORS proxy
+      try {
+        const getUrl = `${WORKER_URL}?question=${encodeURIComponent(question)}`;
+        const proxyUrl = CORS_PROXIES[0] + encodeURIComponent(getUrl);
 
-          if (response.ok) {
-            console.log("Proxy succeeded:", proxy);
-            break;
-          }
-        } catch (proxyError) {
-          lastError = proxyError;
-          console.log("Proxy failed:", proxy, proxyError.message);
-          continue;
+        response = await Promise.race([
+          fetch(proxyUrl),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Proxy timeout")), 5000)
+          ),
+        ]);
+
+        if (response.ok) {
+          console.log("Proxy succeeded");
         }
-      }
-
-      if (!response) {
-        throw lastError || new Error("All fetch attempts failed");
+      } catch (proxyError) {
+        lastError = proxyError;
+        console.log("Proxy also failed:", proxyError.message);
+        throw lastError;
       }
     }
 
