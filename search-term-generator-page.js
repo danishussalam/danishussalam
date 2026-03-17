@@ -1,11 +1,7 @@
 // Cloudflare Worker URL
-const WORKER_URL = "https://search-term-generator.danishussalam.workers.dev";
-// Multiple CORS proxies to try if direct access fails
-const CORS_PROXIES = [
-  "https://corsproxy.io/?",
-  "https://api.codetabs.com/v1/proxy?quest=",
-  "https://cors-anywhere.herokuapp.com/",
-];
+const WORKER_URL = "https://search-term-generator.danish-us-salam.workers.dev";
+// CORS proxy for firewall bypass (use codetabs as it's more reliable)
+const CORS_PROXY = "https://api.codetabs.com/v1/proxy?quest=";
 
 const questionInput = document.getElementById("question");
 const generateBtn = document.getElementById("generate-btn");
@@ -59,7 +55,7 @@ async function generateSearchTerms() {
       // Fallback: use GET request through CORS proxy
       try {
         const getUrl = `${WORKER_URL}?question=${encodeURIComponent(question)}`;
-        const proxyUrl = CORS_PROXIES[0] + encodeURIComponent(getUrl);
+        const proxyUrl = CORS_PROXY + encodeURIComponent(getUrl);
 
         response = await Promise.race([
           fetch(proxyUrl),
