@@ -26,7 +26,69 @@
     * { box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
     html { scroll-behavior: smooth; }
+
+    /* Dark theme */
+    [data-theme="dark"] {
+      color-scheme: dark;
+    }
+
+    [data-theme="dark"] body {
+      @apply bg-gray-950 text-gray-100;
+    }
+
+    [data-theme="dark"] .bg-white {
+      @apply bg-gray-900;
+    }
+
+    [data-theme="dark"] .text-gray-900 {
+      @apply text-gray-100;
+    }
+
+    [data-theme="dark"] .text-gray-500 {
+      @apply text-gray-400;
+    }
+
+    [data-theme="dark"] .border-gray-200 {
+      @apply border-gray-700;
+    }
+
+    [data-theme="dark"] .bg-gray-50 {
+      @apply bg-gray-800;
+    }
+
+    [data-theme="dark"] .bg-\#f6f5f4 {
+      @apply bg-gray-800;
+    }
+
+    [data-theme="dark"] nav {
+      @apply bg-gray-900/95 border-gray-700;
+    }
+
+    [data-theme="dark"] .text-gray-700 {
+      @apply text-gray-300;
+    }
+
+    [data-theme="dark"] .border-gray-300 {
+      @apply border-gray-600;
+    }
+
+    [data-theme="dark"] .hover\:bg-gray-50:hover {
+      @apply bg-gray-800;
+    }
+
+    [data-theme="dark"] .hover\:bg-gray-100:hover {
+      @apply bg-gray-800;
+    }
   </style>
+  <script>
+    // Theme toggle script
+    (function() {
+      const theme = localStorage.getItem('theme') || 'light';
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 </head>
 <body class="bg-white text-gray-900">
 
@@ -49,6 +111,15 @@
           <a href="wip.html" class="hover:text-gray-900 transition-colors">WIP</a>
           <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Tools</a>
         </div>
+        <!-- Theme toggle -->
+        <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" title="Toggle dark mode">
+          <svg id="sun-icon" class="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3v1m0 16v1m9-9h-1m-16 0H1m15.657 5.657l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <svg id="moon-icon" class="w-5 h-5 text-gray-700 hidden" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
         <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank"
            class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">
           Download CV
@@ -129,6 +200,34 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+    const html = document.documentElement;
+
+    function updateThemeUI() {
+      const currentTheme = html.getAttribute('data-theme') || 'light';
+      if (currentTheme === 'dark') {
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      } else {
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+      }
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeUI();
+    });
+
+    updateThemeUI();
+  </script>
 
 </body>
 </html>
