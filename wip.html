@@ -27,77 +27,171 @@
     body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
     html { scroll-behavior: smooth; }
 
-    /* Dark theme */
+    /* Dark theme - comprehensive */
     [data-theme="dark"] {
       color-scheme: dark;
     }
 
     [data-theme="dark"] body {
-      @apply bg-gray-950 text-gray-100;
+      background-color: #0f172a;
+      color: #e5e7eb;
     }
 
     [data-theme="dark"] .bg-white {
-      @apply bg-gray-900;
+      background-color: #1f2937;
+    }
+
+    [data-theme="dark"] .bg-\#f6f5f4,
+    [data-theme="dark"] [class*="bg-[#f6f5f4]"] {
+      background-color: #1f2937;
+    }
+
+    [data-theme="dark"] .bg-\#f0faf2,
+    [data-theme="dark"] [class*="bg-[#f0faf2]"] {
+      background-color: #1f2937;
     }
 
     [data-theme="dark"] .text-gray-900 {
-      @apply text-gray-100;
+      color: #f3f4f6;
+    }
+
+    [data-theme="dark"] .text-gray-600 {
+      color: #9ca3af;
     }
 
     [data-theme="dark"] .text-gray-500 {
-      @apply text-gray-400;
-    }
-
-    [data-theme="dark"] .border-gray-200 {
-      @apply border-gray-700;
-    }
-
-    [data-theme="dark"] .bg-gray-50 {
-      @apply bg-gray-800;
-    }
-
-    [data-theme="dark"] .bg-\#f6f5f4 {
-      @apply bg-gray-800;
-    }
-
-    [data-theme="dark"] .bg-\#f0faf2 {
-      @apply bg-gray-800;
-    }
-
-    [data-theme="dark"] .border-green-100 {
-      @apply border-gray-700;
-    }
-
-    [data-theme="dark"] nav {
-      @apply bg-gray-900/95 border-gray-700;
+      color: #9ca3af;
     }
 
     [data-theme="dark"] .text-gray-700 {
-      @apply text-gray-300;
-    }
-
-    [data-theme="dark"] .border-gray-300 {
-      @apply border-gray-600;
-    }
-
-    [data-theme="dark"] .hover\:bg-gray-50:hover {
-      @apply bg-gray-800;
-    }
-
-    [data-theme="dark"] .hover\:bg-gray-100:hover {
-      @apply bg-gray-800;
+      color: #d1d5db;
     }
 
     [data-theme="dark"] .text-gray-400 {
-      @apply text-gray-500;
+      color: #9ca3af;
+    }
+
+    [data-theme="dark"] .border-gray-200 {
+      border-color: #374151;
+    }
+
+    [data-theme="dark"] .border-gray-300 {
+      border-color: #4b5563;
+    }
+
+    [data-theme="dark"] .border-green-100 {
+      border-color: #374151;
+    }
+
+    [data-theme="dark"] nav {
+      background-color: rgba(31, 41, 55, 0.95);
+      border-color: #374151;
+    }
+
+    [data-theme="dark"] .bg-gray-50 {
+      background-color: #1f2937;
+    }
+
+    [data-theme="dark"] .hover\:bg-gray-50:hover {
+      background-color: #2d3748;
+    }
+
+    [data-theme="dark"] .hover\:bg-gray-100:hover {
+      background-color: #2d3748;
+    }
+
+    [data-theme="dark"] .bg-blue-100 {
+      background-color: #1e3a8a;
+    }
+
+    [data-theme="dark"] .text-blue-600 {
+      color: #60a5fa;
+    }
+
+    [data-theme="dark"] .bg-yellow-100 {
+      background-color: #713f12;
+    }
+
+    [data-theme="dark"] .text-yellow-600 {
+      color: #fbbf24;
+    }
+
+    [data-theme="dark"] .bg-green-100 {
+      background-color: #065f46;
+    }
+
+    [data-theme="dark"] .text-green-600 {
+      color: #4ade80;
+    }
+
+    [data-theme="dark"] .text-green-700 {
+      color: #4ade80;
+    }
+
+    [data-theme="dark"] .bg-orange-100 {
+      background-color: #7c2d12;
+    }
+
+    [data-theme="dark"] .text-orange-700 {
+      color: #fb923c;
+    }
+
+    [data-theme="dark"] .bg-purple-50 {
+      background-color: #2e1065;
+    }
+
+    [data-theme="dark"] .text-purple-500 {
+      color: #a78bfa;
+    }
+
+    [data-theme="dark"] .bg-red-50 {
+      background-color: #7f1d1d;
+    }
+
+    [data-theme="dark"] .text-red-500 {
+      color: #f87171;
+    }
+
+    [data-theme="dark"] .bg-teal-50 {
+      background-color: #134e4a;
+    }
+
+    [data-theme="dark"] .text-teal-500 {
+      color: #14b8a6;
     }
 
     [data-theme="dark"] .bg-blue-50 {
-      @apply bg-blue-900/20;
+      background-color: #0c2340;
     }
 
-    [data-theme="dark"] .border-blue-100 {
-      @apply border-blue-900/50;
+    [data-theme="dark"] .text-blue-700 {
+      color: #60a5fa;
+    }
+
+    #theme-toggle {
+      background-color: #e5e7eb;
+      color: #f3f4f6;
+    }
+
+    [data-theme="dark"] #theme-toggle {
+      background-color: #1f2937;
+      color: #fbbf24;
+    }
+
+    [data-theme="dark"] #theme-toggle:hover {
+      background-color: #2d3748;
+    }
+
+    #theme-toggle:hover {
+      background-color: #d1d5db;
+    }
+
+    #sun-icon {
+      color: #f59e0b;
+    }
+
+    #moon-icon {
+      color: #fbbf24;
     }
   </style>
 
@@ -133,11 +227,11 @@
           <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Tools</a>
         </div>
         <!-- Theme toggle -->
-        <button id="theme-toggle" class="p-2 rounded-lg hover:bg-gray-100 transition-colors" title="Toggle dark mode">
-          <svg id="sun-icon" class="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
+        <button id="theme-toggle" class="p-2.5 rounded-lg transition-all duration-300" title="Toggle dark mode" style="background-color: #e5e7eb;">
+          <svg id="sun-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" style="color: #f59e0b;">
             <path d="M12 3v1m0 16v1m9-9h-1m-16 0H1m15.657 5.657l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
           </svg>
-          <svg id="moon-icon" class="w-5 h-5 text-gray-700 hidden" fill="currentColor" viewBox="0 0 24 24">
+          <svg id="moon-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24" style="color: #fbbf24;">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
         </button>
