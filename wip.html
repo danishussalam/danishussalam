@@ -26,7 +26,138 @@
     * { box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
     html { scroll-behavior: smooth; }
+
+    /* Dark theme - comprehensive */
+    [data-theme="dark"] {
+      color-scheme: dark;
+    }
+
+    [data-theme="dark"] body {
+      background-color: #0f172a;
+      color: #e5e7eb;
+    }
+
+    [data-theme="dark"] .bg-white {
+      background-color: #1f2937;
+    }
+
+    [data-theme="dark"] .bg-\#f6f5f4,
+    [data-theme="dark"] [class*="bg-[#f6f5f4]"] {
+      background-color: #0f172a;
+    }
+
+    [data-theme="dark"] .text-gray-900 {
+      color: #f3f4f6;
+    }
+
+    [data-theme="dark"] .text-gray-500 {
+      color: #9ca3af;
+    }
+
+    [data-theme="dark"] .text-gray-600 {
+      color: #9ca3af;
+    }
+
+    [data-theme="dark"] .text-gray-700 {
+      color: #d1d5db;
+    }
+
+    [data-theme="dark"] .border-gray-200 {
+      border-color: #374151;
+    }
+
+    [data-theme="dark"] .border-gray-300 {
+      border-color: #4b5563;
+    }
+
+    [data-theme="dark"] nav {
+      background-color: rgba(31, 41, 55, 0.95);
+      border-color: #374151;
+    }
+
+    [data-theme="dark"] .bg-blue-50 {
+      background-color: #0c2340;
+    }
+
+    [data-theme="dark"] .text-blue-500 {
+      color: #60a5fa;
+    }
+
+    [data-theme="dark"] .bg-orange-100 {
+      background-color: #7c2d12;
+    }
+
+    [data-theme="dark"] .text-orange-700 {
+      color: #fb923c;
+    }
+
+    [data-theme="dark"] .bg-blue-100 {
+      background-color: #1e3a8a;
+    }
+
+    [data-theme="dark"] .text-blue-700 {
+      color: #60a5fa;
+    }
+
+    [data-theme="dark"] .bg-purple-50 {
+      background-color: #2e1065;
+    }
+
+    [data-theme="dark"] .text-purple-500 {
+      color: #a78bfa;
+    }
+
+    [data-theme="dark"] .bg-yellow-50 {
+      background-color: #713f12;
+    }
+
+    [data-theme="dark"] .text-yellow-600 {
+      color: #fbbf24;
+    }
+
+    [data-theme="dark"] .hover\:shadow-md:hover {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Theme toggle button */
+    #theme-toggle {
+      background-color: #e5e7eb;
+      color: #1f2937;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+    }
+
+    #theme-toggle:hover {
+      background-color: #d1d5db;
+    }
+
+    [data-theme="dark"] #theme-toggle {
+      background-color: #374151;
+      color: #f3f4f6;
+    }
+
+    [data-theme="dark"] #theme-toggle:hover {
+      background-color: #4b5563;
+    }
+
   </style>
+
+  <script>
+    // Initialize theme on page load
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
 </head>
 <body class="bg-white text-gray-900">
 
@@ -49,6 +180,9 @@
           <a href="wip.html" class="hover:text-gray-900 transition-colors">WIP</a>
           <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Tools</a>
         </div>
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+          <span id="theme-icon">☀️</span>
+        </button>
         <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank"
            class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">
           Download CV
@@ -197,6 +331,29 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const html = document.documentElement;
+
+    function updateThemeIcon() {
+      const currentTheme = html.getAttribute('data-theme');
+      themeIcon.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+    }
+
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon();
+    });
+
+    // Set initial icon
+    updateThemeIcon();
+  </script>
 
 </body>
 </html>
