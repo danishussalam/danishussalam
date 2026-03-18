@@ -234,7 +234,7 @@
             class="w-full px-5 py-4 bg-white border-2 border-gray-200 rounded-lg font-[15px] text-gray-900 focus:outline-none focus:border-du-blue focus:ring-2 focus:ring-du-blue/10 resize-none"
           ></textarea>
           <p class="text-[12px] text-gray-500 mt-2">
-            Tip: Be specific about your research topic, population, and outcome of interest for better results.
+            Tip: Be specific about your research topic, population, and outcome of interest for better results. Optionally mention the database (Google Scholar, Scopus, Web of Science, PubMed, etc.) if you have a specific platform in mind.
           </p>
         </div>
 
@@ -344,11 +344,11 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
-              <span>3–4 concept groups</span>
+              <span>4–5 concept groups</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
-              <span>Methodology filter if specified</span>
+              <span>Only if outcomes mentioned: 3+ synonyms per outcome</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
@@ -375,11 +375,11 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
-              <span>2–3 concept groups</span>
+              <span>3–4 concept groups</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
-              <span>Uses truncation & wildcards</span>
+              <span>If outcomes mentioned: 3+ synonyms per outcome</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
@@ -406,11 +406,11 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
-              <span>2 core concept groups</span>
+              <span>2–3 concept groups</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
-              <span>No methodology filter</span>
+              <span>If outcomes mentioned: generous outcome variants</span>
             </li>
             <li class="flex items-start gap-2">
               <span class="text-du-blue font-bold mt-0.5">•</span>
@@ -518,19 +518,19 @@
             <div>
               <p class="text-[11px] font-semibold text-orange-600 uppercase tracking-wider mb-1">Narrow</p>
               <code class="block bg-orange-50 p-3 rounded border border-orange-200 text-[11px] text-gray-800 font-mono overflow-x-auto">
-                ("cash transfer*" OR "unconditional cash transfer*" OR "UCT") AND ("food security" OR "dietary diversity") AND ("sub-Saharan Africa" OR "SSA") AND (RCT OR "randomis* control*)
+                ("cash transfer*" OR "unconditional cash transfer*" OR "UCT") AND ("food security" OR "dietary diversity" OR "household food consumption") AND ("sub-Saharan Africa" OR "SSA") AND (household* OR family OR home*)
               </code>
             </div>
             <div>
               <p class="text-[11px] font-semibold text-du-blue uppercase tracking-wider mb-1">Balanced</p>
               <code class="block bg-blue-50 p-3 rounded border border-du-blue/20 text-[11px] text-gray-800 font-mono overflow-x-auto">
-                ("cash transfer*" OR "income support" OR "social protect*" OR "social cash transfer*") AND ("food security" OR "nutritional status" OR "household consumpt*") AND ("Africa" OR "low-income countr*") AND (impact OR effect*)
+                ("cash transfer*" OR "income support" OR "social protect*" OR "social cash transfer*") AND ("food security" OR "nutritional status" OR "household consumpt*") AND ("Africa" OR "low-income countr*") AND (impact OR effect* OR evaluat*)
               </code>
             </div>
             <div>
               <p class="text-[11px] font-semibold text-green-600 uppercase tracking-wider mb-1">Broad</p>
               <code class="block bg-green-50 p-3 rounded border border-green-200 text-[11px] text-gray-800 font-mono overflow-x-auto">
-                ("cash" OR "transfer*" OR "welfare" OR "grant*") AND ("food" OR "nutrition" OR "hunger" OR "poverty") AND ("developm* econom*" OR "developing countr*")
+                ("cash*" OR "transfer*" OR "welfare*" OR "grant*") AND ("food" OR "nutrition" OR "hunger") AND ("Africa" OR "develop*") AND (household* OR family OR population*)
               </code>
             </div>
           </div>
@@ -543,19 +543,19 @@
             <div>
               <p class="text-[11px] font-semibold text-orange-600 uppercase tracking-wider mb-1">Narrow</p>
               <code class="block bg-orange-50 p-3 rounded border border-orange-200 text-[11px] text-gray-800 font-mono overflow-x-auto">
-                ("financial literacy" OR "financial education") AND ("consumer debt" OR "household debt" OR "credit behavior*") AND ("experimental" OR "RCT") AND (outcome* OR effect*)
+                ("financial literacy" OR "financial education" OR "financial knowledge") AND ("consumer debt" OR "household debt" OR "credit behavior*") AND ("financial wellbeing" OR "financial health" OR "financial security") AND (adult* OR consumer*)
               </code>
             </div>
             <div>
               <p class="text-[11px] font-semibold text-du-blue uppercase tracking-wider mb-1">Balanced</p>
               <code class="block bg-blue-50 p-3 rounded border border-du-blue/20 text-[11px] text-gray-800 font-mono overflow-x-auto">
-                ("financial literac*" OR "financial knowledge" OR "financial capabilit*") AND ("debt" OR "borrow*" OR "credit behavior*" OR "financial wellbeing") AND (intervention* OR program* OR training)
+                ("financial literac*" OR "financial knowledge" OR "financial capabilit*" OR "money management") AND ("debt" OR "borrow*" OR "credit behavior*") AND ("financial wellbeing" OR "financial health" OR "financial security") AND (intervention* OR program* OR training)
               </code>
             </div>
             <div>
               <p class="text-[11px] font-semibold text-green-600 uppercase tracking-wider mb-1">Broad</p>
               <code class="block bg-green-50 p-3 rounded border border-green-200 text-[11px] text-gray-800 font-mono overflow-x-auto">
-                ("financial" OR "money management" OR "consumer") AND ("literacy" OR "education" OR "awareness") AND ("debt" OR "credit" OR "loan*" OR "financial wellbeing")
+                ("financial*" OR "money" OR "credit") AND ("literacy" OR "education" OR "awareness" OR "training") AND ("debt" OR "credit" OR "loan*") AND (wellbeing OR health OR security)
               </code>
             </div>
           </div>
@@ -581,10 +581,10 @@
             </svg>
           </summary>
           <p class="text-[13px] text-gray-600 mt-4 leading-relaxed">
-            <strong>Narrow</strong> uses exact phrases and all concepts, best for highly specific topics.
-            <strong>Balanced</strong> adds synonyms and uses wildcards—best for most systematic reviews.
-            <strong>Broad</strong> drops the methodology filter and includes many variations—best for exploratory scoping.
-            We recommend starting with <strong>Balanced</strong>.
+            <strong>Narrow</strong> (4–5 concept groups) uses exact phrases and all concepts, best for highly specific topics.
+            <strong>Balanced</strong> (3–4 concept groups) adds synonyms and uses wildcards—best for most systematic reviews.
+            <strong>Broad</strong> (2–3 concept groups) includes many variations—best for exploratory scoping.
+            We recommend starting with <strong>Balanced</strong>. When outcomes are mentioned, all strategies expand with 3+ synonyms per outcome.
           </p>
         </details>
 
