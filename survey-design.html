@@ -107,26 +107,73 @@
     </div>
   </section>
 
+  <!-- About This Tool Section (Below Header) -->
+  <section class="py-16 bg-white">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="mb-12">
+        <p class="text-[11px] font-semibold text-[#097fe8] uppercase tracking-widest mb-3">About This Tool</p>
+        <h2 class="text-[40px] md:text-[52px] font-bold text-gray-900 tracking-tight leading-[1.05]">Five survey design assistants.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-5 gap-4">
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all cursor-pointer" onclick="switchTab('question-reviewer')">
+          <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h4 class="text-[13px] font-bold text-gray-900 mb-1">Question Reviewer</h4>
+          <p class="text-[11px] text-gray-600 leading-relaxed">AI feedback on wording, bias, and clarity.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all cursor-pointer" onclick="switchTab('question-builder')">
+          <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-6.002-4.5-10.747-10-10.747z"/>
+            </svg>
+          </div>
+          <h4 class="text-[13px] font-bold text-gray-900 mb-1">Question Builder</h4>
+          <p class="text-[11px] text-gray-600 leading-relaxed">Validated variants across scales.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all cursor-pointer" onclick="switchTab('scale-recommender')">
+          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h4 class="text-[13px] font-bold text-gray-900 mb-1">Scale Recommender</h4>
+          <p class="text-[11px] text-gray-600 leading-relaxed">Best format for your goal.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all cursor-pointer" onclick="switchTab('cognitive-load')">
+          <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h4 class="text-[13px] font-bold text-gray-900 mb-1">Cognitive Load</h4>
+          <p class="text-[11px] text-gray-600 leading-relaxed">Completion time & burden.</p>
+        </div>
+
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all cursor-pointer" onclick="switchTab('order-effects')">
+          <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+            </svg>
+          </div>
+          <h4 class="text-[13px] font-bold text-gray-900 mb-1">Order Effects</h4>
+          <p class="text-[11px] text-gray-600 leading-relaxed">Priming & fatigue detection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Main Tool Section -->
   <section class="py-16 bg-white">
     <div class="max-w-[1000px] mx-auto px-6">
       <!-- Tool Card -->
       <div class="bg-[#f6f5f4] rounded-2xl p-10 border border-gray-200">
-
-        <!-- Tab Navigation (Two Rows) -->
-        <div class="mb-8">
-          <!-- Row 1 -->
-          <div class="flex flex-wrap gap-3 mb-4 justify-center md:justify-start">
-            <button class="tab-button active" onclick="switchTab('question-reviewer')">Question Reviewer</button>
-            <button class="tab-button inactive" onclick="switchTab('question-builder')">Question Builder</button>
-            <button class="tab-button inactive" onclick="switchTab('scale-recommender')">Scale Recommender</button>
-          </div>
-          <!-- Row 2 -->
-          <div class="flex flex-wrap gap-3 justify-center md:justify-start">
-            <button class="tab-button inactive" onclick="switchTab('cognitive-load')">Cognitive Load Estimator</button>
-            <button class="tab-button inactive" onclick="switchTab('order-effects')">Order Effects Detector</button>
-          </div>
-        </div>
 
         <!-- Tab Content -->
         <div class="space-y-8">
@@ -357,68 +404,6 @@
 
         </div>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- Help Section -->
-  <section class="py-24 bg-[#f6f5f4]">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <div class="mb-16">
-        <p class="text-[11px] font-semibold text-[#097fe8] uppercase tracking-widest mb-3">About This Tool</p>
-        <h2 class="text-[40px] md:text-[52px] font-bold text-gray-900 tracking-tight leading-[1.05]">Five survey design assistants.</h2>
-      </div>
-
-      <div class="grid md:grid-cols-5 gap-6">
-        <div class="bg-white rounded-xl p-6 border border-gray-200">
-          <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
-          <h4 class="text-[13px] font-bold text-gray-900 mb-2">Question Reviewer</h4>
-          <p class="text-[11px] text-gray-600">AI feedback on wording, leading phrasing, double-barrel questions, and clarity.</p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 border border-gray-200">
-          <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-6.002-4.5-10.747-10-10.747z"/>
-            </svg>
-          </div>
-          <h4 class="text-[13px] font-bold text-gray-900 mb-2">Question Builder</h4>
-          <p class="text-[11px] text-gray-600">Validated question variants across Likert, binary, and semantic differential scales.</p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 border border-gray-200">
-          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-          </div>
-          <h4 class="text-[13px] font-bold text-gray-900 mb-2">Scale Recommender</h4>
-          <p class="text-[11px] text-gray-600">Choose the best response format (Likert, VAS, ranking, etc.) for your measurement goal.</p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 border border-gray-200">
-          <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
-          <h4 class="text-[13px] font-bold text-gray-900 mb-2">Cognitive Load</h4>
-          <p class="text-[11px] text-gray-600">Estimate completion time, reading level, and respondent burden.</p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 border border-gray-200">
-          <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.658 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
-            </svg>
-          </div>
-          <h4 class="text-[13px] font-bold text-gray-900 mb-2">Order Effects</h4>
-          <p class="text-[11px] text-gray-600">Detect priming, context, and fatigue effects in your question sequence.</p>
-        </div>
       </div>
     </div>
   </section>
