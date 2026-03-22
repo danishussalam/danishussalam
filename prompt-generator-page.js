@@ -238,31 +238,6 @@ async function generatePrompt() {
     const resultText = data.refinedPrompt;
     document.getElementById('result-prompt').textContent = resultText;
 
-    // For mobile, also update the mobile version
-    const resultPromptMobile = document.getElementById('result-prompt-mobile');
-    if (resultPromptMobile) {
-      resultPromptMobile.textContent = resultText;
-    }
-
-    document.getElementById('results-section').classList.remove('hidden');
-
-    // Show mobile version too
-    const resultSectionMobile = document.getElementById('results-section-mobile');
-    if (resultSectionMobile) {
-      resultSectionMobile.classList.remove('hidden');
-    }
-
-    // Smooth scroll to results on mobile
-    if (window.innerWidth < 768) {
-      setTimeout(() => {
-        document.getElementById('results-section-mobile').scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    } else {
-      setTimeout(() => {
-        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
-
   } catch (error) {
     showError(error.message || 'An error occurred. Please try again.');
   } finally {
@@ -303,10 +278,8 @@ function showError(message) {
 }
 
 function clearMessages() {
-  document.getElementById('error').classList.add('hidden');
-  document.getElementById('results-section').classList.add('hidden');
-  const resultSectionMobile = document.getElementById('results-section-mobile');
-  if (resultSectionMobile) {
-    resultSectionMobile.classList.add('hidden');
+  const errorDiv = document.getElementById('error');
+  if (errorDiv) {
+    errorDiv.classList.add('hidden');
   }
 }
