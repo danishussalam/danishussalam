@@ -35,7 +35,7 @@ let recognition = null;
 
 if (SpeechRecognition) {
   recognition = new SpeechRecognition();
-  recognition.continuous = false;
+  recognition.continuous = true;
   recognition.interimResults = true;
   recognition.lang = 'en-US';
 
