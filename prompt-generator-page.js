@@ -108,11 +108,33 @@ function toggleMicrophone() {
   }
 }
 
+// Handle voice file upload and transcription
+async function handleVoiceFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // For now, show a message that voice file processing will be implemented
+  showError('Voice file processing coming soon! Please use the microphone option (Dictate) for now.');
+
+  // Reset file input
+  event.target.value = '';
+}
+
 // Initialize mic button event listener as backup
 document.addEventListener('DOMContentLoaded', function() {
   const micBtn = document.getElementById('mic-btn');
   if (micBtn) {
     micBtn.addEventListener('click', toggleMicrophone);
+  }
+
+  // Voice upload button handler
+  const voiceUploadBtn = document.getElementById('voice-upload-btn');
+  const voiceFileInput = document.getElementById('voice-file-input');
+  if (voiceUploadBtn && voiceFileInput) {
+    voiceUploadBtn.addEventListener('click', function() {
+      voiceFileInput.click();
+    });
+    voiceFileInput.addEventListener('change', handleVoiceFileUpload);
   }
 });
 
