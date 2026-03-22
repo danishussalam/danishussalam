@@ -43,7 +43,7 @@
     details summary { list-style: none; cursor: pointer; }
     details summary::-webkit-details-marker { display: none; }
 
-    /* Framework Details Panel */
+    /* Framework Details Modal (Design 2 - Center Modal) */
     .framework-overlay {
       position: fixed;
       top: 0;
@@ -54,54 +54,62 @@
       transition: background-color 0.3s ease;
       pointer-events: none;
       z-index: 40;
-    }
-    .framework-overlay.active {
-      background-color: rgba(0, 0, 0, 0.3);
-      pointer-events: all;
-    }
-    .framework-panel {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      max-width: 480px;
-      height: 100vh;
-      background-color: white;
-      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
-      transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 50;
-      overflow-y: auto;
-    }
-    .framework-panel.active {
-      left: 0;
-    }
-    .framework-panel-header {
-      position: sticky;
-      top: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 24px;
-      border-bottom: 1px solid #e5e7eb;
-      background-color: white;
-      z-index: 10;
-    }
-    .framework-panel-content {
-      padding: 32px 24px;
-    }
-    .close-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #6b7280;
-      transition: color 0.2s;
+    }
+    .framework-overlay.active {
+      background-color: rgba(0, 0, 0, 0.5);
+      pointer-events: all;
+    }
+    .framework-panel {
+      position: relative;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 520px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+    }
+    .framework-overlay.active .framework-panel {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .framework-panel-header {
+      background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+      color: white;
+      padding: 32px;
+      border-radius: 24px 24px 0 0;
+      position: relative;
+      z-index: 10;
+    }
+    .framework-panel-content {
+      padding: 32px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: all 0.2s;
+      color: white;
     }
     .close-btn:hover {
-      color: #000;
+      background: rgba(255,255,255,0.4);
     }
   </style>
 </head>
@@ -159,7 +167,7 @@
         Back to Research Tools
       </a>
       <p class="text-[13px] text-white/50 mb-4">Home > Research Tools > Prompt Generator</p>
-      <h1 class="text-[56px] md:text-[72px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
+      <h1 class="text-[48px] md:text-[56px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
         Prompt Generator
       </h1>
       <p class="text-[15px] text-white/60 max-w-[640px] leading-[1.75]">
@@ -172,25 +180,25 @@
   <section class="py-12 sm:py-24 bg-white">
     <div class="max-w-[1200px] mx-auto px-6">
       <div class="mb-8 sm:mb-12 text-center px-4 sm:px-0">
-        <h2 class="text-[42px] sm:text-[56px] font-bold text-gray-900 tracking-tight mb-6">11 Specialized AI Agents.<br/>One Objective. Perfect Prompts.</h2>
-        <p class="text-[19px] text-gray-900 font-medium max-w-[700px] mx-auto leading-relaxed">
+        <h2 class="text-[34px] sm:text-[45px] font-bold text-gray-900 tracking-tight mb-6">11 Specialized AI Agents.<br/>One Objective. Perfect Prompts.</h2>
+        <p class="text-[15px] text-gray-900 font-medium max-w-[700px] mx-auto leading-relaxed">
           These agents specialize in prompt engineering frameworks, each designed to refine your inputs into clear, structured prompts.
         </p>
       </div>
 
       <!-- Framework Cards Grid - 4 columns, bold backgrounds, compact -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-10 px-4 sm:px-0">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10 px-4 sm:px-0">
 
         <!-- ROSE -->
-        <div class="bg-blue-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('ROSE', '#93c5fd', 'ROLE, OBJECTIVE, STYLE, EXEMPLAR', 'Creative writing, storytelling, character development.', 'Tasks needing a clear persona and style example.', 'Use ROSE when you need the AI to adopt a specific role or character, write in a particular style, and provide an exemplar (example) of the desired output. Great for creative content, character development, and style-specific writing.')">
-          <div class="flex items-start gap-3 mb-5">
-            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">01</span>
-            <h4 class="text-[24px] font-bold leading-tight">ROSE</h4>
+        <div class="bg-blue-300 rounded-xl p-5 text-gray-900 hover:shadow-xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('ROSE', '#93c5fd', 'ROLE, OBJECTIVE, STYLE, EXEMPLAR', 'Creative writing, storytelling, character development.', 'Tasks needing a clear persona and style example.', 'Use ROSE when you need the AI to adopt a specific role or character, write in a particular style, and provide an exemplar (example) of the desired output. Great for creative content, character development, and style-specific writing.')">
+          <div class="flex items-start gap-2 mb-4">
+            <span class="text-[25px] font-black opacity-30 leading-none flex-shrink-0">01</span>
+            <h4 class="text-[19px] font-bold leading-tight">ROSE</h4>
           </div>
-          <p class="text-[13px] font-semibold opacity-90 mb-3">ROLE, OBJECTIVE, STYLE, EXEMPLAR</p>
-          <p class="text-[13px] text-black font-medium mt-2">Best for: Tasks needing a clear persona and style example.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <p class="text-[11px] font-semibold opacity-90 mb-2">ROLE, OBJECTIVE, STYLE, EXEMPLAR</p>
+          <p class="text-[11px] text-black font-medium mt-2">Best for: Tasks needing a clear persona and style example.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
@@ -204,8 +212,8 @@
           </div>
           <p class="text-[13px] font-semibold opacity-90 mb-3">ACTION, PURPOSE, EXPECTATION</p>
           <p class="text-[13px] text-black font-medium mt-2">Best for: Action + purpose + success criteria defined upfront.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
@@ -219,8 +227,8 @@
           </div>
           <p class="text-[13px] font-semibold opacity-90 mb-3">ROLE, ACTION, CONTEXT, EXPECTATION</p>
           <p class="text-[13px] text-black font-medium mt-2">Best for: Grounded in realistic context and constraints.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
@@ -234,8 +242,8 @@
           </div>
           <p class="text-[13px] font-semibold opacity-90 mb-3">ROLE, INPUT, STEPS, EXPECTATION</p>
           <p class="text-[13px] text-black font-medium mt-2">Best for: Structured multi-step, process-oriented tasks.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
@@ -249,8 +257,8 @@
           </div>
           <p class="text-[13px] font-semibold opacity-90 mb-3">ROLE, TASK, FORMAT</p>
           <p class="text-[13px] text-black font-medium mt-2">Best for: Minimal overhead; output format is critical.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
@@ -264,8 +272,8 @@
           </div>
           <p class="text-[13px] font-semibold opacity-90 mb-3">CONTEXT, OBJECTIVE, STYLE, TONE, AUDIENCE, RESPONSE</p>
           <p class="text-[13px] text-black font-medium mt-2">Best for: Tone, audience, and communication matter.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
@@ -279,8 +287,8 @@
           </div>
           <p class="text-[13px] font-semibold opacity-90 mb-3">CHAIN OF THOUGHT</p>
           <p class="text-[13px] text-black font-medium mt-2">Best for: Transparent step-by-step thinking.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
@@ -294,8 +302,8 @@
           </div>
           <p class="text-[13px] font-semibold opacity-90 mb-3">CAPACITY, ROLE, INSIGHT, STATEMENT, PERSONALITY, EXPERIMENT</p>
           <p class="text-[13px] text-black font-medium mt-2">Best for: Unlocking creative and novel ideas.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
@@ -309,38 +317,38 @@
           </div>
           <p class="text-[13px] font-semibold opacity-90 mb-3">EXAMPLES-BASED PROMPTING</p>
           <p class="text-[13px] text-black font-medium mt-2">Best for: Teaching by concrete example, not description.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
         </div>
 
         <!-- ReAct -->
-        <div class="bg-teal-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('REACT', '#7dd3c0', 'REASONING + ACTING', 'Multi-step problem-solving with iterative action cycles.', 'Reasoning + action cycles; agent-style tasks.', 'ReAct combines reasoning with action in feedback loops. Reasoning → Action → Observe → Reason again. Use for complex problem-solving where you need the AI to iteratively refine its approach based on results.')">
-          <div class="flex items-start gap-3 mb-5">
-            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">10</span>
-            <h4 class="text-[24px] font-bold leading-tight">REACT</h4>
+        <div class="bg-teal-300 rounded-xl p-5 text-gray-900 hover:shadow-xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('REACT', '#7dd3c0', 'REASONING + ACTING', 'Multi-step problem-solving with iterative action cycles.', 'Reasoning + action cycles; agent-style tasks.', 'ReAct combines reasoning with action in feedback loops. Reasoning → Action → Observe → Reason again. Use for complex problem-solving where you need the AI to iteratively refine its approach based on results.')">
+          <div class="flex items-start gap-2 mb-4">
+            <span class="text-[25px] font-black opacity-30 leading-none flex-shrink-0">10</span>
+            <h4 class="text-[19px] font-bold leading-tight">REACT</h4>
           </div>
-          <p class="text-[13px] font-semibold opacity-90 mb-3">REASONING + ACTING</p>
-          <p class="text-[13px] text-black font-medium mt-2">Best for: Reasoning + action cycles; agent-style tasks.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <p class="text-[11px] font-semibold opacity-90 mb-2">REASONING + ACTING</p>
+          <p class="text-[11px] text-black font-medium mt-2">Best for: Reasoning + action cycles; agent-style tasks.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
         </div>
 
         <!-- Hybrid -->
-        <div class="bg-gradient-to-br from-blue-300 to-purple-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('HYBRID', '#dbeafe', 'MULTI-FRAMEWORK COMBINATION', 'Complex tasks needing multiple approaches.', 'High-stakes work; combines 2-4 frameworks intelligently.', 'Hybrid isn\'t a single framework—it\'s a strategic combination of 2-4 frameworks to tackle complex, high-stakes problems. Blend elements of ROSE, CO-STAR, and ReAct for sophisticated outcomes. Use when a single framework feels insufficient.')">
-          <div class="flex items-start gap-3 mb-5">
-            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">11</span>
-            <h4 class="text-[24px] font-bold leading-tight">HYBRID</h4>
+        <div class="bg-gradient-to-br from-blue-300 to-purple-300 rounded-xl p-5 text-gray-900 hover:shadow-xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('HYBRID', '#dbeafe', 'MULTI-FRAMEWORK COMBINATION', 'Complex tasks needing multiple approaches.', 'High-stakes work; combines 2-4 frameworks intelligently.', 'Hybrid isn\'t a single framework—it\'s a strategic combination of 2-4 frameworks to tackle complex, high-stakes problems. Blend elements of ROSE, CO-STAR, and ReAct for sophisticated outcomes. Use when a single framework feels insufficient.')">
+          <div class="flex items-start gap-2 mb-4">
+            <span class="text-[25px] font-black opacity-30 leading-none flex-shrink-0">11</span>
+            <h4 class="text-[19px] font-bold leading-tight">HYBRID</h4>
           </div>
-          <p class="text-[13px] font-semibold opacity-90 mb-3">MULTI-FRAMEWORK COMBINATION</p>
-          <p class="text-[13px] text-black font-medium mt-2">Best for: High-stakes work; combines 2-4 frameworks intelligently.</p>
-          <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <p class="text-[11px] font-semibold opacity-90 mb-2">MULTI-FRAMEWORK COMBINATION</p>
+          <p class="text-[11px] text-black font-medium mt-2">Best for: High-stakes work; combines 2-4 frameworks intelligently.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </div>
@@ -350,19 +358,19 @@
     </div>
   </section>
 
-  <!-- Tool Section - Design 1 Layout (Scaled 30% larger) -->
-  <section class="py-20 bg-white">
+  <!-- Tool Section - Design 1 Layout -->
+  <section class="py-12 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="grid md:grid-cols-2 gap-14 items-start">
+      <div class="grid md:grid-cols-2 gap-8 items-start">
 
         <!-- LEFT COLUMN: Input -->
-        <div class="space-y-10">
+        <div class="space-y-6">
           <!-- Framework Selector -->
           <div>
-            <label class="block text-[24px] font-bold text-gray-900 mb-5">Select Framework</label>
+            <label class="block text-[14px] font-bold text-gray-900 mb-3">Select Framework</label>
             <select
               id="framework-select"
-              class="w-full px-8 py-5 text-[18px] bg-white border-2 border-blue-400 rounded-2xl focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 font-semibold"
+              class="w-full px-5 py-3 text-[11px] bg-white border-2 border-blue-400 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 font-semibold"
             >
               <option value="">-- Choose a framework --</option>
               <option value="ROSE">ROSE – Role, Objective, Style, Exemplar</option>
@@ -381,28 +389,28 @@
 
           <!-- Input Textarea -->
           <div>
-            <label class="block text-[24px] font-bold text-gray-900 mb-5">Your Task or Idea</label>
+            <label class="block text-[14px] font-bold text-gray-900 mb-3">Your Task or Idea</label>
             <div class="relative">
               <textarea
                 id="raw-prompt"
                 placeholder="Write a detailed description of what you want the AI to do..."
-                class="w-full px-8 py-5 text-[18px] bg-white border-2 border-gray-300 rounded-2xl focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 resize-none"
-                rows="10"
+                class="w-full px-5 py-3 text-[11px] bg-white border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 resize-none"
+                rows="6"
               ></textarea>
               <button
                 id="mic-btn"
                 type="button"
                 onclick="toggleMicrophone()"
                 title="Click to speak"
-                class="absolute bottom-5 right-5 p-4 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors"
+                class="absolute bottom-3 right-3 p-2 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-lg transition-colors"
               >
-                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 15c1.66 0 3-1.34 3-3V6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3z"/>
                   <path d="M17 16.91c-1.48 1.46-3.51 2.36-5.77 2.36-2.26 0-4.29-.9-5.77-2.36m11.54-5.31c0-3.93-3.21-7.14-7.14-7.14-3.93 0-7.14 3.21-7.14 7.14M12 23c1.1 0 2-.9 2-2v-3c0-1.1-.9-2-2-2s-2 .9-2 2v3c0 1.1.9 2 2 2z"/>
                 </svg>
               </button>
             </div>
-            <p class="text-[15px] text-gray-600 mt-4">Be as specific as possible for better results</p>
+            <p class="text-[9px] text-gray-600 mt-2">Be as specific as possible for better results</p>
           </div>
 
           <!-- Generate Button -->
@@ -410,43 +418,43 @@
             id="generate-btn"
             onclick="generatePrompt()"
             disabled
-            class="w-full py-6 px-10 text-[20px] font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl hover:shadow-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="w-full py-3 px-6 text-[12px] font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl hover:shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Generate Refined Prompt
           </button>
 
           <!-- Loading State -->
           <div id="loading" class="hidden">
-            <div class="flex flex-col items-center gap-4">
+            <div class="flex flex-col items-center gap-2">
               <div class="spinner"></div>
-              <p class="text-[16px] text-gray-600">Refining your prompt...</p>
+              <p class="text-[10px] text-gray-600">Refining your prompt...</p>
             </div>
           </div>
 
           <!-- Error State -->
           <div id="error" class="hidden">
-            <div class="bg-red-50 border border-red-200 rounded-lg p-5">
-              <p class="text-[15px] text-red-700"><span id="error-text"></span></p>
+            <div class="bg-red-50 border border-red-200 rounded-lg p-3">
+              <p class="text-[10px] text-red-700"><span id="error-text"></span></p>
             </div>
           </div>
         </div>
 
         <!-- RIGHT COLUMN: Output -->
-        <div id="results-section" class="hidden md:block space-y-8">
+        <div id="results-section" class="hidden md:block space-y-5">
           <!-- Output Header -->
-          <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-10 text-white">
-            <p class="text-[16px] font-semibold opacity-90 mb-3">Generated Output</p>
-            <h3 class="text-[32px] font-bold">Your Refined Prompt</h3>
+          <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 text-white">
+            <p class="text-[10px] font-semibold opacity-90 mb-2">Generated Output</p>
+            <h3 class="text-[19px] font-bold">Your Refined Prompt</h3>
           </div>
 
           <!-- Output Content -->
-          <div class="bg-white border-2 border-gray-200 rounded-2xl p-10 min-h-96">
-            <div class="space-y-5">
-              <p class="text-[16px] font-semibold text-blue-600 uppercase tracking-wider">System Prompt</p>
-              <div class="bg-gray-50 rounded-xl p-8 border border-gray-200">
+          <div class="bg-white border-2 border-gray-200 rounded-xl p-6 min-h-60">
+            <div class="space-y-3">
+              <p class="text-[10px] font-semibold text-blue-600 uppercase tracking-wider">System Prompt</p>
+              <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <p
                   id="result-prompt"
-                  class="text-[17px] text-gray-800 leading-relaxed font-mono text-[15px] whitespace-pre-wrap"
+                  class="text-[10px] text-gray-800 leading-relaxed font-mono whitespace-pre-wrap"
                 ></p>
               </div>
             </div>
@@ -455,7 +463,7 @@
             <button
               id="copy-btn"
               onclick="copyResult()"
-              class="w-full mt-8 py-5 px-8 text-[18px] font-bold text-blue-600 bg-blue-50 border-2 border-blue-300 rounded-xl hover:bg-blue-100 transition-all duration-200"
+              class="w-full mt-5 py-2 px-4 text-[10px] font-bold text-blue-600 bg-blue-50 border-2 border-blue-300 rounded-lg hover:bg-blue-100 transition-all duration-200"
             >
               📋 Copy to Clipboard
             </button>
@@ -463,20 +471,20 @@
         </div>
 
         <!-- Mobile Output (shown on smaller screens) -->
-        <div id="results-section-mobile" class="hidden space-y-8 md:hidden">
+        <div id="results-section-mobile" class="hidden space-y-5 md:hidden">
           <!-- Output Header -->
-          <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-10 text-white">
-            <p class="text-[16px] font-semibold opacity-90 mb-3">Generated Output</p>
-            <h3 class="text-[32px] font-bold">Your Refined Prompt</h3>
+          <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-6 text-white">
+            <p class="text-[10px] font-semibold opacity-90 mb-2">Generated Output</p>
+            <h3 class="text-[19px] font-bold">Your Refined Prompt</h3>
           </div>
 
           <!-- Output Content -->
-          <div class="bg-white border-2 border-gray-200 rounded-2xl p-10">
-            <div class="space-y-5">
-              <p class="text-[16px] font-semibold text-blue-600 uppercase tracking-wider">System Prompt</p>
-              <div class="bg-gray-50 rounded-xl p-8 border border-gray-200">
+          <div class="bg-white border-2 border-gray-200 rounded-xl p-6">
+            <div class="space-y-3">
+              <p class="text-[10px] font-semibold text-blue-600 uppercase tracking-wider">System Prompt</p>
+              <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
                 <p
-                  class="text-[17px] text-gray-800 leading-relaxed font-mono text-[15px] whitespace-pre-wrap"
+                  class="text-[10px] text-gray-800 leading-relaxed font-mono whitespace-pre-wrap"
                   id="result-prompt-mobile"
                 ></p>
               </div>
@@ -486,7 +494,7 @@
             <button
               id="copy-btn-mobile"
               onclick="copyResult()"
-              class="w-full mt-8 py-5 px-8 text-[18px] font-bold text-blue-600 bg-blue-50 border-2 border-blue-300 rounded-xl hover:bg-blue-100 transition-all duration-200"
+              class="w-full mt-5 py-2 px-4 text-[10px] font-bold text-blue-600 bg-blue-50 border-2 border-blue-300 rounded-lg hover:bg-blue-100 transition-all duration-200"
             >
               📋 Copy to Clipboard
             </button>
