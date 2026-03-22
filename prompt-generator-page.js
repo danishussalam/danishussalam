@@ -28,18 +28,17 @@ if (SpeechRecognition) {
   recognition.onresult = (event) => {
     let transcript = '';
     for (let i = event.resultIndex; i < event.results.length; i++) {
-      transcript += event.results[i][0].transcript;
-      if (event.results[i].isFinal) {
-        // Add space between sentences
-        transcript += ' ';
-      }
+      transcript += event.results[i][0].transcript + ' ';
     }
 
     const textarea = document.getElementById('raw-prompt');
-    if (textarea.value && !textarea.value.endsWith(' ')) {
-      textarea.value += ' ';
+    // Only add transcript if there's actual new content
+    if (transcript.trim()) {
+      if (textarea.value && !textarea.value.endsWith(' ')) {
+        textarea.value += ' ';
+      }
+      textarea.value += transcript.trim() + ' ';
     }
-    textarea.value += transcript;
 
     // Update button state
     updateGenerateButtonState();
