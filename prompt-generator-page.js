@@ -57,14 +57,27 @@ function toggleMicrophone() {
     return;
   }
 
-  if (isListening) {
-    recognition.stop();
-  } else {
-    const textarea = document.getElementById('raw-prompt');
-    textarea.focus();
-    recognition.start();
+  try {
+    if (isListening) {
+      recognition.stop();
+    } else {
+      const textarea = document.getElementById('raw-prompt');
+      textarea.focus();
+      recognition.start();
+    }
+  } catch (error) {
+    console.error('Microphone error:', error);
+    showError('Microphone access error. Please check your browser permissions.');
   }
 }
+
+// Initialize mic button event listener as backup
+document.addEventListener('DOMContentLoaded', function() {
+  const micBtn = document.getElementById('mic-btn');
+  if (micBtn) {
+    micBtn.addEventListener('click', toggleMicrophone);
+  }
+});
 
 const FRAMEWORK_META = {
   'ROSE': {
