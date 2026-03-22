@@ -73,16 +73,32 @@
     </div>
   </nav>
 
+  <script>
+    // Highlight active nav link
+    document.addEventListener('DOMContentLoaded', function() {
+      const current = window.location.pathname.split('/').pop() || 'index.html';
+      const navLinks = document.querySelectorAll('nav a[href]');
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === current || (current === '' && href === 'index.html')) {
+          link.style.color = '#000';
+          link.style.fontWeight = '600';
+        }
+      });
+    });
+  </script>
+
   <!-- Hero Section with Breadcrumb -->
   <section class="bg-gradient-to-br from-du-dark via-du-dark to-du-blue/20 pt-24 pb-12">
     <div class="max-w-[1200px] mx-auto px-6">
-      <a href="research-tools.html" class="inline-flex items-center gap-2 text-[12px] text-[#7eb3e0] font-medium mb-6 hover:text-white transition-colors">
-        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <a href="research-tools.html" class="inline-flex items-center gap-2 text-[15px] text-[#7eb3e0] font-medium mb-6 hover:text-white transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
         </svg>
         Back to Research Tools
       </a>
-      <h1 class="text-[46px] md:text-[56px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
+      <p class="text-[13px] text-white/50 mb-4">Home > Research Tools > Prompt Generator</p>
+      <h1 class="text-[56px] md:text-[72px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
         Prompt Generator
       </h1>
       <p class="text-[15px] text-white/60 max-w-[640px] leading-[1.75]">

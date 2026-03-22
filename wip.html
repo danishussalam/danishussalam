@@ -60,13 +60,35 @@
     </div>
   </nav>
 
+  <script>
+    // Highlight active nav link
+    document.addEventListener('DOMContentLoaded', function() {
+      const current = window.location.pathname.split('/').pop() || 'index.html';
+      const navLinks = document.querySelectorAll('nav a[href]');
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === current || (current === '' && href === 'index.html')) {
+          link.style.color = '#000';
+          link.style.fontWeight = '600';
+        }
+      });
+    });
+  </script>
+
+  <!-- ─── Hero ─────────────────────────────────────────────────── -->
+  <section class="bg-gradient-to-br from-du-dark via-du-dark to-[#0f172a] pt-24 pb-12">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <p class="text-[13px] text-white/50 mb-4">Home > Work in Progress</p>
+      <h1 class="text-[56px] md:text-[72px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
+        Work in Progress
+      </h1>
+    </div>
+  </section>
+
   <!-- ─── Work in Progress ─────────────────────────────────────── -->
   <section class="py-24 bg-[#f6f5f4]" id="wip">
     <div class="max-w-[1200px] mx-auto px-6">
-      <div class="mb-12">
-        <p class="text-[11px] font-semibold text-[#097fe8] uppercase tracking-widest mb-3">Ongoing Research</p>
-        <h2 class="text-[40px] md:text-[52px] font-bold text-gray-900 tracking-tight leading-[1.05]">Work in Progress.</h2>
-      </div>
+      <div class="mb-0">
 
       <div class="grid md:grid-cols-3 gap-4">
         <!-- WIP 1 -->

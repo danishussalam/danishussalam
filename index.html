@@ -62,9 +62,37 @@
     </div>
   </nav>
 
+  <script>
+    // Highlight active nav link
+    document.addEventListener('DOMContentLoaded', function() {
+      const current = window.location.pathname.split('/').pop() || 'index.html';
+      const navLinks = document.querySelectorAll('nav a[href]');
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === current || (current === '' && href === 'index.html')) {
+          link.style.color = '#000';
+          link.style.fontWeight = '600';
+        }
+      });
+    });
+  </script>
+
   <!-- ─── Hero ─────────────────────────────────────────────────── -->
-  <section class="bg-gradient-to-br from-[#1f2937] to-[#0f172a] pt-16" style="min-height:100vh;">
-    <div class="max-w-[1200px] mx-auto px-6 pt-20 pb-24 flex flex-col md:flex-row items-center gap-16 md:gap-20">
+  <section class="bg-gradient-to-br from-du-dark via-du-dark to-[#0f172a] pt-24 pb-12">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <p class="text-[13px] text-white/50 mb-4">Home</p>
+      <h1 class="text-[56px] md:text-[72px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
+        Danish Us-Salam
+      </h1>
+      <p class="text-[17px] text-white/60 max-w-[640px] leading-[1.75] mb-12">
+        Economist · Central Bank of Ireland
+      </p>
+    </div>
+  </section>
+
+  <!-- Hero Content Section -->
+  <section class="bg-white pt-16 pb-24">
+    <div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center gap-16 md:gap-20">
 
       <!-- Left: text -->
       <div class="flex-1 min-w-0">
@@ -90,12 +118,6 @@
           </a>
         </div>
 
-        <h1 class="text-[46px] md:text-[56px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
-          Danish Us-Salam
-        </h1>
-        <p class="text-[17px] text-[#6ee7b7] font-semibold mb-4 tracking-wide">
-          Economist · Central Bank of Ireland
-        </p>
         <p class="text-[17px] text-white/55 mb-6 max-w-[480px] leading-[1.75]">
           I study consumer protection issues using experimental and quasi-experimental methods, specializing in causal inference, survey design, research tools, and workflow automation.
         </p>
