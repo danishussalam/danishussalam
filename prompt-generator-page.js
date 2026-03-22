@@ -1,5 +1,33 @@
 const WORKER_URL = 'https://prompt-generator.danish-us-salam.workers.dev';
 
+// Device detection
+const isMobile = () => window.innerWidth < 768;
+const isTablet = () => window.innerWidth >= 768 && window.innerWidth < 1024;
+const isDesktop = () => window.innerWidth >= 1024;
+
+// Initialize device-aware UI
+window.addEventListener('load', () => {
+  optimizeForDevice();
+});
+
+window.addEventListener('resize', () => {
+  optimizeForDevice();
+});
+
+function optimizeForDevice() {
+  const device = isMobile() ? 'mobile' : isTablet() ? 'tablet' : 'desktop';
+  document.documentElement.setAttribute('data-device', device);
+
+  if (isMobile()) {
+    // Mobile-specific optimizations
+    document.body.style.fontSize = '14px';
+    const frameworkCards = document.querySelectorAll('[class*="bg-blue-300"], [class*="bg-green-300"]');
+    frameworkCards.forEach(card => {
+      card.style.transform = 'scale(1)';
+    });
+  }
+}
+
 // Speech-to-text setup
 let isListening = false;
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
