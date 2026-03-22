@@ -53,12 +53,15 @@ if (SpeechRecognition) {
 
   recognition.onresult = (event) => {
     let transcript = '';
+    // Only process final results to avoid duplicates
     for (let i = event.resultIndex; i < event.results.length; i++) {
-      transcript += event.results[i][0].transcript + ' ';
+      if (event.results[i].isFinal) {
+        transcript += event.results[i][0].transcript + ' ';
+      }
     }
 
     const textarea = document.getElementById('raw-prompt');
-    // Only add transcript if there's actual new content
+    // Only add transcript if there's actual new final content
     if (transcript.trim()) {
       if (textarea.value && !textarea.value.endsWith(' ')) {
         textarea.value += ' ';
@@ -72,7 +75,10 @@ if (SpeechRecognition) {
 
   recognition.onerror = (event) => {
     console.error('Speech recognition error:', event.error);
-    showError('Microphone error: ' + event.error);
+    // Only show error if it's a real problem, ignore 'no-speech' when stopping
+    if (event.error !== 'no-speech' && isListening) {
+      showError('Microphone error: ' + event.error);
+    }
   };
 }
 
