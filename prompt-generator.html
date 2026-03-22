@@ -62,18 +62,18 @@
     .framework-panel {
       position: fixed;
       top: 0;
-      right: -100%;
+      left: -100%;
       width: 100%;
       max-width: 480px;
       height: 100vh;
       background-color: white;
-      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
-      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+      transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 50;
       overflow-y: auto;
     }
     .framework-panel.active {
-      right: 0;
+      left: 0;
     }
     .framework-panel-header {
       position: sticky;
@@ -333,12 +333,6 @@
               <option value="REACT">ReAct – Reasoning + Acting</option>
               <option value="HYBRID">Hybrid – Multi-framework Combination</option>
             </select>
-          </div>
-
-          <!-- Framework Guide Box -->
-          <div id="framework-guide" class="bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-300 rounded-2xl p-8 hidden">
-            <p class="text-[16px] font-semibold text-blue-900 mb-3">Framework Guide</p>
-            <p id="framework-desc" class="text-[17px] text-blue-800 leading-relaxed"></p>
           </div>
 
           <!-- Input Textarea -->

@@ -41,14 +41,20 @@ if (SpeechRecognition) {
 
   recognition.onstart = () => {
     isListening = true;
-    document.getElementById('mic-btn').classList.add('bg-red-500', 'text-white');
-    document.getElementById('mic-btn').classList.remove('bg-du-blue/10', 'text-du-blue');
+    const micBtn = document.getElementById('mic-btn');
+    if (micBtn) {
+      micBtn.classList.add('bg-red-500', 'text-white');
+      micBtn.classList.remove('bg-blue-50', 'text-blue-600');
+    }
   };
 
   recognition.onend = () => {
     isListening = false;
-    document.getElementById('mic-btn').classList.remove('bg-red-500', 'text-white');
-    document.getElementById('mic-btn').classList.add('bg-du-blue/10', 'text-du-blue');
+    const micBtn = document.getElementById('mic-btn');
+    if (micBtn) {
+      micBtn.classList.remove('bg-red-500', 'text-white');
+      micBtn.classList.add('bg-blue-50', 'text-blue-600');
+    }
   };
 
   recognition.onresult = (event) => {
@@ -157,25 +163,11 @@ const FRAMEWORK_META = {
   }
 };
 
-// Handle framework dropdown change
+// Handle framework dropdown change - just update button state
 document.addEventListener('DOMContentLoaded', function() {
   const frameworkSelect = document.getElementById('framework-select');
   if (frameworkSelect) {
     frameworkSelect.addEventListener('change', function() {
-      const selectedFramework = this.value;
-      const descPanel = document.getElementById('framework-desc');
-      const guideBox = document.getElementById('framework-guide');
-
-      if (descPanel && guideBox) {
-        if (selectedFramework && FRAMEWORK_META[selectedFramework]) {
-          const meta = FRAMEWORK_META[selectedFramework];
-          descPanel.textContent = meta.desc;
-          guideBox.classList.remove('hidden');
-        } else {
-          guideBox.classList.add('hidden');
-        }
-      }
-
       // Enable/disable generate button based on framework and text
       updateGenerateButtonState();
     });
