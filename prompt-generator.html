@@ -42,6 +42,67 @@
 
     details summary { list-style: none; cursor: pointer; }
     details summary::-webkit-details-marker { display: none; }
+
+    /* Framework Details Panel */
+    .framework-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color 0.3s ease;
+      pointer-events: none;
+      z-index: 40;
+    }
+    .framework-overlay.active {
+      background-color: rgba(0, 0, 0, 0.3);
+      pointer-events: all;
+    }
+    .framework-panel {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      max-width: 480px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+      overflow-y: auto;
+    }
+    .framework-panel.active {
+      right: 0;
+    }
+    .framework-panel-header {
+      position: sticky;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px;
+      border-bottom: 1px solid #e5e7eb;
+      background-color: white;
+      z-index: 10;
+    }
+    .framework-panel-content {
+      padding: 32px 24px;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b7280;
+      transition: color 0.2s;
+    }
+    .close-btn:hover {
+      color: #000;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-900">
@@ -121,7 +182,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-10 px-4 sm:px-0">
 
         <!-- ROSE -->
-        <div class="bg-blue-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-blue-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('ROSE', '#93c5fd', 'ROLE, OBJECTIVE, STYLE, EXEMPLAR', 'Creative writing, storytelling, character development.', 'Tasks needing a clear persona and style example.', 'Use ROSE when you need the AI to adopt a specific role or character, write in a particular style, and provide an exemplar (example) of the desired output. Great for creative content, character development, and style-specific writing.')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">01</span>
             <h4 class="text-[24px] font-bold leading-tight">ROSE</h4>
@@ -132,7 +193,7 @@
         </div>
 
         <!-- APE -->
-        <div class="bg-green-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-green-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('APE', '#86efac', 'ACTION, PURPOSE, EXPECTATION', 'Goal-oriented tasks with clear deliverables.', 'Action + purpose + success criteria defined upfront.', 'APE emphasizes actionable outcomes. Specify what action you want, why it matters (purpose), and what success looks like. Ideal for project work, process optimization, and deliverable-focused tasks.')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">02</span>
             <h4 class="text-[24px] font-bold leading-tight">APE</h4>
@@ -143,7 +204,7 @@
         </div>
 
         <!-- RACE -->
-        <div class="bg-purple-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-purple-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('RACE', '#d8b4fe', 'ROLE, ACTION, CONTEXT, EXPECTATION', 'Real-world scenarios and constrained problems.', 'Grounded in realistic context and constraints.', 'RACE combines role-playing with contextual constraints. Define a role, the action to take, real-world constraints (context), and expected outcomes. Perfect for problem-solving in constrained environments.')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">03</span>
             <h4 class="text-[24px] font-bold leading-tight">RACE</h4>
@@ -154,7 +215,7 @@
         </div>
 
         <!-- RISE -->
-        <div class="bg-yellow-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-yellow-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('RISE', '#fcd34d', 'ROLE, INPUT, STEPS, EXPECTATION', 'Step-by-step procedures and tutorials.', 'Structured multi-step, process-oriented tasks.', 'RISE breaks down complex processes into steps. Assign a role, provide input, list sequential steps, and define expectations. Excellent for tutorials, workflows, and procedures that require structured guidance.')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">04</span>
             <h4 class="text-[24px] font-bold leading-tight">RISE</h4>
@@ -165,7 +226,7 @@
         </div>
 
         <!-- RTF -->
-        <div class="bg-pink-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-pink-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('RTF', '#f472b6', 'ROLE, TASK, FORMAT', 'Quick, concise requests and time-sensitive work.', 'Minimal overhead; output format is critical.', 'RTF is the minimalist framework. You need a role, clear task, and desired output format. Use when you want quick results and format matters most (e.g., JSON, CSV, bullet points).')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">05</span>
             <h4 class="text-[24px] font-bold leading-tight">RTF</h4>
@@ -176,7 +237,7 @@
         </div>
 
         <!-- CO-STAR -->
-        <div class="bg-red-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-red-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('CO-STAR', '#fca5a5', 'CONTEXT, OBJECTIVE, STYLE, TONE, AUDIENCE, RESPONSE', 'Communication, presentations, and audience-specific content.', 'Tone, audience, and communication matter.', 'CO-STAR is comprehensive and nuanced. Provide context, state objectives, define style and tone, identify your audience, and specify response format. Perfect for communication-heavy tasks like emails, presentations, and reports.')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">06</span>
             <h4 class="text-[24px] font-bold leading-tight">CO-STAR</h4>
@@ -187,7 +248,7 @@
         </div>
 
         <!-- CoT -->
-        <div class="bg-indigo-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-indigo-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('CHAIN OF THOUGHT', '#a5b4fc', 'CHAIN OF THOUGHT', 'Complex reasoning, analysis, math, and logic problems.', 'Transparent step-by-step thinking.', 'CoT asks the AI to show its working. Request step-by-step reasoning before final answers. Ideal for complex analysis, debugging, math problems, and decisions where you want to understand the logic, not just the result.')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">07</span>
             <h4 class="text-[24px] font-bold leading-tight">COT</h4>
@@ -198,7 +259,7 @@
         </div>
 
         <!-- CRISPE -->
-        <div class="bg-cyan-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-cyan-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('CRISPE', '#67e8f9', 'CAPACITY, ROLE, INSIGHT, STATEMENT, PERSONALITY, EXPERIMENT', 'Brainstorming, ideation, and creative exploration.', 'Unlocking creative and novel ideas.', 'CRISPE is designed for creativity and ideation. Describe model capacity, assign a role, provide insights, make statements, define personality, and encourage experimentation. Use for brainstorming, creative problem-solving, and novel idea generation.')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">08</span>
             <h4 class="text-[24px] font-bold leading-tight">CRISPE</h4>
@@ -209,7 +270,7 @@
         </div>
 
         <!-- Few-Shot -->
-        <div class="bg-orange-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-orange-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('FEW-SHOT', '#fed7aa', 'EXAMPLES-BASED PROMPTING', 'Pattern recognition, code generation, style imitation.', 'Teaching by concrete example, not description.', 'Few-Shot uses examples to teach patterns. Provide 2-3 high-quality examples of what you want, then ask for the same pattern applied to new data. Powerful for code generation, formatting, and style matching.')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">09</span>
             <h4 class="text-[24px] font-bold leading-tight">FEW-SHOT</h4>
@@ -220,7 +281,7 @@
         </div>
 
         <!-- ReAct -->
-        <div class="bg-teal-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-teal-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('REACT', '#7dd3c0', 'REASONING + ACTING', 'Multi-step problem-solving with iterative action cycles.', 'Reasoning + action cycles; agent-style tasks.', 'ReAct combines reasoning with action in feedback loops. Reasoning → Action → Observe → Reason again. Use for complex problem-solving where you need the AI to iteratively refine its approach based on results.')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">10</span>
             <h4 class="text-[24px] font-bold leading-tight">REACT</h4>
@@ -231,7 +292,7 @@
         </div>
 
         <!-- Hybrid -->
-        <div class="bg-gradient-to-br from-blue-300 to-purple-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+        <div class="bg-gradient-to-br from-blue-300 to-purple-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group" onclick="openFrameworkPanel('HYBRID', '#dbeafe', 'MULTI-FRAMEWORK COMBINATION', 'Complex tasks needing multiple approaches.', 'High-stakes work; combines 2-4 frameworks intelligently.', 'Hybrid isn\'t a single framework—it\'s a strategic combination of 2-4 frameworks to tackle complex, high-stakes problems. Blend elements of ROSE, CO-STAR, and ReAct for sophisticated outcomes. Use when a single framework feels insufficient.')">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">11</span>
             <h4 class="text-[24px] font-bold leading-tight">HYBRID</h4>
@@ -498,6 +559,22 @@
     </div>
   </section>
 
+  <!-- Framework Details Panel -->
+  <div class="framework-overlay" id="frameworkOverlay"></div>
+  <div class="framework-panel" id="frameworkPanel">
+    <div class="framework-panel-header">
+      <h2 class="text-[24px] font-bold text-gray-900" id="panelTitle">Framework</h2>
+      <button class="close-btn" id="closePanelBtn">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="framework-panel-content" id="panelContent">
+      <!-- Content populated by JavaScript -->
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="bg-[#0b1628] border-t border-white/8 py-8">
     <div class="max-w-[1200px] mx-auto px-6 flex flex-wrap justify-between items-center gap-4">
@@ -513,6 +590,108 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Framework Panel Management
+    function openFrameworkPanel(name, bgColor, components, description, bestFor, details) {
+      const overlay = document.getElementById('frameworkOverlay');
+      const panel = document.getElementById('frameworkPanel');
+      const title = document.getElementById('panelTitle');
+      const content = document.getElementById('panelContent');
+
+      // Set header background color based on framework
+      const headerStyle = `
+        background: linear-gradient(135deg, ${bgColor} 0%, ${adjustBrightness(bgColor, -20)} 100%);
+        color: #111827;
+      `;
+
+      // Populate panel content
+      title.textContent = name;
+      title.parentElement.setAttribute('style', headerStyle);
+
+      content.innerHTML = `
+        <div class="space-y-6">
+          <div>
+            <p class="text-[12px] font-semibold text-gray-500 uppercase tracking-widest mb-2">Components</p>
+            <p class="text-[16px] font-bold text-gray-900">${components}</p>
+          </div>
+
+          <div class="pt-4 border-t border-gray-200">
+            <h3 class="text-[14px] font-semibold text-gray-900 mb-2">What It Does</h3>
+            <p class="text-[14px] text-gray-700 leading-relaxed">${description}</p>
+          </div>
+
+          <div class="pt-4 border-t border-gray-200">
+            <h3 class="text-[14px] font-semibold text-gray-900 mb-2">Best For</h3>
+            <p class="text-[14px] text-gray-700 leading-relaxed">${bestFor}</p>
+          </div>
+
+          <div class="pt-4 border-t border-gray-200">
+            <h3 class="text-[14px] font-semibold text-gray-900 mb-2">When to Use</h3>
+            <p class="text-[14px] text-gray-700 leading-relaxed">${details}</p>
+          </div>
+
+          <div class="pt-6 mt-8 border-t border-gray-200">
+            <a href="#" class="inline-flex items-center gap-2 text-[14px] font-semibold" style="color: ${bgColor};">
+              Learn more about ${name.toUpperCase()}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      `;
+
+      // Show overlay and panel with animation
+      overlay.classList.add('active');
+      panel.classList.add('active');
+    }
+
+    function closeFrameworkPanel() {
+      const overlay = document.getElementById('frameworkOverlay');
+      const panel = document.getElementById('frameworkPanel');
+
+      overlay.classList.remove('active');
+      panel.classList.remove('active');
+    }
+
+    // Helper function to adjust color brightness
+    function adjustBrightness(color, percent) {
+      // Simple hex color adjustment
+      let usePound = false;
+      if (color[0] === "#") {
+        color = color.slice(1);
+        usePound = true;
+      }
+      const num = parseInt(color, 16);
+      const amt = Math.round(2.55 * percent);
+      const R = (num >> 16) + amt;
+      const G = (num >> 8 & 0x00FF) + amt;
+      const B = (num & 0x0000FF) + amt;
+      return (usePound ? "#" : "") + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+        (B < 255 ? B < 1 ? 0 : B : 255))
+        .toString(16).slice(1);
+    }
+
+    // Close panel when clicking overlay
+    document.getElementById('frameworkOverlay').addEventListener('click', closeFrameworkPanel);
+
+    // Close panel when clicking close button
+    document.getElementById('closePanelBtn').addEventListener('click', closeFrameworkPanel);
+
+    // Prevent panel close when clicking inside panel
+    document.getElementById('frameworkPanel').addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+
+    // Close panel on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeFrameworkPanel();
+      }
+    });
+  </script>
 
   <script src="prompt-generator-page.js"></script>
 </body>
