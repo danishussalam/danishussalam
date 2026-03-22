@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup Design 5 - Expandable Card Overlay</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color 0.3s ease;
+      pointer-events: none;
+      z-index: 40;
+      display: flex;
+      align-items: flex-end;
+    }
+    .overlay.active {
+      background-color: rgba(0, 0, 0, 0.6);
+      pointer-events: all;
+    }
+
+    .card {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 32px 32px 0 0;
+      box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.2);
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 50;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .overlay.active .card {
+      transform: translateY(0);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+      color: white;
+      padding: 32px;
+      border-radius: 32px 32px 0 0;
+      position: relative;
+      text-align: center;
+    }
+
+    .card-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .card-header h2 {
+      font-size: 40px;
+      font-weight: 900;
+      margin-bottom: 4px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .card-header p {
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .card-close {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .card-close:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+
+    .card-content {
+      padding: 40px 32px;
+    }
+
+    .card-section {
+      margin-bottom: 28px;
+    }
+
+    .card-section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-section h3::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      background: #86efac;
+      border-radius: 50%;
+    }
+
+    .card-section p {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .grid-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .grid-item {
+      background: #f9fff7;
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 3px solid #86efac;
+    }
+
+    .grid-item strong {
+      display: block;
+      color: #166534;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .grid-item p {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .cta {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .cta button {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .cta-primary {
+      background: #86efac;
+      color: #166534;
+    }
+    .cta-primary:hover {
+      background: #4ade80;
+      color: white;
+    }
+
+    .cta-secondary {
+      background: #f3f4f6;
+      color: #666;
+    }
+    .cta-secondary:hover {
+      background: #e5e7eb;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <div class="min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Design 5: Expandable Card Overlay</h1>
+        <p class="text-gray-600">Large card that slides up from bottom with bold header and CTA buttons</p>
+      </div>
+
+      <button onclick="openCard()" class="bg-green-400 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-lg transition">
+        Click to Open Card
+      </button>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="if(event.target === this) closeCard()">
+    <!-- Card -->
+    <div class="card">
+      <div class="card-header">
+        <button class="card-close" onclick="closeCard()">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+          </svg>
+        </button>
+        <div class="card-badge">Framework Guide</div>
+        <h2>APE</h2>
+        <p>Action, Purpose, Expectation</p>
+      </div>
+
+      <div class="card-content">
+        <div class="card-section">
+          <h3>What It Does</h3>
+          <p>APE emphasizes actionable outcomes. Specify what action you want, why it matters (purpose), and what success looks like. This framework is ideal for structured, measurable tasks.</p>
+        </div>
+
+        <div class="card-section">
+          <h3>Key Components</h3>
+          <div class="grid-cols">
+            <div class="grid-item">
+              <strong>Action</strong>
+              <p>What needs to be done</p>
+            </div>
+            <div class="grid-item">
+              <strong>Purpose</strong>
+              <p>Why it matters</p>
+            </div>
+            <div class="grid-item">
+              <strong>Expectation</strong>
+              <p>Success criteria</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-section">
+          <h3>Best For</h3>
+          <p>Project work, process optimization, and deliverable-focused tasks. Use when you need clear, measurable results.</p>
+        </div>
+
+        <div class="card-section">
+          <h3>Example Prompt</h3>
+          <p style="color: #666; font-size: 14px; font-style: italic; background: #f9fff7; padding: 12px; border-radius: 8px; border-left: 3px solid #86efac;">"As a product manager, I need to write a feature proposal (action) that justifies why this feature improves user retention (purpose), formatted as a 2-page document with cost-benefit analysis (expectation)."</p>
+        </div>
+
+        <div class="cta">
+          <button class="cta-primary" onclick="alert('Copied APE framework template!')">📋 Use This Framework</button>
+          <button class="cta-secondary" onclick="closeCard()">Explore More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openCard() {
+      document.getElementById('overlay').classList.add('active');
+    }
+
+    function closeCard() {
+      document.getElementById('overlay').classList.remove('active');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeCard();
+    });
+  </script>
+</body>
+</html>

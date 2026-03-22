@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup Design 2 - Modern Center Modal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+
+    /* Center modal with scale animation */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color 0.3s ease;
+      pointer-events: none;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active {
+      background-color: rgba(0, 0, 0, 0.5);
+      pointer-events: all;
+    }
+
+    .modal {
+      position: relative;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 520px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+    }
+    .modal-overlay.active .modal {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+      color: white;
+      padding: 32px;
+      border-radius: 24px 24px 0 0;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    .modal-close:hover {
+      background: rgba(255,255,255,0.4);
+      transform: rotate(90deg);
+    }
+
+    .modal-content {
+      padding: 32px;
+    }
+
+    .modal-header h2 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .modal-header p {
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .section h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 8px;
+    }
+
+    .section p {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #86efac;
+      color: #166534;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <div class="min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Design 2: Modern Center Modal</h1>
+        <p class="text-gray-600">Centered card with scale-up animation and elegant gradient header</p>
+      </div>
+
+      <button onclick="openModal()" class="bg-green-400 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-lg transition">
+        Click to Open Modal
+      </button>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="modal-overlay" id="modalOverlay" onclick="if(event.target === this) closeModal()">
+    <!-- Modal -->
+    <div class="modal">
+      <div class="modal-header">
+        <button class="modal-close" onclick="closeModal()">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+        <h2>APE</h2>
+        <p>Action, Purpose, Expectation</p>
+      </div>
+
+      <div class="modal-content">
+        <div class="section">
+          <h3>What It Does</h3>
+          <p>APE emphasizes actionable outcomes. Specify what action you want, why it matters (purpose), and what success looks like.</p>
+        </div>
+
+        <div class="section">
+          <h3>Best For</h3>
+          <p>Project work, process optimization, and deliverable-focused tasks.</p>
+          <span class="badge">Goal-Oriented</span>
+        </div>
+
+        <div class="section">
+          <h3>When to Use</h3>
+          <p>Use APE when you need clear, measurable results. Perfect for business tasks, development sprints, and any project where outcomes are quantifiable.</p>
+        </div>
+
+        <div class="section">
+          <h3>Example Prompt</h3>
+          <p class="bg-green-50 p-4 rounded text-sm italic text-gray-700">"As a product manager, I need to write a feature proposal (action) that justifies why this feature improves user retention (purpose), formatted as a 2-page document with cost-benefit analysis (expectation)."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+</body>
+</html>

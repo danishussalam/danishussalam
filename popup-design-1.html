@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup Design 1 - Minimalist Slide From Left</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+
+    /* Panel slides from left */
+    .panel-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color 0.4s ease;
+      pointer-events: none;
+      z-index: 40;
+    }
+    .panel-overlay.active {
+      background-color: rgba(0, 0, 0, 0.4);
+      pointer-events: all;
+    }
+
+    .panel {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      background: white;
+      box-shadow: 2px 0 30px rgba(0, 0, 0, 0.2);
+      transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .panel.active {
+      left: 0;
+    }
+
+    .panel-header {
+      background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+      color: white;
+      padding: 24px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+    }
+
+    .panel-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .panel-close:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .panel-content {
+      padding: 32px;
+      flex: 1;
+    }
+
+    .panel-content h3 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .panel-content p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <div class="min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Design 1: Minimalist Slide</h1>
+        <p class="text-gray-600">Clean white panel slides from left with smooth gradient header</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6">
+        <button onclick="openPanel()" class="bg-green-400 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-lg transition">
+          Click to Open Panel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
+
+  <!-- Panel -->
+  <div class="panel" id="panel">
+    <div class="panel-header">
+      <h2 class="text-2xl font-bold">APE</h2>
+      <p class="text-sm opacity-90 mt-2">Action, Purpose, Expectation</p>
+      <button class="panel-close" onclick="closePanel()">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="panel-content">
+      <h3>What It Does</h3>
+      <p>APE emphasizes actionable outcomes. Specify what action you want, why it matters (purpose), and what success looks like.</p>
+
+      <h3 class="mt-6">Best For</h3>
+      <p>Project work, process optimization, and deliverable-focused tasks.</p>
+
+      <h3 class="mt-6">When to Use</h3>
+      <p>Use APE when you need clear, measurable results. Perfect for business tasks, development sprints, and any project where outcomes are quantifiable.</p>
+
+      <h3 class="mt-6">Example</h3>
+      <p class="bg-gray-100 p-4 rounded text-sm italic">"As a product manager, I need to write a feature proposal (action) that justifies why this feature improves user retention (purpose), formatted as a 2-page document with cost-benefit analysis (expectation)."</p>
+    </div>
+  </div>
+
+  <script>
+    function openPanel() {
+      document.getElementById('panelOverlay').classList.add('active');
+      document.getElementById('panel').classList.add('active');
+    }
+
+    function closePanel() {
+      document.getElementById('panelOverlay').classList.remove('active');
+      document.getElementById('panel').classList.remove('active');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePanel();
+    });
+  </script>
+</body>
+</html>
