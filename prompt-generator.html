@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Generator – Danish Us-Salam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'du-dark': '#16213e',
+            'du-blue': '#097fe8',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+
+    .spinner {
+      border: 3px solid rgba(9, 127, 232, 0.1);
+      border-top: 3px solid #097fe8;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200" style="height:64px;">
+    <div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
+      <div class="flex items-center gap-10">
+        <span class="font-bold text-[16px] text-gray-900 tracking-tight">Danish Us-Salam</span>
+        <div class="hidden md:flex items-center gap-7 text-[13px] text-gray-500 font-medium">
+          <a href="index.html" class="hover:text-gray-900 transition-colors">Home</a>
+          <a href="publications.html" class="hover:text-gray-900 transition-colors">Publications</a>
+          <a href="wip.html" class="hover:text-gray-900 transition-colors">Work in Progress</a>
+          <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Research Tools</a>
+        </div>
+      </div>
+      <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank"
+         class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">
+        Download CV
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section with Breadcrumb -->
+  <section class="bg-gradient-to-br from-du-dark via-du-dark to-du-blue/20 pt-24 pb-12">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <a href="research-tools.html" class="inline-flex items-center gap-2 text-[12px] text-[#7eb3e0] font-medium mb-6 hover:text-white transition-colors">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back to Research Tools
+      </a>
+      <h1 class="text-[46px] md:text-[56px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
+        Prompt Generator
+      </h1>
+      <p class="text-[15px] text-white/60 max-w-[640px] leading-[1.75]">
+        Transform raw tasks into structured AI prompts using 11 evidence-based frameworks. Choose the methodology that fits your need and refine your prompts with expert-designed system personas.
+      </p>
+    </div>
+  </section>
+
+  <!-- Framework Guide Section -->
+  <section class="py-16 bg-[#f6f5f4]">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="mb-12">
+        <p class="text-[11px] font-semibold text-du-blue uppercase tracking-widest mb-3">Reference</p>
+        <h2 class="text-[36px] font-bold text-gray-900 tracking-tight">Choose your framework.</h2>
+      </div>
+
+      <!-- Framework Cards Grid -->
+      <div class="grid md:grid-cols-3 gap-4 mb-8">
+        <!-- ROSE -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">ROSE</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Role, Objective, Style, Exemplar</h4>
+          <p class="text-[12px] text-gray-600">Best for creative and analytical tasks needing a persona and a worked example.</p>
+        </div>
+
+        <!-- APE -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">APE</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Action, Purpose, Expectation</h4>
+          <p class="text-[12px] text-gray-600">Best for deliverable-focused tasks with measurable outcomes.</p>
+        </div>
+
+        <!-- RACE -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">RACE</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Role, Action, Context, Expectation</h4>
+          <p class="text-[12px] text-gray-600">Best for applied, scenario-grounded prompts.</p>
+        </div>
+
+        <!-- RISE -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">RISE</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Role, Input, Steps, Expectation</h4>
+          <p class="text-[12px] text-gray-600">Best for multi-step workflows and process-oriented tasks.</p>
+        </div>
+
+        <!-- RTF -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">RTF</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Role, Task, Format</h4>
+          <p class="text-[12px] text-gray-600">Best for short, focused prompts where output format is critical.</p>
+        </div>
+
+        <!-- CO-STAR -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">CO-STAR</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Context, Objective, Style, Tone, Audience, Response</h4>
+          <p class="text-[12px] text-gray-600">Best for audience-tailored outputs: briefs, reports, presentations.</p>
+        </div>
+
+        <!-- CoT -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">CoT</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Chain of Thought</h4>
+          <p class="text-[12px] text-gray-600">Best for complex reasoning: analysis, evaluation, problem-solving.</p>
+        </div>
+
+        <!-- CRISPE -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">CRISPE</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Capacity, Role, Insight, Statement, Personality, Experiment</h4>
+          <p class="text-[12px] text-gray-600">Best for exploratory and creative tasks.</p>
+        </div>
+
+        <!-- Few-Shot -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">FEW-SHOT</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Examples-based Prompting</h4>
+          <p class="text-[12px] text-gray-600">Best for tasks where style is easier to demonstrate than describe.</p>
+        </div>
+
+        <!-- ReAct -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">REACT</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Reasoning + Acting</h4>
+          <p class="text-[12px] text-gray-600">Best for agentic and multi-step research workflows.</p>
+        </div>
+
+        <!-- Hybrid -->
+        <div class="bg-white rounded-xl p-5 border border-gray-200 hover:shadow-sm transition-shadow">
+          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">HYBRID</p>
+          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Multi-framework Combination</h4>
+          <p class="text-[12px] text-gray-600">Best for complex, high-stakes tasks needing maximal quality.</p>
+        </div>
+      </div>
+
+      <!-- Pro Tip Box -->
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-6">
+        <div class="flex gap-4">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
+              <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5h.01" />
+              </svg>
+            </div>
+          </div>
+          <div>
+            <p class="text-[13px] font-semibold text-amber-900 mb-2">Pro tip: Combine frameworks for maximum impact</p>
+            <p class="text-[12px] text-amber-800 leading-relaxed mb-3">
+              Frameworks are helpful, but the real power comes from combining them. Start with one framework, then layer in another:
+            </p>
+            <div class="bg-white/60 rounded-lg p-3 text-[11px] text-amber-900 font-mono space-y-1">
+              <div>• <span class="font-semibold">Role</span> (ROSE/RACE)</div>
+              <div>• <span class="font-semibold">Context</span> (CO-STAR)</div>
+              <div>• <span class="font-semibold">Examples</span> (Few-shot)</div>
+              <div>• <span class="font-semibold">Reasoning</span> (CoT)</div>
+              <div>• <span class="font-semibold">Output Format</span> (CO-STAR/RTF)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tool Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-[1000px] mx-auto px-6">
+      <div class="bg-[#f6f5f4] rounded-2xl p-10 border border-gray-200">
+
+        <!-- Framework Selector -->
+        <div class="mb-10">
+          <label for="framework-select" class="block text-[14px] font-semibold text-gray-900 mb-4">
+            Select a framework
+          </label>
+          <select
+            id="framework-select"
+            class="w-full px-5 py-4 bg-white border-2 border-gray-200 rounded-lg font-[15px] text-gray-900 focus:outline-none focus:border-du-blue focus:ring-2 focus:ring-du-blue/10"
+          >
+            <option value="">-- Choose a framework --</option>
+            <option value="ROSE">ROSE (Role, Objective, Style, Exemplar)</option>
+            <option value="APE">APE (Action, Purpose, Expectation)</option>
+            <option value="RACE">RACE (Role, Action, Context, Expectation)</option>
+            <option value="RISE">RISE (Role, Input, Steps, Expectation)</option>
+            <option value="RTF">RTF (Role, Task, Format)</option>
+            <option value="COSTAR">CO-STAR (Context, Objective, Style, Tone, Audience, Response)</option>
+            <option value="COT">CoT (Chain of Thought)</option>
+            <option value="CRISPE">CRISPE (Capacity, Role, Insight, Statement, Personality, Experiment)</option>
+            <option value="FEWSHOT">Few-Shot (Examples-based Prompting)</option>
+            <option value="REACT">ReAct (Reasoning + Acting)</option>
+            <option value="HYBRID">Hybrid (Multi-framework Combination)</option>
+          </select>
+        </div>
+
+        <!-- Framework Description Panel -->
+        <div
+          id="framework-desc"
+          class="mt-3 p-4 bg-blue-50 border border-du-blue/20 rounded-lg text-[13px] text-gray-700 hidden mb-8"
+        ></div>
+
+        <!-- Raw Prompt Textarea -->
+        <div class="mb-10">
+          <label for="raw-prompt" class="block text-[14px] font-semibold text-gray-900 mb-4">
+            Enter your raw prompt or research task
+          </label>
+          <textarea
+            id="raw-prompt"
+            placeholder="e.g., I need a prompt to help me analyse the impact of financial disclosure regulations on consumer borrowing behaviour in emerging markets."
+            rows="6"
+            class="w-full px-5 py-4 bg-white border-2 border-gray-200 rounded-lg font-[15px] text-gray-900 focus:outline-none focus:border-du-blue focus:ring-2 focus:ring-du-blue/10 resize-none"
+          ></textarea>
+          <p class="text-[12px] text-gray-500 mt-2">
+            Describe what you want the AI to do. Include your topic, the type of output you need, and any constraints.
+          </p>
+        </div>
+
+        <!-- Generate Button -->
+        <button
+          id="generate-btn"
+          disabled
+          class="w-full bg-gradient-to-r from-du-blue to-du-blue/80 text-white py-4 rounded-lg font-semibold text-[15px] hover:from-du-blue hover:to-du-blue/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Generate Refined Prompt
+        </button>
+
+        <!-- Loading State -->
+        <div id="loading" class="hidden mt-10">
+          <div class="flex flex-col items-center gap-3">
+            <div class="spinner"></div>
+            <p class="text-[14px] text-gray-600">Refining your prompt...</p>
+          </div>
+        </div>
+
+        <!-- Error State -->
+        <div id="error" class="hidden mt-10">
+          <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p class="text-[13px] text-red-700"><span id="error-text"></span></p>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden mt-10">
+          <div class="border-t border-gray-300 pt-10">
+            <h3 class="text-[18px] font-bold text-gray-900 mb-6">Your Refined Prompt</h3>
+
+            <!-- Result Output -->
+            <div
+              id="result-prompt"
+              class="bg-white border-2 border-gray-200 rounded-xl p-6 text-[13px] text-gray-800 leading-relaxed font-sans whitespace-pre-wrap"
+              style="min-height:120px;"
+            ></div>
+
+            <!-- Copy Button -->
+            <button
+              id="copy-btn"
+              onclick="copyResult()"
+              class="w-full mt-4 bg-du-blue text-white py-3 rounded-lg font-semibold text-[15px] hover:bg-du-blue/90 transition-colors"
+            >
+              Copy to Clipboard
+            </button>
+
+            <!-- Note -->
+            <p class="text-[12px] text-gray-500 mt-4">
+              This prompt has been restructured using the <span id="framework-name"></span> framework. Review and adjust for your specific context before use.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-24 bg-white">
+    <div class="max-w-[800px] mx-auto px-6">
+      <div class="mb-16 text-center">
+        <p class="text-[11px] font-semibold text-du-blue uppercase tracking-widest mb-3">FAQ</p>
+        <h2 class="text-[36px] font-bold text-gray-900 tracking-tight">Common Questions</h2>
+      </div>
+
+      <div class="space-y-4">
+
+        <!-- Q1 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[14px] font-semibold text-gray-900">What is prompt engineering and why does it matter for researchers?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              Prompt engineering is the practice of crafting inputs to AI systems to get better outputs. For researchers, well-structured prompts can improve the quality of literature reviews, data analysis, writing assistance, and ideation—without needing to learn to code or use complex APIs.
+            </p>
+          </div>
+        </details>
+
+        <!-- Q2 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[14px] font-semibold text-gray-900">How is this different from just asking ChatGPT directly?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              Unstructured prompts often produce inconsistent, meandering, or off-target responses. Frameworks enforce discipline: they ensure your prompt includes a clear role, context, constraints, and output format. The result is faster, more focused AI assistance aligned with your actual needs.
+            </p>
+          </div>
+        </details>
+
+        <!-- Q3 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[14px] font-semibold text-gray-900">Which framework should I use for academic writing tasks?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              Start with <span class="font-semibold">CO-STAR</span> to define context, audience, and tone. Then layer in <span class="font-semibold">Few-Shot</span> to show examples of the writing style you want. For structural advice, use <span class="font-semibold">RISE</span>. For logic-heavy analysis, combine CoT and ROSE.
+            </p>
+          </div>
+        </details>
+
+        <!-- Q4 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[14px] font-semibold text-gray-900">Can I use AI-generated prompts for my published research?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              This tool generates prompts, not research outputs. The prompts themselves are not your intellectual property—they're just templates. What you do with them (feed them to AI, use the outputs in analysis, etc.) is your responsibility. Always review AI outputs critically, cite appropriately, and follow your institution's policies on AI use in research.
+            </p>
+          </div>
+        </details>
+
+        <!-- Q5 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[14px] font-semibold text-gray-900">Is my input stored or shared?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              Your input is sent to Groq's API (not OpenAI's) to generate refined prompts. We track a simple counter of total tool uses, but we do not log, store, or analyse the content of your prompts. Do not enter sensitive data. For sensitive work, run the tool locally or behind a VPN.
+            </p>
+          </div>
+        </details>
+
+        <!-- Q6 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[14px] font-semibold text-gray-900">What if the output doesn't look right?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              Refine your input. Be more specific about what you want: add examples of the tone you need, clarify the audience, or specify constraints. Then regenerate. You can also try a different framework—some frameworks work better for some tasks than others. The Hybrid option intelligently combines frameworks; try that if a single framework isn't clicking.
+            </p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Spacer -->
+  <section style="height:64px;"></section>
+
+  <!-- Footer -->
+  <footer class="bg-[#0b1628] border-t border-white/8 py-8">
+    <div class="max-w-[1200px] mx-auto px-6 flex flex-wrap justify-between items-center gap-4">
+      <div>
+        <p class="text-[13px] font-semibold text-white mb-0.5">Danish Us-Salam</p>
+        <p class="text-[11px] text-white/35">Economist · Central Bank of Ireland · Dublin, Ireland</p>
+      </div>
+      <div class="flex items-center gap-5 text-[12px] text-white/35">
+        <a href="mailto:ussalamd@tcd.ie" class="hover:text-white/65 transition-colors">ussalamd@tcd.ie</a>
+        <a href="https://www.linkedin.com/in/danishussalam/" target="_blank" class="hover:text-white/65 transition-colors">LinkedIn</a>
+        <a href="https://twitter.com/DanishUsSalam2" target="_blank" class="hover:text-white/65 transition-colors">Twitter</a>
+        <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank" class="hover:text-white/65 transition-colors">CV</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="prompt-generator-page.js"></script>
+</body>
+</html>
