@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Generator – Design 5</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-rose-50 via-white to-orange-50">
+
+  <div class="min-h-screen p-6">
+    <div class="max-w-5xl mx-auto">
+
+      <!-- Header -->
+      <div class="mb-16">
+        <h1 class="text-[52px] font-black bg-gradient-to-r from-rose-600 via-orange-600 to-red-600 bg-clip-text text-transparent mb-4">Prompt Generator</h1>
+        <p class="text-[18px] text-gray-700 max-w-xl">Transform your research ideas into powerful, structured prompts using evidence-based frameworks</p>
+      </div>
+
+      <!-- Main Container: Vertical Stack on Mobile, Side-by-side on Desktop -->
+      <div class="grid md:grid-cols-[1fr_420px] gap-10">
+
+        <!-- LEFT: Input Section with Steps -->
+        <div class="space-y-8">
+
+          <!-- Step 1: Framework Selection -->
+          <div class="bg-white rounded-2xl border-2 border-rose-200 p-8 shadow-sm">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-rose-500 to-orange-500 text-white flex items-center justify-center font-bold text-[18px]">1</div>
+              <h3 class="text-[20px] font-bold text-gray-900">Select Framework</h3>
+            </div>
+            <p class="text-[14px] text-gray-600 mb-5">Choose a framework that matches your task type</p>
+            <div class="space-y-3">
+              <label class="flex items-center p-4 border-2 border-rose-300 bg-rose-50 rounded-xl cursor-pointer hover:bg-rose-100 transition-colors">
+                <input type="radio" name="fw" class="w-6 h-6 text-rose-600" checked>
+                <div class="ml-4">
+                  <p class="font-bold text-gray-900">ROSE</p>
+                  <p class="text-[12px] text-gray-600">Creative writing & persona-based tasks</p>
+                </div>
+              </label>
+              <label class="flex items-center p-4 border-2 border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                <input type="radio" name="fw" class="w-6 h-6 text-rose-600">
+                <div class="ml-4">
+                  <p class="font-bold text-gray-900">CO-STAR</p>
+                  <p class="text-[12px] text-gray-600">Communication & audience-specific</p>
+                </div>
+              </label>
+              <label class="flex items-center p-4 border-2 border-gray-300 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                <input type="radio" name="fw" class="w-6 h-6 text-rose-600">
+                <div class="ml-4">
+                  <p class="font-bold text-gray-900">Chain of Thought</p>
+                  <p class="text-[12px] text-gray-600">Complex reasoning & analysis</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Step 2: Input -->
+          <div class="bg-white rounded-2xl border-2 border-orange-200 p-8 shadow-sm">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-500 text-white flex items-center justify-center font-bold text-[18px]">2</div>
+              <h3 class="text-[20px] font-bold text-gray-900">Describe Your Task</h3>
+            </div>
+            <p class="text-[14px] text-gray-600 mb-5">Be as specific as possible for better results</p>
+            <textarea
+              placeholder="I want to create a prompt that helps me... Include context, goals, constraints, and any specific requirements."
+              class="w-full px-6 py-5 text-[15px] bg-gradient-to-br from-orange-50 to-orange-50 border-2 border-orange-200 rounded-xl focus:outline-none focus:border-orange-500 focus:ring-4 focus:ring-orange-100 resize-none"
+              rows="9"
+            ></textarea>
+          </div>
+
+          <!-- Generate Button -->
+          <button class="w-full py-6 px-8 text-[18px] font-bold text-white bg-gradient-to-r from-rose-600 via-orange-600 to-red-600 rounded-2xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            ✨ Generate Refined Prompt
+          </button>
+        </div>
+
+        <!-- RIGHT: Output Card (Sticky) -->
+        <div>
+          <div class="sticky top-8 bg-white rounded-2xl border-2 border-gray-200 overflow-hidden shadow-xl">
+
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-rose-600 via-orange-600 to-red-600 text-white px-8 py-8">
+              <p class="text-[12px] font-bold uppercase tracking-widest opacity-90 mb-2">Output</p>
+              <h3 class="text-[24px] font-bold">Your Refined Prompt</h3>
+            </div>
+
+            <!-- Content -->
+            <div class="p-8 space-y-6 max-h-96 overflow-y-auto">
+
+              <!-- Framework Info -->
+              <div>
+                <p class="text-[11px] font-bold text-gray-600 uppercase tracking-wider mb-2">Framework</p>
+                <div class="inline-block px-3 py-1 bg-rose-100 text-rose-700 rounded-full text-[13px] font-semibold">ROSE</div>
+              </div>
+
+              <!-- Prompt Output -->
+              <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-6 border border-gray-200 space-y-4">
+                <p class="text-[13px] font-mono text-gray-600 mb-3">System Prompt:</p>
+                <p class="text-[14px] text-gray-800 leading-relaxed">
+                  <strong>Role:</strong> You are an expert academic researcher in consumer economics with 15 years of experience designing rigorous experimental studies. You specialize in behavioral interventions and policy evaluation.
+                </p>
+                <p class="text-[14px] text-gray-800 leading-relaxed">
+                  <strong>Objective:</strong> Generate research questions that examine how information design affects consumer decision-making in financial markets.
+                </p>
+                <p class="text-[14px] text-gray-800 leading-relaxed">
+                  <strong>Style:</strong> Write in a scholarly, evidence-based tone emphasizing causal mechanisms and empirical rigor.
+                </p>
+                <p class="text-[14px] text-gray-800 leading-relaxed">
+                  <strong>Exemplar:</strong> "How does ordering of risk information affect cryptocurrency investment decisions among retail investors, and what mechanisms explain heterogeneous treatment effects?"
+                </p>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="space-y-3">
+                <button class="w-full py-3 px-5 text-[15px] font-bold text-white bg-gradient-to-r from-rose-600 to-orange-600 rounded-lg hover:shadow-lg transition-all">
+                  📋 Copy to Clipboard
+                </button>
+                <button class="w-full py-3 px-5 text-[15px] font-bold text-rose-600 bg-rose-50 border-2 border-rose-200 rounded-lg hover:bg-rose-100 transition-colors">
+                  🔄 Regenerate
+                </button>
+              </div>
+
+              <!-- Stats -->
+              <div class="border-t border-gray-200 pt-4 grid grid-cols-3 gap-3 text-center">
+                <div>
+                  <p class="text-[11px] font-bold text-gray-600 uppercase">Length</p>
+                  <p class="text-[16px] font-bold text-gray-900">312 ch</p>
+                </div>
+                <div>
+                  <p class="text-[11px] font-bold text-gray-600 uppercase">Clarity</p>
+                  <p class="text-[16px] font-bold text-rose-600">98%</p>
+                </div>
+                <div>
+                  <p class="text-[11px] font-bold text-gray-600 uppercase">Score</p>
+                  <p class="text-[16px] font-bold text-orange-600">9.2/10</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

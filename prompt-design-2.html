@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Generator – Design 2</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- Top Bar -->
+  <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white py-4 px-6 text-center">
+    <h1 class="text-[32px] font-bold">Prompt Generator</h1>
+  </div>
+
+  <div class="min-h-screen p-8">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Two Column Layout -->
+      <div class="grid md:grid-cols-[1fr_1.2fr] gap-12">
+
+        <!-- LEFT COLUMN: Input -->
+        <div class="space-y-8">
+          <div>
+            <h2 class="text-[28px] font-bold text-gray-900 mb-8">Craft Your Prompt</h2>
+
+            <!-- Framework Selection with Cards -->
+            <div class="mb-8">
+              <p class="text-[14px] font-semibold text-gray-600 uppercase tracking-wider mb-4">Step 1: Choose Framework</p>
+              <div class="space-y-3">
+                <label class="flex items-center p-4 border-2 border-emerald-300 rounded-xl cursor-pointer hover:bg-emerald-50 transition-colors">
+                  <input type="radio" name="framework" class="w-5 h-5 text-emerald-600" checked>
+                  <span class="ml-4 text-[15px] font-semibold text-gray-900">ROSE – Creative & Style-Focused</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                  <input type="radio" name="framework" class="w-5 h-5 text-emerald-600">
+                  <span class="ml-4 text-[15px] font-semibold text-gray-900">APE – Action-Oriented</span>
+                </label>
+                <label class="flex items-center p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                  <input type="radio" name="framework" class="w-5 h-5 text-emerald-600">
+                  <span class="ml-4 text-[15px] font-semibold text-gray-900">CO-STAR – Communication</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Input Text -->
+            <div>
+              <p class="text-[14px] font-semibold text-gray-600 uppercase tracking-wider mb-4">Step 2: Your Idea</p>
+              <textarea
+                placeholder="Describe what you want to accomplish with this prompt. Be detailed..."
+                class="w-full px-6 py-5 text-[15px] bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 resize-none"
+                rows="10"
+              ></textarea>
+            </div>
+
+            <!-- Action Button -->
+            <button class="w-full py-4 px-6 text-[16px] font-bold text-white bg-gradient-to-r from-emerald-600 to-teal-600 rounded-xl hover:shadow-xl transition-all duration-300">
+              Generate Prompt
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Output with Sticky Positioning -->
+        <div>
+          <div class="sticky top-8 space-y-4">
+            <!-- Output Card -->
+            <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border-2 border-emerald-300 rounded-2xl overflow-hidden">
+
+              <!-- Header -->
+              <div class="bg-emerald-600 text-white px-8 py-6">
+                <p class="text-[12px] font-bold uppercase tracking-widest opacity-80 mb-2">Refined Prompt</p>
+                <h3 class="text-[24px] font-bold">Your AI-Powered Prompt</h3>
+              </div>
+
+              <!-- Content -->
+              <div class="p-8 space-y-4">
+                <div>
+                  <p class="text-[12px] font-bold text-emerald-700 uppercase tracking-widest mb-3">Framework Applied</p>
+                  <p class="text-[15px] font-semibold text-gray-900">ROSE (Role, Objective, Style, Exemplar)</p>
+                </div>
+
+                <div class="border-t border-emerald-200 pt-4">
+                  <p class="text-[12px] font-bold text-emerald-700 uppercase tracking-widest mb-3">Generated System Prompt</p>
+                  <div class="bg-white rounded-lg p-5 border border-gray-200">
+                    <p class="text-[14px] text-gray-800 leading-relaxed font-mono text-xs">
+You are an expert creative writer with mastery in character development, world-building, and narrative structure. Your objective is to craft emotionally resonant stories that captivate readers through vivid imagery and compelling character arcs.
+
+Write in a lyrical, evocative style that emphasizes sensory details and emotional depth. Each description should paint a vivid picture in the reader's mind.
+
+Example of your style:
+"Moonlight spilled across the weathered porch, illuminating dust motes that danced like tiny spirits. The old house creaked with the weight of forgotten memories..."
+                    </p>
+                  </div>
+                </div>
+
+                <button class="w-full mt-6 py-3 px-5 text-[14px] font-bold text-emerald-600 bg-emerald-100 border-2 border-emerald-300 rounded-lg hover:bg-emerald-200 transition-colors">
+                  📋 Copy Prompt
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 gap-3 text-center text-[13px]">
+              <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200">
+                <p class="font-bold text-gray-900">42</p>
+                <p class="text-gray-600">Words</p>
+              </div>
+              <div class="bg-teal-50 p-4 rounded-lg border border-teal-200">
+                <p class="font-bold text-gray-900">High</p>
+                <p class="text-gray-600">Specificity</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
