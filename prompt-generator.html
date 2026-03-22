@@ -84,114 +84,150 @@
   </section>
 
   <!-- Framework Guide Section -->
-  <section class="py-16 bg-[#f6f5f4]">
+  <section class="py-24 bg-white">
     <div class="max-w-[1200px] mx-auto px-6">
-      <div class="mb-12">
-        <p class="text-[11px] font-semibold text-du-blue uppercase tracking-widest mb-3">Reference</p>
-        <h2 class="text-[36px] font-bold text-gray-900 tracking-tight">Choose your framework.</h2>
+      <div class="mb-16 text-center">
+        <p class="text-[11px] font-semibold text-du-blue uppercase tracking-widest mb-3">Framework Reference</p>
+        <h2 class="text-[48px] font-bold text-gray-900 tracking-tight mb-4">11 Frameworks. Bold & Clear.</h2>
+        <p class="text-[15px] text-gray-600 max-w-[700px] mx-auto leading-relaxed">
+          Each framework is distinct and powerful. Pick the one that matches your task.
+        </p>
       </div>
 
-      <!-- Framework Cards Grid -->
-      <div class="grid md:grid-cols-3 gap-4 mb-8">
+      <!-- Framework Cards Grid - 3 columns, bold backgrounds, compact -->
+      <div class="grid md:grid-cols-3 gap-5 mb-10">
+
         <!-- ROSE -->
-        <div class="bg-blue-300 rounded-xl p-5 border border-blue-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">ROSE</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Role, Objective, Style, Exemplar</h4>
-          <p class="text-[12px] text-gray-600">Best for creative and analytical tasks needing a persona and a worked example.</p>
+        <div class="bg-blue-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">01</span>
+            <h4 class="text-[24px] font-bold leading-tight">ROSE</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">ROLE, OBJECTIVE, STYLE, EXEMPLAR</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Creative and analytical tasks needing a persona and worked example.</p>
         </div>
 
         <!-- APE -->
-        <div class="bg-green-300 rounded-xl p-5 border border-green-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">APE</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Action, Purpose, Expectation</h4>
-          <p class="text-[12px] text-gray-600">Best for deliverable-focused tasks with measurable outcomes.</p>
+        <div class="bg-green-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">02</span>
+            <h4 class="text-[24px] font-bold leading-tight">APE</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">ACTION, PURPOSE, EXPECTATION</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Deliverable-focused tasks with measurable outcomes and clear action steps.</p>
         </div>
 
         <!-- RACE -->
-        <div class="bg-purple-300 rounded-xl p-5 border border-purple-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">RACE</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Role, Action, Context, Expectation</h4>
-          <p class="text-[12px] text-gray-600">Best for applied, scenario-grounded prompts.</p>
+        <div class="bg-purple-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">03</span>
+            <h4 class="text-[24px] font-bold leading-tight">RACE</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">ROLE, ACTION, CONTEXT, EXPECTATION</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Applied, scenario-grounded prompts for realistic and contextual tasks.</p>
         </div>
 
         <!-- RISE -->
-        <div class="bg-yellow-300 rounded-xl p-5 border border-yellow-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">RISE</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Role, Input, Steps, Expectation</h4>
-          <p class="text-[12px] text-gray-600">Best for multi-step workflows and process-oriented tasks.</p>
+        <div class="bg-yellow-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">04</span>
+            <h4 class="text-[24px] font-bold leading-tight">RISE</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">ROLE, INPUT, STEPS, EXPECTATION</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Break workflows into sequential steps for multi-step process-oriented tasks.</p>
         </div>
 
         <!-- RTF -->
-        <div class="bg-pink-300 rounded-xl p-5 border border-pink-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">RTF</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Role, Task, Format</h4>
-          <p class="text-[12px] text-gray-600">Best for short, focused prompts where output format is critical.</p>
+        <div class="bg-pink-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">05</span>
+            <h4 class="text-[24px] font-bold leading-tight">RTF</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">ROLE, TASK, FORMAT</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Concise and minimal approach where output format is critical to success.</p>
         </div>
 
         <!-- CO-STAR -->
-        <div class="bg-red-300 rounded-xl p-5 border border-red-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">CO-STAR</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Context, Objective, Style, Tone, Audience, Response</h4>
-          <p class="text-[12px] text-gray-600">Best for audience-tailored outputs: briefs, reports, presentations.</p>
+        <div class="bg-red-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">06</span>
+            <h4 class="text-[24px] font-bold leading-tight">CO-STAR</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">CONTEXT, OBJECTIVE, STYLE, TONE, AUDIENCE, RESPONSE</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Comprehensive framework for audience-tailored briefs, reports, and presentations.</p>
         </div>
 
         <!-- CoT -->
-        <div class="bg-indigo-300 rounded-xl p-5 border border-indigo-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">CoT</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Chain of Thought</h4>
-          <p class="text-[12px] text-gray-600">Best for complex reasoning: analysis, evaluation, problem-solving.</p>
+        <div class="bg-indigo-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">07</span>
+            <h4 class="text-[24px] font-bold leading-tight">COT</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">CHAIN OF THOUGHT</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Step-by-step reasoning for complex analysis, evaluation, and problem-solving.</p>
         </div>
 
         <!-- CRISPE -->
-        <div class="bg-cyan-300 rounded-xl p-5 border border-cyan-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">CRISPE</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Capacity, Role, Insight, Statement, Personality, Experiment</h4>
-          <p class="text-[12px] text-gray-600">Best for exploratory and creative tasks.</p>
+        <div class="bg-cyan-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">08</span>
+            <h4 class="text-[24px] font-bold leading-tight">CRISPE</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">CAPACITY, ROLE, INSIGHT, STATEMENT, PERSONALITY, EXPERIMENT</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Unlock creative potential through role-play and experimental thinking.</p>
         </div>
 
         <!-- Few-Shot -->
-        <div class="bg-orange-300 rounded-xl p-5 border border-orange-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">FEW-SHOT</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Examples-based Prompting</h4>
-          <p class="text-[12px] text-gray-600">Best for tasks where style is easier to demonstrate than describe.</p>
+        <div class="bg-orange-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">09</span>
+            <h4 class="text-[24px] font-bold leading-tight">FEW-SHOT</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">EXAMPLES-BASED PROMPTING</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Teach through 2-3 demonstrations when style is easier to show than describe.</p>
         </div>
 
         <!-- ReAct -->
-        <div class="bg-teal-300 rounded-xl p-5 border border-teal-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">REACT</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Reasoning + Acting</h4>
-          <p class="text-[12px] text-gray-600">Best for agentic and multi-step research workflows.</p>
+        <div class="bg-teal-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">10</span>
+            <h4 class="text-[24px] font-bold leading-tight">REACT</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">REASONING + ACTING</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Sequence reasoning and action for agentic multi-step research workflows.</p>
         </div>
 
         <!-- Hybrid -->
-        <div class="bg-gradient-to-br from-blue-300 to-purple-300 rounded-xl p-5 border border-purple-400 hover:shadow-sm transition-shadow">
-          <p class="text-[11px] font-bold text-du-blue uppercase tracking-widest mb-2">HYBRID</p>
-          <h4 class="text-[13px] font-semibold text-gray-900 mb-2">Multi-framework Combination</h4>
-          <p class="text-[12px] text-gray-600">Best for complex, high-stakes tasks needing maximal quality.</p>
+        <div class="bg-gradient-to-br from-blue-300 to-purple-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">11</span>
+            <h4 class="text-[24px] font-bold leading-tight">HYBRID</h4>
+          </div>
+          <p class="text-[11px] font-semibold opacity-90 mb-3">MULTI-FRAMEWORK COMBINATION</p>
+          <p class="text-[13px] leading-relaxed text-gray-800">Intelligently blend 2-4 frameworks for complex, high-stakes tasks.</p>
         </div>
+
       </div>
 
       <!-- Pro Tip Box -->
-      <div class="bg-amber-50 border border-amber-200 rounded-xl p-6">
-        <div class="flex gap-4">
+      <div class="bg-du-dark rounded-xl p-10 mt-12">
+        <div class="flex gap-5">
           <div class="flex-shrink-0">
-            <div class="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center">
-              <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5h.01" />
-              </svg>
-            </div>
+            <svg class="w-6 h-6 text-du-blue" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
           </div>
           <div>
-            <p class="text-[13px] font-semibold text-amber-900 mb-2">Pro tip: Combine frameworks for maximum impact</p>
-            <p class="text-[12px] text-amber-800 leading-relaxed mb-3">
-              Frameworks are helpful, but the real power comes from combining them. Start with one framework, then layer in another:
-            </p>
-            <div class="bg-white/60 rounded-lg p-3 text-[11px] text-amber-900 font-mono space-y-1">
-              <div>• <span class="font-semibold">Role</span> (ROSE/RACE)</div>
-              <div>• <span class="font-semibold">Context</span> (CO-STAR)</div>
-              <div>• <span class="font-semibold">Examples</span> (Few-shot)</div>
-              <div>• <span class="font-semibold">Reasoning</span> (CoT)</div>
-              <div>• <span class="font-semibold">Output Format</span> (CO-STAR/RTF)</div>
+            <p class="text-[16px] font-bold text-white mb-3">Pro tip: Combine frameworks for maximum impact</p>
+            <div class="bg-white/10 rounded-lg p-5 text-[13px] text-white/90 space-y-2">
+              <div>Start with <span class="text-du-blue font-semibold">one framework</span>, then layer in another. Example hybrid:</div>
+              <div class="text-white/70 text-[12px] mt-3 space-y-1">
+                <div>• <span class="font-semibold text-du-blue">Role</span> from ROSE/RACE</div>
+                <div>• <span class="font-semibold text-du-blue">Context</span> from CO-STAR</div>
+                <div>• <span class="font-semibold text-du-blue">Examples</span> from Few-Shot</div>
+                <div>• <span class="font-semibold text-du-blue">Reasoning</span> from Chain of Thought</div>
+                <div>• <span class="font-semibold text-du-blue">Output Format</span> from CO-STAR/RTF</div>
+              </div>
             </div>
           </div>
         </div>
