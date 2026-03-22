@@ -1,5 +1,71 @@
 const WORKER_URL = 'https://prompt-generator.danish-us-salam.workers.dev';
 
+// Speech-to-text setup
+let isListening = false;
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition = null;
+
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  recognition.onstart = () => {
+    isListening = true;
+    document.getElementById('mic-btn').classList.add('bg-red-500', 'text-white');
+    document.getElementById('mic-btn').classList.remove('bg-du-blue/10', 'text-du-blue');
+    document.getElementById('mic-text').textContent = 'Listening...';
+  };
+
+  recognition.onend = () => {
+    isListening = false;
+    document.getElementById('mic-btn').classList.remove('bg-red-500', 'text-white');
+    document.getElementById('mic-btn').classList.add('bg-du-blue/10', 'text-du-blue');
+    document.getElementById('mic-text').textContent = 'Speak';
+  };
+
+  recognition.onresult = (event) => {
+    let transcript = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcript += event.results[i][0].transcript;
+      if (event.results[i].isFinal) {
+        // Add space between sentences
+        transcript += ' ';
+      }
+    }
+
+    const textarea = document.getElementById('raw-prompt');
+    if (textarea.value && !textarea.value.endsWith(' ')) {
+      textarea.value += ' ';
+    }
+    textarea.value += transcript;
+
+    // Update button state
+    updateGenerateButtonState();
+  };
+
+  recognition.onerror = (event) => {
+    console.error('Speech recognition error:', event.error);
+    showError('Microphone error: ' + event.error);
+  };
+}
+
+function toggleMicrophone() {
+  if (!recognition) {
+    showError('Speech recognition not supported in your browser. Please use Chrome, Edge, or Safari.');
+    return;
+  }
+
+  if (isListening) {
+    recognition.stop();
+  } else {
+    const textarea = document.getElementById('raw-prompt');
+    textarea.focus();
+    recognition.start();
+  }
+}
+
 const FRAMEWORK_META = {
   'ROSE': {
     label: 'Role, Objective, Style, Exemplar',
