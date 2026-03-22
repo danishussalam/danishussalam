@@ -196,8 +196,10 @@
       document.getElementById('modal').classList.add('hidden');
     }
 
-    document.getElementById('modal').addEventListener('click', (e) => {
-      if (e.target.id === 'modal') closeModal();
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('modal').addEventListener('click', (e) => {
+        if (e.target.id === 'modal') closeModal();
+      });
     });
   </script>
 
