@@ -113,11 +113,52 @@ async function handleVoiceFileUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
 
-  // For now, show a message that voice file processing will be implemented
-  showError('Voice file processing coming soon! Please use the microphone option (Dictate) for now.');
+  clearMessages();
+  showLoading();
 
-  // Reset file input
-  event.target.value = '';
+  try {
+    // Convert audio file to base64
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const audioData = e.target.result;
+
+      // Send to backend for transcription
+      const response = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'transcribe',
+          audioData: audioData,
+          fileName: file.name
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to transcribe audio');
+      }
+
+      const data = await response.json();
+
+      if (data.transcript) {
+        const textarea = document.getElementById('raw-prompt');
+        if (textarea.value && !textarea.value.endsWith(' ')) {
+          textarea.value += ' ';
+        }
+        textarea.value += data.transcript + ' ';
+        updateGenerateButtonState();
+      } else {
+        showError('No speech detected in the audio file. Please try again.');
+      }
+    };
+    reader.readAsDataURL(file);
+  } catch (error) {
+    console.error('Voice upload error:', error);
+    showError('Error processing audio: ' + error.message);
+  } finally {
+    hideLoading();
+    // Reset file input
+    event.target.value = '';
+  }
 }
 
 // Initialize mic button event listener as backup
