@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Input Icon Options</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="text-4xl font-bold mb-2 text-gray-900">Voice Input Icon Options</h1>
+    <p class="text-gray-600 mb-12">Compare different icon styles for Dictate and Use Voice actions</p>
+
+    <div class="grid md:grid-cols-2 gap-8">
+
+      <!-- Option 1 -->
+      <div class="bg-white rounded-lg border border-gray-200 p-8 shadow-sm">
+        <h2 class="text-xl font-bold mb-6 text-gray-900">Option 1: Wave-based</h2>
+        <div class="bg-blue-50 rounded-lg p-8 mb-6 text-center">
+          <p class="text-sm text-gray-600 mb-4">Icons in textarea corner:</p>
+          <div class="flex gap-3 justify-center">
+            <!-- Dictate: Microphone -->
+            <div class="group relative">
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-1c-.49 0-.9.36-.98.85C16.52 14.5 14.43 16 12 16s-4.52-1.5-4.93-2.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3.41 3.85 6.01 7.91 6.01s7.42-2.6 7.91-6.01c.09-.6-.39-1.14-1-1.14z"/>
+                </svg>
+              </button>
+              <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Dictate</span>
+            </div>
+            <!-- Use Voice: Sound waves -->
+            <div class="group relative">
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                </svg>
+              </button>
+              <span class="absolute bottom-full right-0 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Use Voice</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600">Microphone + Sound waves (musical note style)</p>
+      </div>
+
+      <!-- Option 2 -->
+      <div class="bg-white rounded-lg border border-gray-200 p-8 shadow-sm">
+        <h2 class="text-xl font-bold mb-6 text-gray-900">Option 2: File-focused</h2>
+        <div class="bg-blue-50 rounded-lg p-8 mb-6 text-center">
+          <p class="text-sm text-gray-600 mb-4">Icons in textarea corner:</p>
+          <div class="flex gap-3 justify-center">
+            <!-- Dictate: Microphone -->
+            <div class="group relative">
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-1c-.49 0-.9.36-.98.85C16.52 14.5 14.43 16 12 16s-4.52-1.5-4.93-2.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3.41 3.85 6.01 7.91 6.01s7.42-2.6 7.91-6.01c.09-.6-.39-1.14-1-1.14z"/>
+                </svg>
+              </button>
+              <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Dictate</span>
+            </div>
+            <!-- Use Voice: Upload arrow -->
+            <div class="group relative">
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 0l-7 7m7-7l7 7"/>
+                </svg>
+              </button>
+              <span class="absolute bottom-full right-0 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Use Voice</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600">Microphone + Upload arrow (file upload concept)</p>
+      </div>
+
+      <!-- Option 3 -->
+      <div class="bg-white rounded-lg border border-gray-200 p-8 shadow-sm">
+        <h2 class="text-xl font-bold mb-6 text-gray-900">Option 3: Clean & Modern</h2>
+        <div class="bg-blue-50 rounded-lg p-8 mb-6 text-center">
+          <p class="text-sm text-gray-600 mb-4">Icons in textarea corner:</p>
+          <div class="flex gap-3 justify-center">
+            <!-- Dictate: Solid microphone -->
+            <div class="group relative">
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-1c-.49 0-.9.36-.98.85C16.52 14.5 14.43 16 12 16s-4.52-1.5-4.93-2.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3.41 3.85 6.01 7.91 6.01s7.42-2.6 7.91-6.01c.09-.6-.39-1.14-1-1.14z"/>
+                </svg>
+              </button>
+              <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Dictate</span>
+            </div>
+            <!-- Use Voice: Folder with arrow -->
+            <div class="group relative">
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2-5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V9a2 2 0 00-2-2zm-6-2V7a2 2 0 012-2h2a2 2 0 012 2v2"/>
+                </svg>
+              </button>
+              <span class="absolute bottom-full right-0 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Use Voice</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600">Microphone + Document/file icon</p>
+      </div>
+
+      <!-- Option 4 -->
+      <div class="bg-white rounded-lg border border-gray-200 p-8 shadow-sm">
+        <h2 class="text-xl font-bold mb-6 text-gray-900">Option 4: Action-based</h2>
+        <div class="bg-blue-50 rounded-lg p-8 mb-6 text-center">
+          <p class="text-sm text-gray-600 mb-4">Icons in textarea corner:</p>
+          <div class="flex gap-3 justify-center">
+            <!-- Dictate: Microphone with recording dot -->
+            <div class="group relative">
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors relative">
+                <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-1c-.49 0-.9.36-.98.85C16.52 14.5 14.43 16 12 16s-4.52-1.5-4.93-2.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3.41 3.85 6.01 7.91 6.01s7.42-2.6 7.91-6.01c.09-.6-.39-1.14-1-1.14z"/>
+                </svg>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              </button>
+              <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Dictate</span>
+            </div>
+            <!-- Use Voice: Plus icon -->
+            <div class="group relative">
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+              </button>
+              <span class="absolute bottom-full right-0 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Use Voice</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600">Microphone with recording dot + Plus icon (add file)</p>
+      </div>
+
+      <!-- Option 5 -->
+      <div class="bg-white rounded-lg border border-gray-200 p-8 shadow-sm">
+        <h2 class="text-xl font-bold mb-6 text-gray-900">Option 5: Distinct & Clear</h2>
+        <div class="bg-blue-50 rounded-lg p-8 mb-6 text-center">
+          <p class="text-sm text-gray-600 mb-4">Icons in textarea corner:</p>
+          <div class="flex gap-3 justify-center">
+            <!-- Dictate: Microphone -->
+            <div class="group relative">
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-1c-.49 0-.9.36-.98.85C16.52 14.5 14.43 16 12 16s-4.52-1.5-4.93-2.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3.41 3.85 6.01 7.91 6.01s7.42-2.6 7.91-6.01c.09-.6-.39-1.14-1-1.14z"/>
+                </svg>
+              </button>
+              <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Dictate</span>
+            </div>
+            <!-- Use Voice: Cloud upload -->
+            <div class="group relative">
+              <button class="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3v-6"/>
+                </svg>
+              </button>
+              <span class="absolute bottom-full right-0 mb-2 px-2 py-1 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Use Voice</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-gray-600">Microphone + Cloud upload icon</p>
+      </div>
+
+    </div>
+
+    <div class="mt-12 bg-white rounded-lg border border-gray-200 p-8">
+      <h2 class="text-xl font-bold mb-4 text-gray-900">Summary</h2>
+      <ul class="space-y-2 text-sm text-gray-700">
+        <li><strong>Option 1:</strong> Wave-based - Musical note concept</li>
+        <li><strong>Option 2:</strong> File-focused - Arrow up concept</li>
+        <li><strong>Option 3:</strong> Clean & Modern - Document folder concept</li>
+        <li><strong>Option 4:</strong> Action-based - Recording indicator + Plus</li>
+        <li><strong>Option 5:</strong> Distinct & Clear - Cloud upload (current alternative)</li>
+      </ul>
+    </div>
+
+  </div>
+</body>
+</html>
