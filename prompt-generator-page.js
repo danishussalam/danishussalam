@@ -15,14 +15,12 @@ if (SpeechRecognition) {
     isListening = true;
     document.getElementById('mic-btn').classList.add('bg-red-500', 'text-white');
     document.getElementById('mic-btn').classList.remove('bg-du-blue/10', 'text-du-blue');
-    document.getElementById('mic-text').textContent = 'Listening...';
   };
 
   recognition.onend = () => {
     isListening = false;
     document.getElementById('mic-btn').classList.remove('bg-red-500', 'text-white');
     document.getElementById('mic-btn').classList.add('bg-du-blue/10', 'text-du-blue');
-    document.getElementById('mic-text').textContent = 'Speak';
   };
 
   recognition.onresult = (event) => {
