@@ -158,45 +158,57 @@ const FRAMEWORK_META = {
 };
 
 // Handle framework dropdown change
-document.getElementById('framework-select').addEventListener('change', function() {
-  const selectedFramework = this.value;
-  const descPanel = document.getElementById('framework-desc');
-  const guideBox = document.getElementById('framework-guide');
+document.addEventListener('DOMContentLoaded', function() {
+  const frameworkSelect = document.getElementById('framework-select');
+  if (frameworkSelect) {
+    frameworkSelect.addEventListener('change', function() {
+      const selectedFramework = this.value;
+      const descPanel = document.getElementById('framework-desc');
+      const guideBox = document.getElementById('framework-guide');
 
-  if (selectedFramework && FRAMEWORK_META[selectedFramework]) {
-    const meta = FRAMEWORK_META[selectedFramework];
-    descPanel.textContent = meta.desc;
-    guideBox.classList.remove('hidden');
-  } else {
-    guideBox.classList.add('hidden');
+      if (descPanel && guideBox) {
+        if (selectedFramework && FRAMEWORK_META[selectedFramework]) {
+          const meta = FRAMEWORK_META[selectedFramework];
+          descPanel.textContent = meta.desc;
+          guideBox.classList.remove('hidden');
+        } else {
+          guideBox.classList.add('hidden');
+        }
+      }
+
+      // Enable/disable generate button based on framework and text
+      updateGenerateButtonState();
+    });
   }
-
-  // Enable/disable generate button based on framework and text
-  updateGenerateButtonState();
 });
 
 // Handle raw prompt textarea input
-document.getElementById('raw-prompt').addEventListener('input', function() {
-  updateGenerateButtonState();
-});
+const rawPromptElement = document.getElementById('raw-prompt');
+if (rawPromptElement) {
+  rawPromptElement.addEventListener('input', function() {
+    updateGenerateButtonState();
+  });
+
+  // Keyboard shortcut: Ctrl+Enter to generate
+  rawPromptElement.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' && e.ctrlKey) {
+      if (!document.getElementById('generate-btn').disabled) {
+        generatePrompt();
+      }
+    }
+  });
+}
 
 // Update generate button state
 function updateGenerateButtonState() {
-  const framework = document.getElementById('framework-select').value;
-  const rawPrompt = document.getElementById('raw-prompt').value.trim();
+  const framework = document.getElementById('framework-select');
+  const rawPrompt = document.getElementById('raw-prompt');
   const btn = document.getElementById('generate-btn');
 
-  btn.disabled = !framework || !rawPrompt;
-}
-
-// Keyboard shortcut: Ctrl+Enter to generate
-document.getElementById('raw-prompt').addEventListener('keypress', function(e) {
-  if (e.key === 'Enter' && e.ctrlKey) {
-    if (!document.getElementById('generate-btn').disabled) {
-      generatePrompt();
-    }
+  if (framework && rawPrompt && btn) {
+    btn.disabled = !framework.value || !rawPrompt.value.trim();
   }
-});
+}
 
 // Main generate function
 async function generatePrompt() {
