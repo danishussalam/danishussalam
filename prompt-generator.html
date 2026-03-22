@@ -209,24 +209,80 @@
 
       </div>
 
-      <!-- Pro Tip Box -->
-      <div class="bg-du-dark rounded-xl p-10 mt-12">
-        <div class="flex gap-5">
-          <div class="flex-shrink-0">
-            <svg class="w-6 h-6 text-du-blue" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+      <!-- Pro Tip Box - Flow Chart Style -->
+      <div class="bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-du-blue/20 rounded-2xl p-12 mt-12">
+        <div class="flex items-center gap-3 mb-8">
+          <svg class="w-7 h-7 text-du-blue" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+          <p class="text-[18px] font-bold text-gray-900">Pro tip: Combine frameworks for maximum impact</p>
+        </div>
+
+        <!-- Flow Chart -->
+        <div class="space-y-4">
+          <!-- Step 1 -->
+          <div class="flex items-center gap-4">
+            <div class="flex-shrink-0 w-28 bg-du-blue text-white rounded-xl p-3 text-center">
+              <p class="text-[11px] font-bold uppercase tracking-wider">Start with</p>
+              <p class="text-[13px] font-bold mt-1">One Framework</p>
+            </div>
+            <svg class="w-6 h-6 text-du-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
             </svg>
+            <div class="flex-shrink-0 w-28 bg-purple-300 text-gray-900 rounded-xl p-3 text-center">
+              <p class="text-[11px] font-bold uppercase tracking-wider">Layer In</p>
+              <p class="text-[13px] font-bold mt-1">Another Frame</p>
+            </div>
+            <svg class="w-6 h-6 text-du-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+            <div class="flex-shrink-0 w-28 bg-green-300 text-gray-900 rounded-xl p-3 text-center">
+              <p class="text-[11px] font-bold uppercase tracking-wider">Get</p>
+              <p class="text-[13px] font-bold mt-1">Better Output</p>
+            </div>
           </div>
-          <div>
-            <p class="text-[16px] font-bold text-white mb-3">Pro tip: Combine frameworks for maximum impact</p>
-            <div class="bg-white/10 rounded-lg p-5 text-[13px] text-white/90 space-y-2">
-              <div>Start with <span class="text-du-blue font-semibold">one framework</span>, then layer in another. Example hybrid:</div>
-              <div class="text-white/70 text-[12px] mt-3 space-y-1">
-                <div>• <span class="font-semibold text-du-blue">Role</span> from ROSE/RACE</div>
-                <div>• <span class="font-semibold text-du-blue">Context</span> from CO-STAR</div>
-                <div>• <span class="font-semibold text-du-blue">Examples</span> from Few-Shot</div>
-                <div>• <span class="font-semibold text-du-blue">Reasoning</span> from Chain of Thought</div>
-                <div>• <span class="font-semibold text-du-blue">Output Format</span> from CO-STAR/RTF</div>
+
+          <!-- Example Combinations -->
+          <div class="mt-8 pt-6 border-t-2 border-du-blue/20">
+            <p class="text-[13px] font-semibold text-gray-900 mb-4">Example: Combine these frameworks</p>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+              <div class="bg-white border-2 border-du-blue/30 rounded-lg p-3 text-center">
+                <p class="text-[11px] font-bold text-du-blue mb-1">Role</p>
+                <p class="text-[10px] text-gray-600">ROSE/RACE</p>
+              </div>
+              <div class="flex items-center justify-center">
+                <svg class="w-5 h-5 text-du-blue/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <div class="bg-white border-2 border-du-blue/30 rounded-lg p-3 text-center">
+                <p class="text-[11px] font-bold text-du-blue mb-1">Context</p>
+                <p class="text-[10px] text-gray-600">CO-STAR</p>
+              </div>
+              <div class="flex items-center justify-center">
+                <svg class="w-5 h-5 text-du-blue/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <div class="bg-white border-2 border-du-blue/30 rounded-lg p-3 text-center">
+                <p class="text-[11px] font-bold text-du-blue mb-1">Examples</p>
+                <p class="text-[10px] text-gray-600">Few-Shot</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-3">
+              <div class="bg-white border-2 border-du-blue/30 rounded-lg p-3 text-center">
+                <p class="text-[11px] font-bold text-du-blue mb-1">Reasoning</p>
+                <p class="text-[10px] text-gray-600">Chain of Thought</p>
+              </div>
+              <div class="flex items-center justify-center">
+                <svg class="w-5 h-5 text-du-blue/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <div class="bg-white border-2 border-du-blue/30 rounded-lg p-3 text-center">
+                <p class="text-[11px] font-bold text-du-blue mb-1">Output Format</p>
+                <p class="text-[10px] text-gray-600">CO-STAR/RTF</p>
               </div>
             </div>
           </div>
