@@ -161,16 +161,14 @@ const FRAMEWORK_META = {
 document.getElementById('framework-select').addEventListener('change', function() {
   const selectedFramework = this.value;
   const descPanel = document.getElementById('framework-desc');
+  const guideBox = document.getElementById('framework-guide');
 
   if (selectedFramework && FRAMEWORK_META[selectedFramework]) {
     const meta = FRAMEWORK_META[selectedFramework];
-    descPanel.innerHTML = `
-      <span class="font-semibold text-gray-900">${meta.label}</span><br/>
-      <span class="text-gray-600">${meta.desc}</span>
-    `;
-    descPanel.classList.remove('hidden');
+    descPanel.textContent = meta.desc;
+    guideBox.classList.remove('hidden');
   } else {
-    descPanel.classList.add('hidden');
+    guideBox.classList.add('hidden');
   }
 
   // Enable/disable generate button based on framework and text
@@ -233,14 +231,33 @@ async function generatePrompt() {
     }
 
     // Display result
-    document.getElementById('result-prompt').textContent = data.refinedPrompt;
-    document.getElementById('framework-name').textContent = FRAMEWORK_META[framework].label;
+    const resultText = data.refinedPrompt;
+    document.getElementById('result-prompt').textContent = resultText;
+
+    // For mobile, also update the mobile version
+    const resultPromptMobile = document.getElementById('result-prompt-mobile');
+    if (resultPromptMobile) {
+      resultPromptMobile.textContent = resultText;
+    }
+
     document.getElementById('results-section').classList.remove('hidden');
 
-    // Smooth scroll to results
-    setTimeout(() => {
-      document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+    // Show mobile version too
+    const resultSectionMobile = document.getElementById('results-section-mobile');
+    if (resultSectionMobile) {
+      resultSectionMobile.classList.remove('hidden');
+    }
+
+    // Smooth scroll to results on mobile
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        document.getElementById('results-section-mobile').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      setTimeout(() => {
+        document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
 
   } catch (error) {
     showError(error.message || 'An error occurred. Please try again.');
@@ -284,4 +301,8 @@ function showError(message) {
 function clearMessages() {
   document.getElementById('error').classList.add('hidden');
   document.getElementById('results-section').classList.add('hidden');
+  const resultSectionMobile = document.getElementById('results-section-mobile');
+  if (resultSectionMobile) {
+    resultSectionMobile.classList.add('hidden');
+  }
 }
