@@ -157,14 +157,20 @@ function startRecording() {
     timer.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
   }, 1000);
 
+  recognition.continuous = true; // Keep recording even during pauses
+  recognition.interimResults = true;
+
   recognition.onstart = () => {
-    recordingLabel.textContent = 'Recording...';
+    recordingLabel.textContent = 'Recording... (click mic to stop)';
   };
 
   recognition.onresult = (event) => {
     for (let i = event.resultIndex; i < event.results.length; i++) {
       if (event.results[i].isFinal) {
         currentTranscript += event.results[i][0].transcript + ' ';
+      } else {
+        // Show interim results for better UX
+        recordingLabel.textContent = 'Recording... (click mic to stop)';
       }
     }
   };
@@ -178,6 +184,7 @@ function startRecording() {
     state.isRecording = false;
     recordingState.classList.add('hidden');
     clearInterval(timerInterval);
+    recognition.continuous = false;
 
     // Store the answer based on current stage
     const trimmedAnswer = currentTranscript.trim();
@@ -238,7 +245,7 @@ async function submitAnswer() {
       speakText(state.followup);
 
       submitButton.textContent = 'Get Feedback';
-      submitButton.style.display = 'block';
+      submitButton.style.display = 'none'; // Hide button, user needs to record second answer first
       recordingState.classList.add('hidden');
       recordingLabel.textContent = 'Recording...';
 
