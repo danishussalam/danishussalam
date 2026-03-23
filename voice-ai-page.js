@@ -208,6 +208,7 @@ function startRecording() {
         // Second answer: show thank you message and get feedback button
         thankYouMessage.classList.remove('hidden');
         submitButton.style.display = 'block';
+        micButton.style.display = 'none'; // Hide mic button after second answer recorded
       }
     }
   };
@@ -356,6 +357,7 @@ function retryQuestion() {
   submitButton.style.display = 'none';
   submitButton.textContent = 'Submit Answer';
   micButton.disabled = false;
+  micButton.style.display = 'block'; // Show mic button again for next question
 
   // Fetch new question
   showLoading();
