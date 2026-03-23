@@ -177,7 +177,16 @@ function startRecording() {
     state.isRecording = false;
     recordingState.classList.add('hidden');
     clearInterval(timerInterval);
-    state.firstAnswer = fullTranscript.trim();
+
+    // Store the answer based on current stage
+    if (state.stage === 'first-answer') {
+      state.firstAnswer = fullTranscript.trim();
+    } else if (state.stage === 'second-answer') {
+      state.secondAnswer = fullTranscript.trim();
+    }
+
+    micButton.style.background = '#f0f4f8';
+    micButton.style.color = '#097fe8';
   };
 
   recognition.start();
@@ -393,12 +402,3 @@ document.addEventListener('keydown', (e) => {
 
 // Initialization
 updateStartButtonState();
-
-// Handle recognition end to capture final answer
-recognition.onend = () => {
-  if (state.stage === 'first-answer') {
-    // First answer captured
-  } else if (state.stage === 'second-answer') {
-    // Second answer captured
-  }
-};
