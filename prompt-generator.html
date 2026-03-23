@@ -172,7 +172,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10 px-4 sm:px-0">
 
         <!-- AUTO -->
-        <div class="bg-gradient-to-br from-slate-700 to-slate-900 rounded-2xl p-6 text-white hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('AUTO', '#64748b', 'ASSESS, DECIDE, REFINE', 'Automatic Framework Selection – The AI reads your prompt, diagnoses the task type, and selects the best-fit framework from all 12 options. It then applies that framework and tells you which one was chosen and why.', 'Perfect for users who do not know which framework fits their task.', 'Use AUTO when you are unsure which framework to apply. The AI analyzes your raw prompt, considers the task type (creative writing, data analysis, reasoning, ideation, etc.), and intelligently selects the most suitable framework from ROSE, APE, RACE, RISE, RTF, CO-STAR, Chain of Thought, CRISPE, Few-Shot, ReAct, or Hybrid. The output shows which framework was selected and why, then presents your refined prompt structured according to that framework. No framework knowledge required—AUTO handles the decision-making for you.')
+        <div class="bg-gradient-to-br from-slate-700 to-slate-900 rounded-2xl p-6 text-white hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openAutoPanel()">
           <div class="flex items-start gap-3 mb-5">
             <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">01</span>
             <h4 class="text-[24px] font-bold leading-tight">AUTO</h4>
@@ -584,7 +584,7 @@
           </summary>
           <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
             <p>
-              It depends on your task. Use <span class="font-semibold">CO-STAR</span> when tone and audience matter. Use <span class="font-semibold">Few-Shot</span> when you want outputs that match a specific style. Use <span class="font-semibold">CoT</span> for logical or step-by-step reasoning. The <span class="font-semibold">Hybrid</span> option intelligently combines frameworks — a good default if you're unsure.
+              It depends on your task. Click on any tile to learn more about what each framework does, or select <span class="font-semibold">AUTO</span> if you're unsure — the AI will analyse your prompt and choose the best framework for you automatically. The best approach is to match your task type: use CO-STAR when tone and audience matter, Few-Shot when outputs need to match a specific style, CoT for logical reasoning, and Hybrid for complex multi-faceted problems.
             </p>
           </div>
         </details>
@@ -724,6 +724,17 @@
 
       overlay.classList.remove('active');
       panel.classList.remove('active');
+    }
+
+    function openAutoPanel() {
+      openFrameworkPanel(
+        'AUTO',
+        '#64748b',
+        'ASSESS, DECIDE, REFINE',
+        'Automatic Framework Selection – The AI reads your prompt, diagnoses the task type, and selects the best-fit framework from all 12 options. It then applies that framework and tells you which one was chosen and why.',
+        'Perfect for users who do not know which framework fits their task.',
+        'Use AUTO when you are unsure which framework to apply. The AI analyzes your raw prompt, considers the task type (creative writing, data analysis, reasoning, ideation, etc.), and intelligently selects the most suitable framework from ROSE, APE, RACE, RISE, RTF, CO-STAR, Chain of Thought, CRISPE, Few-Shot, ReAct, or Hybrid. The output shows which framework was selected and why, then presents your refined prompt structured according to that framework. No framework knowledge required—AUTO handles the decision-making for you.'
+      );
     }
 
     // Helper function to adjust color brightness
