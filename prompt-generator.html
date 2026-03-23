@@ -626,25 +626,28 @@
   </section>
 
   <!-- Feedback Section -->
-  <section class="pt-32 pb-20 bg-white">
+  <section class="pt-16 pb-20 bg-white">
     <div class="max-w-[500px] mx-auto px-6">
       <div class="text-center mb-12">
         <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 leading-[1.1] mb-4">Help Us Improve</h2>
         <p class="text-[16px] text-gray-600">Your feedback shapes how we build. Share your thoughts in seconds.</p>
       </div>
 
-      <form id="feedbackForm" class="space-y-6">
+      <form id="feedbackForm" action="https://formspree.io/f/xyzqvvqz" method="POST" class="space-y-6">
         <div>
           <label class="block text-sm font-bold text-gray-900 mb-2 uppercase tracking-wide">Your Feedback</label>
           <textarea
             id="feedbackText"
+            name="message"
             placeholder="Tell us what you think. What features would help? Any bugs to report?"
             class="w-full px-5 py-4 border-2 border-gray-500 rounded-xl text-gray-700 focus:outline-none focus:border-gray-900 bg-white font-medium resize-none h-24"
+            required
           ></textarea>
         </div>
 
         <button
           type="submit"
+          id="submitBtn"
           class="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-xl transition-colors text-base"
         >
           Send Feedback
@@ -821,6 +824,7 @@
       const successMessage = document.getElementById('successMessage');
       const errorMessage = document.getElementById('errorMessage');
       const form = document.getElementById('feedbackForm');
+      const submitBtn = document.getElementById('submitBtn');
 
       // Hide previous messages
       successMessage.classList.add('hidden');
@@ -833,14 +837,18 @@
       }
 
       try {
-        // Send feedback to Cloudflare Worker
-        const response = await fetch('https://prompt-feedback.danish-us-salam.workers.dev/submit', {
+        // Disable button during submission
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        // Send feedback to FormSpree
+        const response = await fetch('https://formspree.io/f/xyzqvvqz', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            feedback: feedbackText
+            message: feedbackText
           })
         });
 
@@ -850,6 +858,8 @@
 
           // Reset form
           form.reset();
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Feedback';
 
           // Hide success message after 5 seconds
           setTimeout(() => {
@@ -857,10 +867,14 @@
           }, 5000);
         } else {
           errorMessage.classList.remove('hidden');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Feedback';
         }
       } catch (error) {
         console.error('Feedback submission error:', error);
         errorMessage.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Feedback';
       }
     });
   </script>
