@@ -43,6 +43,7 @@ const errorText = document.getElementById('error-text');
 const loadingDiv = document.getElementById('loading');
 const retryButton = document.getElementById('retry-button');
 const restartButton = document.getElementById('restart-button');
+const thankYouMessage = document.getElementById('thank-you-message');
 
 // Event Listeners
 startButton.addEventListener('click', startInterview);
@@ -197,9 +198,17 @@ function startRecording() {
     micButton.style.background = '#f0f4f8';
     micButton.style.color = '#097fe8';
 
-    // Show submit button after recording ends
+    // Show submit button and thank you only after recording
     if (trimmedAnswer) {
-      submitButton.style.display = 'block';
+      if (state.stage === 'first-answer') {
+        // First answer: just show submit button
+        submitButton.style.display = 'block';
+        thankYouMessage.classList.add('hidden');
+      } else if (state.stage === 'second-answer') {
+        // Second answer: show thank you message and get feedback button
+        thankYouMessage.classList.remove('hidden');
+        submitButton.style.display = 'block';
+      }
     }
   };
 
@@ -246,6 +255,7 @@ async function submitAnswer() {
 
       submitButton.textContent = 'Get Feedback';
       submitButton.style.display = 'none'; // Hide button, user needs to record second answer first
+      thankYouMessage.classList.add('hidden'); // Hide thank you message
       recordingState.classList.add('hidden');
       recordingLabel.textContent = 'Recording...';
 
@@ -410,6 +420,7 @@ function reset() {
   recordingState.classList.add('hidden');
   resultsPanel.classList.add('hidden');
   emptyState.classList.remove('hidden');
+  thankYouMessage.classList.add('hidden');
 
   window.speechSynthesis.cancel();
   errorDiv.classList.add('hidden');
