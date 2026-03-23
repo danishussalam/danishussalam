@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prompt Generator – Danish Us-Salam</title>
+  <title>Prompt Generator (Amber & Orange) – Danish Us-Salam</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@
     html { scroll-behavior: smooth; }
 
     .spinner {
-      border: 3px solid rgba(9, 127, 232, 0.1);
+      border: 3px solid rgba(#F59E0B, 0.1);
       border-top: 3px solid #F59E0B;
       border-radius: 50%;
       width: 40px;
@@ -41,7 +41,14 @@
     }
 
     details summary { list-style: none; cursor: pointer; }
-    details summary::-webkit-details-marker { display: none; }
+    details summary::-webkit-details-marker { display: none; }    .theme-primary { color: #F59E0B; }
+    .theme-primary-bg { background-color: #F59E0B; }
+    .theme-primary-border { border-color: #F59E0B; }
+    .theme-primary-btn { background-color: #F59E0B; }
+    .theme-primary-btn:hover { background-color: #FCD34D; opacity: 0.9; }
+    button[onclick*="document.getElementById('tool-section')"] { background-color: #F59E0B !important; }
+    button[onclick*="document.getElementById('tool-section')"]:hover { background-color: #FCD34D !important; }
+
 
     /* Framework Details Modal (Design 2 - Center Modal) */
     .framework-overlay {
@@ -81,7 +88,7 @@
       opacity: 1;
     }
     .framework-panel-header {
-      background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+      background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
       color: white;
       padding: 32px;
       border-radius: 24px 24px 0 0;
