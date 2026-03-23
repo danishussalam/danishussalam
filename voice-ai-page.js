@@ -341,6 +341,7 @@ function displayResults(data) {
   emptyState.classList.add('hidden');
   resultsPanel.classList.remove('hidden');
   micButton.disabled = true;
+  micButton.style.display = 'none'; // Hide mic button after feedback is shown
   submitButton.style.display = 'none';
   questionDisplay.classList.add('hidden');
 }
