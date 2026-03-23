@@ -187,6 +187,9 @@ function startRecording() {
 
     micButton.style.background = '#f0f4f8';
     micButton.style.color = '#097fe8';
+
+    // Show submit button after recording ends
+    submitButton.style.display = 'block';
   };
 
   recognition.start();
@@ -231,6 +234,7 @@ async function submitAnswer() {
       speakText(state.followup);
 
       submitButton.textContent = 'Get Feedback';
+      submitButton.style.display = 'block';
       recordingState.classList.add('hidden');
       recordingLabel.textContent = 'Recording...';
 
@@ -316,7 +320,7 @@ function displayResults(data) {
   emptyState.classList.add('hidden');
   resultsPanel.classList.remove('hidden');
   micButton.disabled = true;
-  submitButton.hidden = true;
+  submitButton.style.display = 'none';
   questionDisplay.classList.add('hidden');
 }
 
@@ -327,12 +331,38 @@ function retryQuestion() {
   state.secondAnswer = null;
   resultsPanel.classList.add('hidden');
   questionDisplay.classList.remove('hidden');
-  submitButton.hidden = false;
+  submitButton.style.display = 'none';
   submitButton.textContent = 'Submit Answer';
   micButton.disabled = false;
 
   // Fetch new question
-  startInterview();
+  showLoading();
+  setTimeout(async () => {
+    try {
+      const response = await fetch(`${WORKER_URL}/question`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          role: state.role,
+          level: state.level,
+          tone: state.tone,
+          sessionHistory: []
+        })
+      });
+
+      if (!response.ok) throw new Error('Failed to fetch question');
+
+      const data = await response.json();
+      state.question = data.question;
+      currentQuestion.textContent = state.question;
+      speakText(state.question);
+
+      hideLoading();
+    } catch (error) {
+      hideLoading();
+      showError('Failed to load next question. Please try again.');
+    }
+  }, 100);
 }
 
 function reset() {
