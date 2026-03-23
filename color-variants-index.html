@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Generator – Color Variants Review</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="max-w-[1400px] mx-auto px-6 py-12">
+    <div class="mb-12 text-center">
+      <h1 class="text-5xl font-black text-gray-900 mb-4">Prompt Generator – Color Variants</h1>
+      <p class="text-xl text-gray-600 mb-8">Review 5 different color themes. Click any variant to view the full page.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+
+      <!-- Variant 1: Blue -->
+      <a href="prompt-generator-v1-blue.html" class="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+        <div class="aspect-square bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full mx-auto mb-3"></div>
+            <p class="text-sm font-bold text-gray-900">Blue & Cyan</p>
+          </div>
+        </div>
+        <div class="p-4 bg-white">
+          <p class="text-xs text-gray-600 text-center mb-3">Primary: #3B82F6</p>
+          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition">View Full</button>
+        </div>
+      </a>
+
+      <!-- Variant 2: Emerald -->
+      <a href="prompt-generator-v2-emerald.html" class="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+        <div class="aspect-square bg-gradient-to-br from-emerald-100 to-emerald-200 flex items-center justify-center">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full mx-auto mb-3"></div>
+            <p class="text-sm font-bold text-gray-900">Emerald Green</p>
+          </div>
+        </div>
+        <div class="p-4 bg-white">
+          <p class="text-xs text-gray-600 text-center mb-3">Primary: #10B981</p>
+          <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition">View Full</button>
+        </div>
+      </a>
+
+      <!-- Variant 3: Purple -->
+      <a href="prompt-generator-v3-purple.html" class="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+        <div class="aspect-square bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full mx-auto mb-3"></div>
+            <p class="text-sm font-bold text-gray-900">Purple & Violet</p>
+          </div>
+        </div>
+        <div class="p-4 bg-white">
+          <p class="text-xs text-gray-600 text-center mb-3">Primary: #8B5CF6</p>
+          <button class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition">View Full</button>
+        </div>
+      </a>
+
+      <!-- Variant 4: Amber -->
+      <a href="prompt-generator-v4-amber.html" class="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+        <div class="aspect-square bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full mx-auto mb-3"></div>
+            <p class="text-sm font-bold text-gray-900">Amber & Orange</p>
+          </div>
+        </div>
+        <div class="p-4 bg-white">
+          <p class="text-xs text-gray-600 text-center mb-3">Primary: #F59E0B</p>
+          <button class="w-full bg-amber-600 hover:bg-amber-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition">View Full</button>
+        </div>
+      </a>
+
+      <!-- Variant 5: Rose -->
+      <a href="prompt-generator-v5-rose.html" class="group relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+        <div class="aspect-square bg-gradient-to-br from-rose-100 to-rose-200 flex items-center justify-center">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-rose-400 to-rose-600 rounded-full mx-auto mb-3"></div>
+            <p class="text-sm font-bold text-gray-900">Rose & Pink</p>
+          </div>
+        </div>
+        <div class="p-4 bg-white">
+          <p class="text-xs text-gray-600 text-center mb-3">Primary: #E11D48</p>
+          <button class="w-full bg-rose-600 hover:bg-rose-700 text-white py-2 px-3 rounded-lg text-sm font-medium transition">View Full</button>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="mt-16 bg-white rounded-xl p-8 border border-gray-200">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">What Changed</h2>
+      <ul class="space-y-2 text-gray-700">
+        <li><strong>Framework panel header gradient:</strong> Changed from green (#86efac → #4ade80) to match each variant's primary color</li>
+        <li><strong>Primary accent color:</strong> Updated throughout buttons, links, modals, and interactive elements</li>
+        <li><strong>All else:</strong> Layout, typography, spacing, and functionality remain identical</li>
+      </ul>
+    </div>
+
+    <div class="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+      <p class="text-sm text-blue-900"><strong>Next step:</strong> Review each variant and let me know which color theme you prefer. I can then update the main prompt-generator.html to that design.</p>
+    </div>
+  </div>
+</body>
+</html>
