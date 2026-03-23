@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prompt Generator – Danish Us-Salam</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'du-dark': '#16213e',
+            'du-blue': '#097fe8',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+
+    .spinner {
+      border: 3px solid rgba(9, 127, 232, 0.1);
+      border-top: 3px solid #097fe8;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+
+    /* Framework Details Modal (Design 2 - Center Modal) */
+    .framework-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color 0.3s ease;
+      pointer-events: none;
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .framework-overlay.active {
+      background-color: rgba(0, 0, 0, 0.5);
+      pointer-events: all;
+    }
+    .framework-panel {
+      position: relative;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 520px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 50;
+    }
+    .framework-overlay.active .framework-panel {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .framework-panel-header {
+      background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+      color: white;
+      padding: 32px;
+      border-radius: 24px 24px 0 0;
+      position: relative;
+      z-index: 10;
+    }
+    .framework-panel-content {
+      padding: 32px;
+    }
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: all 0.2s;
+      color: white;
+    }
+    .close-btn:hover {
+      background: rgba(255,255,255,0.4);
+    }
+
+    /* Tool Color Variant: Amber & Orange */
+    /* Left Container Styling */
+    .grid.md\:grid-cols-2 > div:first-child {
+      border-color: #D97706 !important;
+    }
+    button[onclick*="document.getElementById('tool-section')"] {
+      background-color: #F59E0B !important;
+      color: white !important;
+    }
+    button[onclick*="document.getElementById('tool-section')"]:hover {
+      background-color: #D97706 !important;
+    }
+    
+    /* Right Container - Header */
+    .bg-gray-900 {
+      background-color: #78350F !important;
+    }
+    .bg-gray-900 h3 {
+      color: #FFFFFF !important;
+    }
+    
+    /* Right Container - Output Area */
+    .bg-blue-50 {
+      background-color: #FEF3C7 !important;
+    }
+    
+    /* Right Container - Copy Button */
+    .bg-gray-900.text-white {
+      background-color: #92400E !important;
+    }
+    .bg-gray-900.text-white:hover {
+      background-color: #78350F !important;
+    }
+    
+    /* Framework panel header */
+    .framework-panel-header {
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200" style="height:64px;">
+    <div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
+      <div class="flex items-center gap-10">
+        <span class="font-bold text-[16px] text-gray-900 tracking-tight">Danish Us-Salam</span>
+        <div class="hidden md:flex items-center gap-7 text-[13px] text-gray-500 font-medium">
+          <a href="index.html" class="hover:text-gray-900 transition-colors">Home</a>
+          <a href="publications.html" class="hover:text-gray-900 transition-colors">Publications</a>
+          <a href="wip.html" class="hover:text-gray-900 transition-colors">Work in Progress</a>
+          <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Research Tools</a>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="md:hidden flex items-center gap-4 text-[13px] text-gray-600 font-medium">
+          <a href="index.html" class="hover:text-gray-900 transition-colors">Home</a>
+          <a href="publications.html" class="hover:text-gray-900 transition-colors">Pub</a>
+          <a href="wip.html" class="hover:text-gray-900 transition-colors">WIP</a>
+          <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Tools</a>
+        </div>
+        <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank"
+           class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">
+          Download CV
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    // Highlight active nav link
+    document.addEventListener('DOMContentLoaded', function() {
+      const current = window.location.pathname.split('/').pop() || 'index.html';
+      const navLinks = document.querySelectorAll('nav a[href]');
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === current || (current === '' && href === 'index.html')) {
+          link.style.color = '#000';
+          link.style.fontWeight = '600';
+        }
+      });
+    });
+  </script>
+
+
+  <!-- Framework Guide Section -->
+  <section id="framework-section" class="pt-24 sm:pt-32 pb-8 sm:pb-16 bg-white">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="mb-8 sm:mb-10 text-center px-4 sm:px-0">
+        <h2 class="text-[48px] sm:text-[64px] font-black text-gray-900 tracking-tight mb-6 leading-[1.1]">11 Specialized AI Agents.<br/>One Objective. Perfect Prompts.</h2>
+        <p class="text-[18px] text-gray-600 max-w-[700px] mx-auto leading-relaxed">
+          These agents specialize in prompt engineering frameworks, each designed to refine your inputs into clear, structured prompts.
+        </p>
+      </div>
+
+      <!-- Framework Cards Grid - 4 columns, bold backgrounds, compact -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10 px-4 sm:px-0">
+
+        <!-- ROSE -->
+        <div class="bg-blue-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('ROSE', '#93c5fd', 'ROLE, OBJECTIVE, STYLE, EXEMPLAR', 'Creative writing, storytelling, character development.', 'Tasks needing a clear persona and style example.', 'Use ROSE when you need the AI to adopt a specific role or character, write in a particular style, and provide an exemplar (example) of the desired output. Great for creative content, character development, and style-specific writing.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">01</span>
+            <h4 class="text-[24px] font-bold leading-tight">ROSE</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">ROLE, OBJECTIVE, STYLE, EXEMPLAR</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: Tasks needing a clear persona and style example.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- APE -->
+        <div class="bg-green-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('APE', '#86efac', 'ACTION, PURPOSE, EXPECTATION', 'Goal-oriented tasks with clear deliverables.', 'Action + purpose + success criteria defined upfront.', 'APE emphasizes actionable outcomes. Specify what action you want, why it matters (purpose), and what success looks like. Ideal for project work, process optimization, and deliverable-focused tasks.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">02</span>
+            <h4 class="text-[24px] font-bold leading-tight">APE</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">ACTION, PURPOSE, EXPECTATION</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: Action + purpose + success criteria defined upfront.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- RACE -->
+        <div class="bg-purple-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('RACE', '#d8b4fe', 'ROLE, ACTION, CONTEXT, EXPECTATION', 'Real-world scenarios and constrained problems.', 'Grounded in realistic context and constraints.', 'RACE combines role-playing with contextual constraints. Define a role, the action to take, real-world constraints (context), and expected outcomes. Perfect for problem-solving in constrained environments.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">03</span>
+            <h4 class="text-[24px] font-bold leading-tight">RACE</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">ROLE, ACTION, CONTEXT, EXPECTATION</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: Grounded in realistic context and constraints.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- RISE -->
+        <div class="bg-yellow-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('RISE', '#fcd34d', 'ROLE, INPUT, STEPS, EXPECTATION', 'Step-by-step procedures and tutorials.', 'Structured multi-step, process-oriented tasks.', 'RISE breaks down complex processes into steps. Assign a role, provide input, list sequential steps, and define expectations. Excellent for tutorials, workflows, and procedures that require structured guidance.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">04</span>
+            <h4 class="text-[24px] font-bold leading-tight">RISE</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">ROLE, INPUT, STEPS, EXPECTATION</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: Structured multi-step, process-oriented tasks.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- RTF -->
+        <div class="bg-pink-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('RTF', '#f472b6', 'ROLE, TASK, FORMAT', 'Quick, concise requests and time-sensitive work.', 'Minimal overhead; output format is critical.', 'RTF is the minimalist framework. You need a role, clear task, and desired output format. Use when you want quick results and format matters most (e.g., JSON, CSV, bullet points).')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">05</span>
+            <h4 class="text-[24px] font-bold leading-tight">RTF</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">ROLE, TASK, FORMAT</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: Minimal overhead; output format is critical.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- CO-STAR -->
+        <div class="bg-red-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('CO-STAR', '#fca5a5', 'CONTEXT, OBJECTIVE, STYLE, TONE, AUDIENCE, RESPONSE', 'Communication, presentations, and audience-specific content.', 'Tone, audience, and communication matter.', 'CO-STAR is comprehensive and nuanced. Provide context, state objectives, define style and tone, identify your audience, and specify response format. Perfect for communication-heavy tasks like emails, presentations, and reports.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">06</span>
+            <h4 class="text-[24px] font-bold leading-tight">CO-STAR</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">CONTEXT, OBJECTIVE, STYLE, TONE, AUDIENCE, RESPONSE</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: Tone, audience, and communication matter.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- CoT -->
+        <div class="bg-indigo-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('CHAIN OF THOUGHT', '#a5b4fc', 'CHAIN OF THOUGHT', 'Complex reasoning, analysis, math, and logic problems.', 'Transparent step-by-step thinking.', 'CoT asks the AI to show its working. Request step-by-step reasoning before final answers. Ideal for complex analysis, debugging, math problems, and decisions where you want to understand the logic, not just the result.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">07</span>
+            <h4 class="text-[24px] font-bold leading-tight">COT</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">CHAIN OF THOUGHT</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: Transparent step-by-step thinking.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- CRISPE -->
+        <div class="bg-cyan-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('CRISPE', '#67e8f9', 'CAPACITY, ROLE, INSIGHT, STATEMENT, PERSONALITY, EXPERIMENT', 'Brainstorming, ideation, and creative exploration.', 'Unlocking creative and novel ideas.', 'CRISPE is designed for creativity and ideation. Describe model capacity, assign a role, provide insights, make statements, define personality, and encourage experimentation. Use for brainstorming, creative problem-solving, and novel idea generation.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">08</span>
+            <h4 class="text-[24px] font-bold leading-tight">CRISPE</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">CAPACITY, ROLE, INSIGHT, STATEMENT, PERSONALITY, EXPERIMENT</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: Unlocking creative and novel ideas.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Few-Shot -->
+        <div class="bg-orange-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('FEW-SHOT', '#fed7aa', 'EXAMPLES-BASED PROMPTING', 'Pattern recognition, code generation, style imitation.', 'Teaching by concrete example, not description.', 'Few-Shot uses examples to teach patterns. Provide 2-3 high-quality examples of what you want, then ask for the same pattern applied to new data. Powerful for code generation, formatting, and style matching.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">09</span>
+            <h4 class="text-[24px] font-bold leading-tight">FEW-SHOT</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">EXAMPLES-BASED PROMPTING</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: Teaching by concrete example, not description.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- ReAct -->
+        <div class="bg-teal-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('REACT', '#7dd3c0', 'REASONING + ACTING', 'Multi-step problem-solving with iterative action cycles.', 'Reasoning + action cycles; agent-style tasks.', 'ReAct combines reasoning with action in feedback loops. Reasoning → Action → Observe → Reason again. Use for complex problem-solving where you need the AI to iteratively refine its approach based on results.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">10</span>
+            <h4 class="text-[24px] font-bold leading-tight">REACT</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">REASONING + ACTING</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: Reasoning + action cycles; agent-style tasks.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Hybrid -->
+        <div class="bg-gradient-to-br from-blue-300 to-purple-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('HYBRID', '#dbeafe', 'MULTI-FRAMEWORK COMBINATION', 'Complex tasks needing multiple approaches.', 'High-stakes work; combines 2-4 frameworks intelligently.', 'Hybrid isn\'t a single framework—it\'s a strategic combination of 2-4 frameworks to tackle complex, high-stakes problems. Blend elements of ROSE, CO-STAR, and ReAct for sophisticated outcomes. Use when a single framework feels insufficient.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">11</span>
+            <h4 class="text-[24px] font-bold leading-tight">HYBRID</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">MULTI-FRAMEWORK COMBINATION</p>
+          <p class="text-[13px] text-black font-medium mt-2">Best for: High-stakes work; combines 2-4 frameworks intelligently.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-800 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-7 bg-white">
+    <div class="max-w-[900px] mx-auto px-6 text-center">
+      <h2 class="text-[42px] sm:text-[56px] font-black text-gray-900 leading-[1.1] mb-4">
+        Refine your prompts,<br/>elevate your work
+      </h2>
+      <p class="text-[16px] sm:text-[18px] text-gray-600 mb-8 leading-relaxed">
+        Transform raw ideas into expertly-structured prompts. Work faster, think clearer, achieve better results.
+      </p>
+
+      <!-- Features with Checkmarks -->
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-8 mb-10">
+        <div class="flex items-center gap-2">
+          <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-[18px] font-medium text-gray-700">No Login</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-[18px] font-medium text-gray-700">No Subscription</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-[18px] font-medium text-gray-700">Always Free</span>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <button onclick="document.getElementById('tool-section').scrollIntoView({ behavior: 'smooth' })" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-full text-[16px] transition-colors border-none cursor-pointer">
+        Start Prompting – it's free
+      </button>
+    </div>
+  </section>
+
+  <!-- Tool Section - Design 4: Minimal Clean -->
+  <section id="tool-section" class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Tool Container -->
+      <div class="grid md:grid-cols-2 gap-12">
+
+        <!-- LEFT SIDE: INPUT -->
+        <div class="bg-white rounded-3xl p-10 border-2 border-gray-500 flex flex-col min-h-[500px]">
+          <div class="mb-6">
+            <label class="block text-sm font-bold text-gray-900 mb-4 uppercase tracking-wide">Select Framework</label>
+            <select
+              id="framework-select"
+              class="w-full px-5 py-3 border-2 border-gray-500 rounded-xl text-gray-700 focus:outline-none focus:border-gray-900 bg-white font-medium"
+            >
+              <option value="">-- Choose a framework --</option>
+              <option value="ROSE">ROSE – Role, Objective, Style, Exemplar</option>
+              <option value="APE">APE – Action, Purpose, Expectation</option>
+              <option value="RACE">RACE – Role, Action, Context, Expectation</option>
+              <option value="RISE">RISE – Role, Input, Steps, Expectation</option>
+              <option value="RTF">RTF – Role, Task, Format</option>
+              <option value="COSTAR">CO-STAR – Context, Objective, Style, Tone</option>
+              <option value="COT">Chain of Thought – Reasoning & Logic</option>
+              <option value="CRISPE">CRISPE – Capacity, Role, Insight, Statement</option>
+              <option value="FEWSHOT">Few-Shot – Examples-based Prompting</option>
+              <option value="REACT">ReAct – Reasoning + Acting</option>
+              <option value="HYBRID">Hybrid – Multi-framework Combination</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="block text-sm font-bold text-gray-900 mb-2 uppercase tracking-wide">Your Task or Idea</label>
+            <p class="text-xs text-gray-600 font-semibold mb-3">Be as specific as possible for better results</p>
+          </div>
+
+          <div class="mb-8 flex-grow relative">
+            <textarea
+              id="raw-prompt"
+              placeholder="Write a detailed description of what you want the AI to do..."
+              class="w-full h-full px-5 py-4 pr-20 border-2 border-gray-500 rounded-xl text-gray-700 focus:outline-none focus:border-gray-900 bg-white resize-none"
+            ></textarea>
+            <!-- Voice Input Icons -->
+            <div class="absolute bottom-4 right-4 flex gap-3">
+              <!-- Dictate Button -->
+              <div class="group relative">
+                <button
+                  id="mic-btn"
+                  type="button"
+                  class="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                >
+                  <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-1c-.49 0-.9.36-.98.85C16.52 14.5 14.43 16 12 16s-4.52-1.5-4.93-2.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3.41 3.85 6.01 7.91 6.01s7.42-2.6 7.91-6.01c.09-.6-.39-1.14-1-1.14z"/>
+                  </svg>
+                </button>
+                <span class="absolute bottom-full right-0 mb-2 px-3 py-1 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Dictate</span>
+              </div>
+              <!-- Use Voice Button -->
+              <div class="group relative">
+                <button
+                  id="voice-upload-btn"
+                  type="button"
+                  class="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                >
+                  <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                  </svg>
+                </button>
+                <span class="absolute bottom-full right-0 mb-2 px-3 py-1 bg-black text-white text-sm rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Use Voice</span>
+              </div>
+              <!-- Hidden File Input -->
+              <input
+                id="voice-file-input"
+                type="file"
+                accept="audio/*"
+                class="hidden"
+              />
+            </div>
+          </div>
+
+          <button
+            id="generate-btn"
+            onclick="generatePrompt()"
+            disabled
+            class="w-full bg-gray-900 hover:bg-black text-white font-bold py-5 rounded-xl transition-colors text-base disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Generate Refined Prompt
+          </button>
+
+          <!-- Loading State -->
+          <div id="loading" class="hidden mt-4">
+            <div class="flex flex-col items-center gap-2">
+              <div class="spinner"></div>
+              <p class="text-xs text-gray-600">Refining your prompt...</p>
+            </div>
+          </div>
+
+          <!-- Error State -->
+          <div id="error" class="hidden mt-4">
+            <div class="bg-red-50 border border-red-200 rounded-lg p-3">
+              <p class="text-xs text-red-700"><span id="error-text"></span></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE: OUTPUT -->
+        <div class="bg-white rounded-3xl p-10 border-2 border-gray-500 flex flex-col min-h-[500px]">
+          <div class="mb-6">
+            <div class="bg-gray-900 text-white rounded-xl p-6">
+              <p class="text-xs font-bold opacity-70 mb-2 uppercase tracking-wide">Generated Output</p>
+              <h3 class="text-xl font-bold">Your Refined Prompt</h3>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="block text-sm font-bold text-gray-900 mb-2 uppercase tracking-wide">System Prompt</label>
+          </div>
+
+          <div class="mb-8 flex-grow">
+            <div class="bg-blue-50 p-5 rounded-xl border-2 border-gray-500 h-full text-sm text-gray-700 leading-relaxed">
+              <p
+                id="result-prompt"
+                class="text-gray-400 font-mono whitespace-pre-wrap"
+              >Generated system prompt will appear here...</p>
+            </div>
+          </div>
+
+          <button
+            id="copy-btn"
+            onclick="copyResult()"
+            class="w-full bg-gray-900 hover:bg-black text-white font-bold py-5 rounded-xl transition-colors text-base"
+          >
+            📋 Copy to Clipboard
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-12 sm:py-24 bg-white">
+    <div class="max-w-[800px] mx-auto px-6">
+      <div class="mb-12 sm:mb-16 text-center px-4 sm:px-0">
+        <p class="text-[12px] font-semibold text-blue-600 uppercase tracking-widest mb-4">Support</p>
+        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 tracking-tight leading-[1.1]">Your questions, answered</h2>
+      </div>
+
+      <div class="space-y-4">
+
+        <!-- Q1 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">What is prompt engineering?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              Prompt engineering is the practice of crafting clear, structured inputs to get better outputs from AI tools. A well-built prompt gives the AI a role, context, and constraints — reducing vague or off-target responses.
+            </p>
+          </div>
+        </details>
+
+        <!-- Q2 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">How is this different from just typing into ChatGPT directly?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              Unstructured prompts produce inconsistent results. Frameworks add discipline: they ensure your prompt includes the right role, context, and output format. The result is more focused, useful AI responses — first time, every time.
+            </p>
+          </div>
+        </details>
+
+        <!-- Q3 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">Which framework should I choose?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              It depends on your task. Use <span class="font-semibold">CO-STAR</span> when tone and audience matter. Use <span class="font-semibold">Few-Shot</span> when you want outputs that match a specific style. Use <span class="font-semibold">CoT</span> for logical or step-by-step reasoning. The <span class="font-semibold">Hybrid</span> option intelligently combines frameworks — a good default if you're unsure.
+            </p>
+          </div>
+        </details>
+
+        <!-- Q4 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">Can I use the outputs for professional or published work?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              Yes, with care. This tool generates prompt templates — what you do with the AI outputs is your responsibility. Always review AI responses critically and follow any relevant policies at your organisation.
+            </p>
+          </div>
+        </details>
+
+        <!-- Q5 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">Is my input stored or shared?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              Your input is sent to an AI model to generate a refined prompt. We track only a simple counter of total uses — we do not log, store, or analyse the content of what you enter. Avoid entering sensitive or confidential information.
+            </p>
+          </div>
+        </details>
+
+        <!-- Q6 -->
+        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">What if the output doesn't look right?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            <p>
+              Refine your input. Be more specific about your goal, audience, or constraints, then regenerate. You can also switch frameworks — some work better for certain tasks. The Hybrid option is a good fallback if a single framework isn't working.
+            </p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Framework Details Panel -->
+  <div class="framework-overlay" id="frameworkOverlay">
+    <div class="framework-panel" id="frameworkPanel">
+      <div class="framework-panel-header">
+        <h2 class="text-[24px] font-bold text-gray-900" id="panelTitle">Framework</h2>
+        <button class="close-btn" id="closePanelBtn">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="framework-panel-content" id="panelContent">
+        <!-- Content populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#0b1628] border-t border-white/8 py-8">
+    <div class="max-w-[1200px] mx-auto px-6 flex flex-wrap justify-between items-center gap-4">
+      <div>
+        <p class="text-[13px] font-semibold text-white mb-0.5">Danish Us-Salam</p>
+        <p class="text-[11px] text-white/35">Economist · Central Bank of Ireland · Dublin, Ireland</p>
+      </div>
+      <div class="flex items-center gap-5 text-[12px] text-white/35">
+        <a href="mailto:ussalamd@tcd.ie" class="hover:text-white/65 transition-colors">ussalamd@tcd.ie</a>
+        <a href="https://www.linkedin.com/in/danishussalam/" target="_blank" class="hover:text-white/65 transition-colors">LinkedIn</a>
+        <a href="https://twitter.com/DanishUsSalam2" target="_blank" class="hover:text-white/65 transition-colors">Twitter</a>
+        <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank" class="hover:text-white/65 transition-colors">CV</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Framework Panel Management
+    function openFrameworkPanel(name, bgColor, components, description, bestFor, details) {
+      const overlay = document.getElementById('frameworkOverlay');
+      const panel = document.getElementById('frameworkPanel');
+      const title = document.getElementById('panelTitle');
+      const content = document.getElementById('panelContent');
+
+      // Set header background color based on framework
+      const headerStyle = `
+        background: linear-gradient(135deg, ${bgColor} 0%, ${adjustBrightness(bgColor, -20)} 100%);
+        color: #111827;
+      `;
+
+      // Populate panel content
+      title.textContent = name;
+      title.parentElement.setAttribute('style', headerStyle);
+
+      content.innerHTML = `
+        <div class="space-y-6">
+          <div>
+            <p class="text-[12px] font-semibold text-gray-500 uppercase tracking-widest mb-2">Components</p>
+            <p class="text-[16px] font-bold text-gray-900">${components}</p>
+          </div>
+
+          <div class="pt-4 border-t border-gray-200">
+            <h3 class="text-[14px] font-semibold text-gray-900 mb-2">What It Does</h3>
+            <p class="text-[14px] text-gray-700 leading-relaxed">${description}</p>
+          </div>
+
+          <div class="pt-4 border-t border-gray-200">
+            <h3 class="text-[14px] font-semibold text-gray-900 mb-2">Best For</h3>
+            <p class="text-[14px] text-gray-700 leading-relaxed">${bestFor}</p>
+          </div>
+
+          <div class="pt-4 border-t border-gray-200">
+            <h3 class="text-[14px] font-semibold text-gray-900 mb-2">When to Use</h3>
+            <p class="text-[14px] text-gray-700 leading-relaxed">${details}</p>
+          </div>
+        </div>
+      `;
+
+      // Show overlay and panel with animation
+      overlay.classList.add('active');
+      panel.classList.add('active');
+    }
+
+    function closeFrameworkPanel() {
+      const overlay = document.getElementById('frameworkOverlay');
+      const panel = document.getElementById('frameworkPanel');
+
+      overlay.classList.remove('active');
+      panel.classList.remove('active');
+    }
+
+    // Helper function to adjust color brightness
+    function adjustBrightness(color, percent) {
+      // Simple hex color adjustment
+      let usePound = false;
+      if (color[0] === "#") {
+        color = color.slice(1);
+        usePound = true;
+      }
+      const num = parseInt(color, 16);
+      const amt = Math.round(2.55 * percent);
+      const R = (num >> 16) + amt;
+      const G = (num >> 8 & 0x00FF) + amt;
+      const B = (num & 0x0000FF) + amt;
+      return (usePound ? "#" : "") + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+        (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+        (B < 255 ? B < 1 ? 0 : B : 255))
+        .toString(16).slice(1);
+    }
+
+    // Close panel when clicking overlay
+    document.getElementById('frameworkOverlay').addEventListener('click', closeFrameworkPanel);
+
+    // Close panel when clicking close button
+    document.getElementById('closePanelBtn').addEventListener('click', closeFrameworkPanel);
+
+    // Prevent panel close when clicking inside panel
+    document.getElementById('frameworkPanel').addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+
+    // Close panel on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeFrameworkPanel();
+      }
+    });
+  </script>
+
+  <script src="prompt-generator-page.js"></script>
+</body>
+</html>
