@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prompt Generator (Emerald Green) – Danish Us-Salam</title>
+  <title>Prompt Generator – Danish Us-Salam</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
         extend: {
           colors: {
             'du-dark': '#16213e',
-            'du-blue': '#10B981',
+            'du-blue': '#097fe8',
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -28,8 +28,8 @@
     html { scroll-behavior: smooth; }
 
     .spinner {
-      border: 3px solid rgba(#10B981, 0.1);
-      border-top: 3px solid #10B981;
+      border: 3px solid rgba(9, 127, 232, 0.1);
+      border-top: 3px solid #097fe8;
       border-radius: 50%;
       width: 40px;
       height: 40px;
@@ -41,14 +41,7 @@
     }
 
     details summary { list-style: none; cursor: pointer; }
-    details summary::-webkit-details-marker { display: none; }    .theme-primary { color: #10B981; }
-    .theme-primary-bg { background-color: #10B981; }
-    .theme-primary-border { border-color: #10B981; }
-    .theme-primary-btn { background-color: #10B981; }
-    .theme-primary-btn:hover { background-color: #6EE7B7; opacity: 0.9; }
-    button[onclick*="document.getElementById('tool-section')"] { background-color: #10B981 !important; }
-    button[onclick*="document.getElementById('tool-section')"]:hover { background-color: #6EE7B7 !important; }
-
+    details summary::-webkit-details-marker { display: none; }
 
     /* Framework Details Modal (Design 2 - Center Modal) */
     .framework-overlay {
@@ -117,6 +110,25 @@
     }
     .close-btn:hover {
       background: rgba(255,255,255,0.4);
+    }
+
+    /* Color Variant: Emerald Green */
+    button[onclick*="document.getElementById('tool-section')"] {
+      background-color: #10B981 !important;
+    }
+    button[onclick*="document.getElementById('tool-section')"]:hover {
+      background-color: #047857 !important;
+    }
+    .spinner {
+      border: 3px solid #D1FAE5;
+      border-top: 3px solid #10B981;
+    }
+    a:hover {
+      color: #10B981 !important;
+    }
+    input:focus, textarea:focus {
+      border-color: #10B981 !important;
+      outline-color: #10B981 !important;
     }
   </style>
 </head>
