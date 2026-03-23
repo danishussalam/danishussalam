@@ -139,8 +139,12 @@ function toggleRecording() {
   }
 }
 
+// Global transcript variable for persistence
+let currentTranscript = '';
+
 function startRecording() {
   state.isRecording = true;
+  currentTranscript = '';
   recordingState.classList.remove('hidden');
   micButton.style.background = '#ef4444';
   micButton.style.color = 'white';
@@ -153,8 +157,6 @@ function startRecording() {
     timer.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
   }, 1000);
 
-  let fullTranscript = '';
-
   recognition.onstart = () => {
     recordingLabel.textContent = 'Recording...';
   };
@@ -162,15 +164,14 @@ function startRecording() {
   recognition.onresult = (event) => {
     for (let i = event.resultIndex; i < event.results.length; i++) {
       if (event.results[i].isFinal) {
-        fullTranscript += event.results[i][0].transcript + ' ';
+        currentTranscript += event.results[i][0].transcript + ' ';
       }
     }
   };
 
   recognition.onerror = (event) => {
-    showError(`Recording error: ${event.error}`);
-    stopRecording();
     clearInterval(timerInterval);
+    showError(`Recording error: ${event.error}`);
   };
 
   recognition.onend = () => {
@@ -179,17 +180,20 @@ function startRecording() {
     clearInterval(timerInterval);
 
     // Store the answer based on current stage
+    const trimmedAnswer = currentTranscript.trim();
     if (state.stage === 'first-answer') {
-      state.firstAnswer = fullTranscript.trim();
+      state.firstAnswer = trimmedAnswer;
     } else if (state.stage === 'second-answer') {
-      state.secondAnswer = fullTranscript.trim();
+      state.secondAnswer = trimmedAnswer;
     }
 
     micButton.style.background = '#f0f4f8';
     micButton.style.color = '#097fe8';
 
     // Show submit button after recording ends
-    submitButton.style.display = 'block';
+    if (trimmedAnswer) {
+      submitButton.style.display = 'block';
+    }
   };
 
   recognition.start();
