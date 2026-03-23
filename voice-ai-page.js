@@ -22,6 +22,7 @@ let state = {
   isRecording: false,
   stage: 'setup', // setup, first-answer, second-answer, results
   sessionId: null,
+  questionNumber: 1,
 };
 
 // DOM Elements
@@ -99,7 +100,7 @@ async function startInterview() {
 
     const data = await response.json();
     state.question = data.question;
-    currentQuestion.textContent = state.question;
+    currentQuestion.textContent = `Question ${state.questionNumber}: ${state.question}`;
 
     // Speak question (optional, using browser TTS)
     speakText(state.question);
@@ -251,7 +252,7 @@ async function submitAnswer() {
 
       const data = await response.json();
       state.followup = data.followup;
-      currentQuestion.textContent = state.followup;
+      currentQuestion.textContent = `Question ${state.questionNumber} (Follow-up): ${state.followup}`;
       speakText(state.followup);
 
       submitButton.textContent = 'Get Feedback';
@@ -352,6 +353,7 @@ function retryQuestion() {
   state.stage = 'first-answer';
   state.firstAnswer = null;
   state.secondAnswer = null;
+  state.questionNumber++; // Increment question number for next question
   resultsPanel.classList.add('hidden');
   questionDisplay.classList.remove('hidden');
   submitButton.style.display = 'none';
