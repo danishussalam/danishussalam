@@ -180,6 +180,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const FRAMEWORK_META = {
+  'AUTO': {
+    label: 'Auto – AI selects the best framework',
+    desc: 'Analyses your prompt and selects the most suitable framework automatically.'
+  },
   'ROSE': {
     label: 'Role, Objective, Style, Exemplar',
     desc: 'Specify a clear role for the AI, define your objective precisely, set the style or tone, and include a worked example.'

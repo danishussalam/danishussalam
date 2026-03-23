@@ -171,6 +171,21 @@
       <!-- Framework Cards Grid - 4 columns, bold backgrounds, compact -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10 px-4 sm:px-0">
 
+        <!-- AUTO -->
+        <div class="bg-gradient-to-br from-slate-700 to-slate-900 rounded-2xl p-6 text-white hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('AUTO', '#475569', 'ASSESS, DECIDE, REFINE', 'Any task � when you're unsure which framework fits.', 'Not sure where to start. Let the AI choose for you.', 'AUTO reads your prompt, diagnoses the task type, selects the most suitable framework from all 11 options, applies it, and tells you which one it used and why. No framework knowledge needed.')">
+          <div class="flex items-start gap-3 mb-5">
+            <span class="text-[32px] font-black opacity-30 leading-none flex-shrink-0">01</span>
+            <h4 class="text-[24px] font-bold leading-tight">AUTO</h4>
+          </div>
+          <p class="text-[13px] font-semibold opacity-90 mb-3">ASSESS, DECIDE, REFINE</p>
+          <p class="text-[13px] font-medium mt-2">Best for: Not sure where to start. Let the AI choose for you.</p>
+          <div class="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </div>
+        </div>
+
         <!-- ROSE -->
         <div class="bg-blue-300 rounded-2xl p-6 text-gray-900 hover:shadow-2xl transition-all transform hover:scale-105 cursor-pointer group relative" onclick="openFrameworkPanel('ROSE', '#93c5fd', 'ROLE, OBJECTIVE, STYLE, EXEMPLAR', 'Creative writing, storytelling, character development.', 'Tasks needing a clear persona and style example.', 'Use ROSE when you need the AI to adopt a specific role or character, write in a particular style, and provide an exemplar (example) of the desired output. Great for creative content, character development, and style-specific writing.')">
           <div class="flex items-start gap-3 mb-5">
@@ -394,6 +409,7 @@
               class="w-full px-5 py-3 border-2 border-gray-500 rounded-xl text-gray-700 focus:outline-none focus:border-gray-900 bg-white font-medium"
             >
               <option value="">-- Choose a framework --</option>
+              <option value="AUTO">AUTO – Let AI choose the best framework</option>
               <option value="ROSE">ROSE – Role, Objective, Style, Exemplar</option>
               <option value="APE">APE – Action, Purpose, Expectation</option>
               <option value="RACE">RACE – Role, Action, Context, Expectation</option>
