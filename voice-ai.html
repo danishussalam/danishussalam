@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoiceAI – Interview Simulation Platform for Accountants</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+  </style>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'du-dark': '#16213e',
+            'du-blue':  '#097fe8',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white">
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200" style="height:64px;">
+    <div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
+      <a href="/" class="font-bold text-[16px] text-gray-900 tracking-tight">Danish Us-Salam</a>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex gap-7">
+        <a href="/" class="text-[13px] text-gray-500 font-medium hover:text-gray-900 transition-colors" data-link="home">Home</a>
+        <a href="/publications.html" class="text-[13px] text-gray-500 font-medium hover:text-gray-900 transition-colors" data-link="publications">Publications</a>
+        <a href="/wip.html" class="text-[13px] text-gray-500 font-medium hover:text-gray-900 transition-colors" data-link="wip">Work in Progress</a>
+        <a href="/research-tools.html" class="text-[13px] text-gray-500 font-medium hover:text-gray-900 transition-colors" data-link="tools">Research Tools</a>
+        <a href="/voice-ai.html" class="text-[13px] text-gray-900 font-semibold" data-link="voice-ai" style="color: #000; fontWeight: '600';">VoiceAI</a>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden flex gap-4">
+        <a href="/" class="text-[13px] text-gray-600 font-medium hover:text-gray-900 transition-colors" data-link="home">Home</a>
+        <a href="/publications.html" class="text-[13px] text-gray-600 font-medium hover:text-gray-900 transition-colors" data-link="publications">Pub</a>
+        <a href="/wip.html" class="text-[13px] text-gray-600 font-medium hover:text-gray-900 transition-colors" data-link="wip">WIP</a>
+        <a href="/research-tools.html" class="text-[13px] text-gray-600 font-medium hover:text-gray-900 transition-colors" data-link="tools">Tools</a>
+      </div>
+
+      <a href="https://danishussalam.github.io/cv.pdf" target="_blank" class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">CV</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="bg-du-dark pt-32 sm:pt-40 pb-16 sm:pb-24 text-white">
+    <div class="max-w-[900px] mx-auto px-6 text-center">
+      <div class="inline-block mb-6 px-4 py-2 bg-white/10 rounded-full border border-white/20">
+        <span class="text-[12px] font-semibold uppercase tracking-widest">For Accounting Professionals</span>
+      </div>
+
+      <h1 class="text-[42px] sm:text-[56px] font-black leading-[1.1] mb-6 text-white">
+        Practice Interviews That Feel Real
+      </h1>
+
+      <p class="text-[16px] sm:text-[18px] text-white/70 leading-relaxed mb-10 max-w-[700px] mx-auto">
+        Accountants don't fail interviews because they lack technical knowledge. They fail because they cannot communicate effectively under pressure. VoiceAI fixes that.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+        <button onclick="document.getElementById('simulator').scrollIntoView({behavior: 'smooth'})" class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-lg font-semibold text-[16px] transition-colors">
+          Start Free Interview
+        </button>
+        <button class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-[16px] hover:bg-white/10 transition-colors">
+          Watch Demo
+        </button>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-8 justify-center text-center text-[14px] text-white/60">
+        <div>✓ Voice-First</div>
+        <div>✓ AI Evaluation</div>
+        <div>✓ Accounting-Focused</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Problem Section -->
+  <section class="bg-white py-12 sm:py-24">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-12">
+        <p class="text-[12px] font-bold text-gray-900 uppercase tracking-wider mb-3">THE PROBLEM</p>
+        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 leading-[1.1] tracking-tight">
+          Technical skills aren't enough
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Without VoiceAI -->
+        <div class="border-2 border-red-200 rounded-3xl p-8 bg-white">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-[12px] font-semibold text-red-600 bg-red-50 border border-red-300 px-3 py-1 rounded-full">WITHOUT VOICEAI</span>
+          </div>
+          <h3 class="text-[24px] font-bold text-gray-900 mb-6">Traditional Approaches</h3>
+          <ul class="space-y-4 text-[15px] text-gray-700">
+            <li class="flex gap-3">
+              <span class="text-red-600 mt-1">✗</span>
+              <span>Generic interview prep tools focused on English proficiency, not accounting communication</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-red-600 mt-1">✗</span>
+              <span>No real-time feedback — you finish practicing without knowing what to fix</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-red-600 mt-1">✗</span>
+              <span>Text-based practice feels artificial, not like a real interview</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-red-600 mt-1">✗</span>
+              <span>No accounting context — scenarios don't match real financial roles</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- With VoiceAI -->
+        <div class="border-2 border-emerald-500 rounded-3xl p-8 bg-white">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="text-[12px] font-semibold bg-emerald-500 text-white border border-emerald-500 px-3 py-1 rounded-full">WITH VOICEAI</span>
+          </div>
+          <h3 class="text-[24px] font-bold text-gray-900 mb-6">Built for Accountants</h3>
+          <ul class="space-y-4 text-[15px] text-gray-700">
+            <li class="flex gap-3">
+              <span class="text-emerald-600 mt-1">✓</span>
+              <span>Accounting-specific scenarios: Staff roles, Controllers, FP&A, tax specialists</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-emerald-600 mt-1">✓</span>
+              <span>Real-time feedback after each answer — know exactly what to improve</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-emerald-600 mt-1">✓</span>
+              <span>Voice simulation feels like sitting across from a real interviewer</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-emerald-600 mt-1">✓</span>
+              <span>Evaluate clarity, structure, tone, and technical depth — not just language</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="bg-[#f6f5f4] py-12 sm:py-24">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-12">
+        <p class="text-[12px] font-bold text-gray-900 uppercase tracking-wider mb-3">HOW IT WORKS</p>
+        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 leading-[1.1] tracking-tight">
+          4 steps to interview confidence
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Step 1 -->
+        <div class="bg-white rounded-2xl p-6 border border-gray-200 relative">
+          <div class="text-[56px] font-black text-gray-200 opacity-30 mb-4">1</div>
+          <h3 class="text-[20px] font-bold text-gray-900 mb-3">Setup Interview</h3>
+          <p class="text-[14px] text-gray-600 leading-relaxed">
+            Choose your role, seniority level, and interviewer tone — then start.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-white rounded-2xl p-6 border border-gray-200 relative">
+          <div class="text-[56px] font-black text-gray-200 opacity-30 mb-4">2</div>
+          <h3 class="text-[20px] font-bold text-gray-900 mb-3">Answer Questions</h3>
+          <p class="text-[14px] text-gray-600 leading-relaxed">
+            AI asks a realistic interview question. Record your voice answer.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-white rounded-2xl p-6 border border-gray-200 relative">
+          <div class="text-[56px] font-black text-gray-200 opacity-30 mb-4">3</div>
+          <h3 class="text-[20px] font-bold text-gray-900 mb-3">Get Follow-Up</h3>
+          <p class="text-[14px] text-gray-600 leading-relaxed">
+            AI asks one targeted follow-up to probe deeper or clarify weak spots.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-white rounded-2xl p-6 border border-gray-200 relative">
+          <div class="text-[56px] font-black text-gray-200 opacity-30 mb-4">4</div>
+          <h3 class="text-[20px] font-bold text-gray-900 mb-3">Get Feedback</h3>
+          <p class="text-[14px] text-gray-600 leading-relaxed">
+            See your scores, weaknesses, and improved answer you should have given.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interview Simulator -->
+  <section id="simulator" class="bg-white py-12 sm:py-24">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <p class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3">INTERACTIVE TOOL</p>
+        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 leading-[1.1] tracking-tight mb-3">
+          Try your first interview
+        </h2>
+        <p class="text-[16px] text-gray-600 max-w-[600px] mx-auto">
+          Select your role and start practicing now. Real AI, real feedback, real improvement.
+        </p>
+      </div>
+
+      <!-- Tool Grid -->
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Left Panel: Setup & Record -->
+        <div class="bg-white rounded-3xl p-8 border-2 border-gray-500 flex flex-col">
+          <div class="mb-6">
+            <h3 class="text-[18px] font-bold text-gray-900 mb-4">Interview Setup</h3>
+
+            <!-- Role Select -->
+            <div class="mb-5">
+              <label class="text-xs font-bold uppercase tracking-wide text-gray-700 block mb-2">Role</label>
+              <select id="role-select" class="w-full px-5 py-3 border-2 border-gray-500 rounded-xl text-gray-700 focus:outline-none focus:border-gray-900 bg-white font-medium">
+                <option value="">Select a role...</option>
+                <option value="staff-accountant">Staff Accountant</option>
+                <option value="senior-accountant">Senior Accountant</option>
+                <option value="controller">Controller</option>
+                <option value="fpa">FP&A</option>
+                <option value="ar-ap">AR/AP Specialist</option>
+                <option value="tax">Tax Specialist</option>
+              </select>
+            </div>
+
+            <!-- Level Select -->
+            <div class="mb-5">
+              <label class="text-xs font-bold uppercase tracking-wide text-gray-700 block mb-2">Level</label>
+              <select id="level-select" class="w-full px-5 py-3 border-2 border-gray-500 rounded-xl text-gray-700 focus:outline-none focus:border-gray-900 bg-white font-medium">
+                <option value="">Select a level...</option>
+                <option value="junior">Junior</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="senior">Senior</option>
+              </select>
+            </div>
+
+            <!-- Tone Select -->
+            <div class="mb-6">
+              <label class="text-xs font-bold uppercase tracking-wide text-gray-700 block mb-2">Interviewer Tone</label>
+              <select id="tone-select" class="w-full px-5 py-3 border-2 border-gray-500 rounded-xl text-gray-700 focus:outline-none focus:border-gray-900 bg-white font-medium">
+                <option value="">Select a tone...</option>
+                <option value="friendly">Friendly</option>
+                <option value="neutral">Neutral</option>
+                <option value="strict">Strict</option>
+              </select>
+            </div>
+
+            <div class="h-px bg-gray-200 my-6"></div>
+          </div>
+
+          <!-- Question Display -->
+          <div id="question-display" class="mb-8 hidden">
+            <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-3">Question</p>
+            <p id="current-question" class="text-[16px] text-gray-900 leading-relaxed font-medium bg-blue-50 p-4 rounded-xl border border-blue-200"></p>
+          </div>
+
+          <!-- Recording State -->
+          <div id="recording-state" class="mb-8 hidden">
+            <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-3" id="recording-label">Recording...</p>
+            <div class="flex items-center justify-center py-6">
+              <div id="timer" class="text-[32px] font-bold text-gray-900">0:00</div>
+            </div>
+          </div>
+
+          <!-- Mic Button -->
+          <div class="flex justify-center mb-6">
+            <button id="mic-button" class="p-4 rounded-full transition-colors" style="background: #f0f4f8; color: #097fe8;" disabled>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Start/Submit Button -->
+          <button id="start-button" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-5 rounded-xl transition-colors text-base disabled:opacity-50 disabled:cursor-not-allowed">
+            Start Interview
+          </button>
+          <button id="submit-button" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-5 rounded-xl transition-colors text-base hidden disabled:opacity-50 disabled:cursor-not-allowed">
+            Submit Answer
+          </button>
+        </div>
+
+        <!-- Right Panel: Results -->
+        <div class="bg-white rounded-3xl p-8 border-2 border-gray-500 flex flex-col">
+          <div id="results-panel" class="hidden">
+            <!-- Header -->
+            <div class="bg-gray-900 text-white rounded-xl p-6 mb-6">
+              <p class="text-xs font-bold opacity-70 uppercase tracking-wide mb-2">Your Results</p>
+              <h3 class="text-xl font-bold">Feedback</h3>
+            </div>
+
+            <!-- Score Grid -->
+            <div id="scores-grid" class="grid grid-cols-2 gap-3 mb-6">
+              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <p class="text-xs text-gray-600 font-semibold mb-1">Clarity</p>
+                <p id="score-clarity" class="text-2xl font-bold text-gray-900">7/10</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <p class="text-xs text-gray-600 font-semibold mb-1">Structure</p>
+                <p id="score-structure" class="text-2xl font-bold text-gray-900">6/10</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <p class="text-xs text-gray-600 font-semibold mb-1">Professional Tone</p>
+                <p id="score-tone" class="text-2xl font-bold text-gray-900">8/10</p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <p class="text-xs text-gray-600 font-semibold mb-1">Technical Depth</p>
+                <p id="score-technical" class="text-2xl font-bold text-gray-900">7/10</p>
+              </div>
+            </div>
+
+            <!-- Overall Score -->
+            <div class="bg-du-blue text-white rounded-xl p-6 mb-6 text-center">
+              <p class="text-xs font-bold opacity-70 uppercase tracking-wide mb-2">Overall</p>
+              <p id="score-overall" class="text-[48px] font-black">7/10</p>
+            </div>
+
+            <!-- Weaknesses -->
+            <div class="mb-6">
+              <p class="text-xs font-bold uppercase tracking-wide text-gray-700 mb-3">Areas to Improve</p>
+              <ul id="weaknesses-list" class="space-y-2 text-sm text-gray-700">
+                <li class="flex gap-2"><span class="text-red-600">•</span><span>Vague on specific project metrics</span></li>
+                <li class="flex gap-2"><span class="text-red-600">•</span><span>Lacked confidence in technical response</span></li>
+                <li class="flex gap-2"><span class="text-red-600">•</span><span>Could have used more professional terminology</span></li>
+              </ul>
+            </div>
+
+            <!-- Improved Answer -->
+            <div class="mb-6">
+              <p class="text-xs font-bold uppercase tracking-wide text-gray-700 mb-3">Better Answer (How You Should Have Answered)</p>
+              <div class="bg-blue-50 p-5 rounded-xl border-2 border-gray-500 text-sm text-gray-700 leading-relaxed font-mono whitespace-pre-wrap" id="improved-answer" style="max-height: 180px; overflow-y: auto;">
+                "In my current role, I process 150-200 journal entries monthly. I verify that debits equal credits, reconcile to supporting documents, and ensure proper account coding. For example, last month I caught a $50K misallocation in the AR aging report—I traced it back to an incorrectly coded invoice, corrected it, and implemented a new control to flag similar issues. I'm now responsible for training junior staff on our procedures."
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-3">
+              <button id="retry-button" class="flex-1 bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-xl transition-colors">
+                Try Another Question
+              </button>
+              <button id="restart-button" class="flex-1 border-2 border-gray-300 text-gray-900 hover:bg-gray-50 font-bold py-4 rounded-xl transition-colors">
+                Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Empty State -->
+          <div id="empty-state" class="flex flex-col items-center justify-center h-full py-12 text-center">
+            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+            </div>
+            <p class="text-gray-600 text-sm">Start an interview to see your feedback</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error Display -->
+      <div id="error" class="hidden bg-red-50 border-2 border-red-200 text-red-700 px-6 py-4 rounded-xl mt-6">
+        <p id="error-text"></p>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loading" class="hidden fixed inset-0 bg-black/30 flex items-center justify-center z-40">
+        <div class="bg-white rounded-2xl p-8 text-center">
+          <div class="w-12 h-12 border-3 border-du-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p class="text-gray-900 font-medium">Processing your response...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interview Roles Section -->
+  <section class="bg-du-dark py-12 sm:py-24">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-[42px] sm:text-[56px] font-black text-white leading-[1.1] tracking-tight mb-3">
+          Built for every accounting role
+        </h2>
+        <p class="text-[16px] text-white/70">Practice for the exact position you're interviewing for</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
+          <h3 class="text-[18px] font-bold text-white mb-2">Staff Accountant</h3>
+          <p class="text-[13px] text-white/70">Entry-level accounting operations, AP/AR, reconciliation</p>
+        </div>
+        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
+          <h3 class="text-[18px] font-bold text-white mb-2">Senior Accountant</h3>
+          <p class="text-[13px] text-white/70">Financial close, GAAP, audit prep, team management</p>
+        </div>
+        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
+          <h3 class="text-[18px] font-bold text-white mb-2">Controller</h3>
+          <p class="text-[13px] text-white/70">Strategic planning, compliance, internal controls</p>
+        </div>
+        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
+          <h3 class="text-[18px] font-bold text-white mb-2">FP&A</h3>
+          <p class="text-[13px] text-white/70">Budgeting, forecasting, variance analysis, storytelling</p>
+        </div>
+        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
+          <h3 class="text-[18px] font-bold text-white mb-2">AR/AP Specialist</h3>
+          <p class="text-[13px] text-white/70">Billing, collections, vendor management, automation</p>
+        </div>
+        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
+          <h3 class="text-[18px] font-bold text-white mb-2">Tax Specialist</h3>
+          <p class="text-[13px] text-white/70">Tax strategy, compliance, regulations, documentation</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scoring System Section -->
+  <section class="bg-white py-12 sm:py-24">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 leading-[1.1] tracking-tight mb-3">
+          Know exactly where you stand
+        </h2>
+        <p class="text-[16px] text-gray-600">Five metrics that matter in real interviews</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8">
+        <div class="flex gap-4">
+          <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-lg font-bold text-du-blue">C</span>
+          </div>
+          <div>
+            <h3 class="text-[18px] font-bold text-gray-900 mb-1">Clarity</h3>
+            <p class="text-[14px] text-gray-600">How well you articulate your ideas. Are you concise or rambling?</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-lg font-bold text-emerald-600">S</span>
+          </div>
+          <div>
+            <h3 class="text-[18px] font-bold text-gray-900 mb-1">Structure</h3>
+            <p class="text-[14px] text-gray-600">Do you have a logical flow? Beginning, middle, end?</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-lg font-bold text-purple-600">T</span>
+          </div>
+          <div>
+            <h3 class="text-[18px] font-bold text-gray-900 mb-1">Professional Tone</h3>
+            <p class="text-[14px] text-gray-600">Do you sound confident and knowledgeable?</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center flex-shrink-0">
+            <span class="text-lg font-bold text-orange-600">D</span>
+          </div>
+          <div>
+            <h3 class="text-[18px] font-bold text-gray-900 mb-1">Technical Depth</h3>
+            <p class="text-[14px] text-gray-600">Do you show mastery of accounting concepts?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-4 max-w-4xl mx-auto">
+        <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center flex-shrink-0">
+          <span class="text-lg font-bold text-red-600">K</span>
+        </div>
+        <div>
+          <h3 class="text-[18px] font-bold text-gray-900 mb-1">Confidence</h3>
+          <p class="text-[14px] text-gray-600">Do you pause, filler words, or hesitation suggest uncertainty?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="bg-[#f6f5f4] py-12 sm:py-24">
+    <div class="max-w-[800px] mx-auto px-6">
+      <div class="text-center mb-12">
+        <p class="text-[18px] font-semibold text-du-blue uppercase tracking-widest mb-3">Support</p>
+        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 tracking-tight leading-[1.1]">
+          Frequently Asked Questions
+        </h2>
+      </div>
+
+      <div class="space-y-3">
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">What is VoiceAI?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            VoiceAI is a voice-first interview simulator built specifically for accounting professionals. It uses AI to ask realistic questions, listen to your voice answers, and provide instant feedback on how well you communicate — clarity, structure, tone, technical depth, and confidence.
+          </div>
+        </details>
+
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">How does the voice recording work?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            We use your browser's built-in speech recognition (free, no app needed). Click the mic button, speak your answer, and it automatically converts to text. Your answer goes to our AI for evaluation. No recordings are stored — only the text and feedback.
+          </div>
+        </details>
+
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">How is my answer scored?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            Our AI evaluates your response across five dimensions: Clarity (how easy it is to follow), Structure (logical flow), Professional Tone (confidence and vocabulary), Technical Depth (accounting knowledge), and Confidence (absence of hesitation). Each gets a 0–10 score, and we average them for your overall score.
+          </div>
+        </details>
+
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">Is my voice/data private?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            Yes. Your audio is never recorded or stored. We only see the text transcript that your browser converts from your voice. Your interview answers and feedback are kept private — we don't sell data or train models on your content.
+          </div>
+        </details>
+
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">Is VoiceAI free?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            VoiceAI is in beta and currently free for all users. We're gathering feedback to improve the product. Future pricing (if any) will be announced clearly — no surprise charges.
+          </div>
+        </details>
+
+        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
+          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
+            <span class="text-[16px] font-medium text-gray-900">How is VoiceAI different from other interview tools?</span>
+            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
+            Most interview prep tools focus on language learning or offer generic feedback. VoiceAI is built by accounting professionals, for accountants. We ask role-specific questions, evaluate communication skills (not English proficiency), and give actionable feedback in seconds. No scripts, no templates—just you, a real interviewer, and honest feedback.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Banner -->
+  <section class="bg-du-dark py-12 sm:py-20">
+    <div class="max-w-[800px] mx-auto px-6 text-center">
+      <h2 class="text-[42px] sm:text-[56px] font-black text-white leading-[1.1] mb-4">
+        Start your first interview today
+      </h2>
+      <p class="text-[16px] text-white/70 mb-8">
+        No sign-up required. Free. Confidential. Get real feedback in 5 minutes.
+      </p>
+      <button onclick="document.getElementById('simulator').scrollIntoView({behavior: 'smooth'})" class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-lg font-semibold text-[16px] transition-colors">
+        Get Started
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#0b1628] border-t border-white/8 py-8">
+    <div class="max-w-[1200px] mx-auto px-6 flex flex-wrap justify-between items-center gap-4">
+      <div>
+        <p class="text-[13px] font-semibold text-white">Danish Us-Salam</p>
+        <p class="text-[11px] text-white/35">Economist & Researcher</p>
+      </div>
+      <div class="flex items-center gap-5 text-[12px]">
+        <a href="mailto:danish.ussalam@centralbank.ie" class="text-white/35 hover:text-white/65 transition-colors">Email</a>
+        <a href="https://linkedin.com/in/danishussalam" target="_blank" class="text-white/35 hover:text-white/65 transition-colors">LinkedIn</a>
+        <a href="https://twitter.com/danishussalam" target="_blank" class="text-white/35 hover:text-white/65 transition-colors">Twitter</a>
+        <a href="https://danishussalam.github.io/cv.pdf" target="_blank" class="text-white/35 hover:text-white/65 transition-colors">CV</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="voice-ai-page.js"></script>
+</body>
+</html>
