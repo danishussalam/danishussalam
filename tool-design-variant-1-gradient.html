@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research Tools – Variant 1: Gradient Cards</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200" style="height:64px;">
+    <div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
+      <div class="flex items-center gap-10">
+        <span class="font-bold text-[16px] text-gray-900 tracking-tight">Danish Us-Salam</span>
+        <div class="hidden md:flex items-center gap-7 text-[13px] text-gray-500 font-medium">
+          <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Home</a>
+          <a href="#" class="hover:text-gray-900 transition-colors">Publications</a>
+          <a href="#" class="hover:text-gray-900 transition-colors">Work in Progress</a>
+          <a href="#" class="text-gray-900 font-semibold">Research Tools</a>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="md:hidden flex items-center gap-4 text-[13px] text-gray-600 font-medium">
+          <a href="#" class="hover:text-gray-900 transition-colors">Home</a>
+          <a href="#" class="hover:text-gray-900 transition-colors">Pub</a>
+          <a href="#" class="hover:text-gray-900 transition-colors">WIP</a>
+          <a href="#" class="text-gray-900 font-semibold">Tools</a>
+        </div>
+        <a href="#" target="_blank" class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">Download CV</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 pt-24 pb-16">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <h1 class="text-[56px] md:text-[72px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
+        Research Tools
+      </h1>
+      <p class="text-[17px] text-white/70 max-w-[640px] leading-[1.75]">
+        AI-powered tools to accelerate your research workflow
+      </p>
+    </div>
+  </section>
+
+  <!-- Tools Grid - Variant 1: Gradient Cards with Icons -->
+  <section class="py-24 bg-[#f9fafb]">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- Tool 1: Search Term Generator -->
+        <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 p-8 text-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-white/30 transition-colors">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+            <div class="inline-block px-3 py-1 bg-white/20 rounded-full text-[11px] font-semibold mb-4">LIVE</div>
+            <h3 class="text-[22px] font-bold mb-3">Search Term Generator</h3>
+            <p class="text-white/80 text-[15px] leading-relaxed mb-6">
+              Convert research questions into optimised Boolean search strings for Google Scholar, Scopus, and Web of Science.
+            </p>
+            <a href="#" class="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all">
+              Launch Tool
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tool 2: Survey Design Assistant -->
+        <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 p-8 text-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-white/30 transition-colors">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+              </svg>
+            </div>
+            <div class="inline-block px-3 py-1 bg-white/20 rounded-full text-[11px] font-semibold mb-4">IN DEVELOPMENT</div>
+            <h3 class="text-[22px] font-bold mb-3">Survey Design Assistant</h3>
+            <p class="text-white/80 text-[15px] leading-relaxed mb-6">
+              Review survey questions, generate validated variants, estimate cognitive load, and detect order effects.
+            </p>
+            <a href="#" class="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all">
+              Launch Tool
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tool 3: Prompt Generator -->
+        <div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-400 to-pink-600 p-8 text-white shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-10 bg-white transition-opacity duration-300"></div>
+          <div class="relative z-10">
+            <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-white/30 transition-colors">
+              <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <div class="inline-block px-3 py-1 bg-white/20 rounded-full text-[11px] font-semibold mb-4">LIVE</div>
+            <h3 class="text-[22px] font-bold mb-3">Prompt Generator</h3>
+            <p class="text-white/80 text-[15px] leading-relaxed mb-6">
+              Transform raw tasks into structured AI prompts using 11 evidence-based frameworks including ROSE, CO-STAR, and ReAct.
+            </p>
+            <a href="#" class="inline-flex items-center gap-2 text-white font-semibold hover:gap-3 transition-all">
+              Launch Tool
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#0b1628] border-t border-white/8 py-8">
+    <div class="max-w-[1200px] mx-auto px-6 flex flex-wrap justify-between items-center gap-4">
+      <div>
+        <p class="text-[13px] font-semibold text-white mb-0.5">Danish Us-Salam</p>
+        <p class="text-[11px] text-white/35">Economist · Central Bank of Ireland · Dublin, Ireland</p>
+      </div>
+      <div class="flex items-center gap-5 text-[12px] text-white/35">
+        <a href="mailto:ussalamd@tcd.ie" class="hover:text-white/65 transition-colors">ussalamd@tcd.ie</a>
+        <a href="#" target="_blank" class="hover:text-white/65 transition-colors">LinkedIn</a>
+        <a href="#" target="_blank" class="hover:text-white/65 transition-colors">Twitter</a>
+        <a href="#" target="_blank" class="hover:text-white/65 transition-colors">CV</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
