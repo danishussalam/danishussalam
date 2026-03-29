@@ -312,6 +312,7 @@ function displayResults(data) {
   document.getElementById('score-structure').textContent = `${scores.structure || 6}/10`;
   document.getElementById('score-tone').textContent = `${scores.tone || 8}/10`;
   document.getElementById('score-technical').textContent = `${scores.technical || 7}/10`;
+  document.getElementById('score-confidence').textContent = `${scores.confidence || 6}/10`;
 
   const overall = Math.round(
     (
