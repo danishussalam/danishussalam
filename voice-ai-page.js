@@ -23,6 +23,7 @@ let state = {
   stage: 'setup', // setup, first-answer, second-answer, results
   sessionId: null,
   questionNumber: 1,
+  currentFeedback: null, // Store feedback for download
 };
 
 // DOM Elements
@@ -52,6 +53,7 @@ submitButton.addEventListener('click', submitAnswer);
 micButton.addEventListener('click', toggleRecording);
 retryButton.addEventListener('click', retryQuestion);
 restartButton.addEventListener('click', reset);
+document.getElementById('download-button').addEventListener('click', downloadTranscript);
 
 // Enable/disable start button based on selections
 [roleSelect, levelSelect, toneSelect].forEach(select => {
@@ -306,6 +308,13 @@ async function submitAnswer() {
 }
 
 function displayResults(data) {
+  // Store feedback for download
+  state.currentFeedback = {
+    scores: data.scores || {},
+    weaknesses: data.weaknesses || [],
+    idealAnswer: data.idealAnswer || ''
+  };
+
   // Populate scores
   const scores = data.scores || {};
   document.getElementById('score-clarity').textContent = `${scores.clarity || 7}/10`;
@@ -447,6 +456,82 @@ function showError(message) {
 
 function clearError() {
   errorDiv.classList.add('hidden');
+}
+
+function downloadTranscript() {
+  if (!state.currentFeedback) {
+    showError('No transcript available to download.');
+    return;
+  }
+
+  const timestamp = new Date().toLocaleString();
+  const scores = state.currentFeedback.scores;
+  const overall = Math.round(
+    (
+      (scores.clarity || 0) +
+      (scores.structure || 0) +
+      (scores.tone || 0) +
+      (scores.technical || 0) +
+      (scores.confidence || 0)
+    ) / 5
+  );
+
+  const transcript = `VOICEAI INTERVIEW TRANSCRIPT
+========================================
+
+Interview Details
+-----------------
+Role: ${state.role}
+Level: ${state.level}
+Interviewer Tone: ${state.tone}
+Date & Time: ${timestamp}
+
+Interview Transcript
+--------------------
+
+QUESTION 1:
+${state.question}
+
+YOUR ANSWER 1:
+${state.firstAnswer || '(No answer recorded)'}
+
+FOLLOW-UP QUESTION:
+${state.followup}
+
+YOUR ANSWER 2:
+${state.secondAnswer || '(No answer recorded)'}
+
+Feedback & Scores
+-----------------
+
+Overall Score: ${overall}/10
+
+Individual Scores:
+- Clarity: ${scores.clarity || 0}/10
+- Structure: ${scores.structure || 0}/10
+- Professional Tone: ${scores.tone || 0}/10
+- Technical Depth: ${scores.technical || 0}/10
+- Confidence: ${scores.confidence || 0}/10
+
+Areas to Improve:
+${state.currentFeedback.weaknesses.map((w, i) => `${i + 1}. ${w}`).join('\n')}
+
+Ideal Answer (How You Should Have Responded):
+${state.currentFeedback.idealAnswer}
+
+========================================
+End of Transcript`;
+
+  // Create blob and download
+  const blob = new Blob([transcript], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `voiceai-interview-${new Date().toISOString().split('T')[0]}.txt`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }
 
 // Keyboard shortcut (Ctrl+Enter to submit)
