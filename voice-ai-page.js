@@ -53,7 +53,12 @@ submitButton.addEventListener('click', submitAnswer);
 micButton.addEventListener('click', toggleRecording);
 retryButton.addEventListener('click', retryQuestion);
 restartButton.addEventListener('click', reset);
-document.getElementById('download-button').addEventListener('click', downloadTranscript);
+
+// Download button - wait for DOM if needed
+const downloadBtn = document.getElementById('download-button');
+if (downloadBtn) {
+  downloadBtn.addEventListener('click', downloadTranscript);
+}
 
 // Enable/disable start button based on selections
 [roleSelect, levelSelect, toneSelect].forEach(select => {
