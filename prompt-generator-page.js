@@ -30,23 +30,22 @@ function optimizeForDevice() {
 
 // Speech-to-text setup
 //
-// Android Chrome ignores continuous:true and hard-stops after ~5s of silence.
-// Strategy: treat each recognition session as a short burst. When onend fires
-// without the user stopping, restart immediately. To prevent duplicates across
-// sessions, we snapshot the textarea value at the START of each session
-// (textAtSessionStart). Within a session we only process result indices we
-// haven't seen yet (lastResultIndex). The textarea is always written as:
-//   textAtSessionStart + newly_finalised_chunks_this_session
-// This is immune to cross-session re-indexing because each session has its own
-// baseline snapshot.
+// Architecture:
+// - committedText: all finalised speech, persists across auto-restarts
+// - interimText: what the user is currently saying (shown live, not saved)
+// - continuous:true is set but Android Chrome still auto-stops on silence,
+//   so onend auto-restarts unless stoppedByUser is true
+// - The textarea always shows: committedText + " " + interimText
+// - On each onresult, we process ONLY event.resultIndex onwards (the delta)
+//   to avoid reprocessing results from earlier in the same session
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = null;
 let isListening = false;
 let stoppedByUser = false;
 let isRestarting = false;
-let textAtSessionStart = ''; // textarea content captured when each session begins
-let lastResultIndex = 0;     // highest result index processed in current session
+let committedText = '';  // finalised text, survives across restarts
+let interimText = '';    // live in-progress text, replaced each interim event
 
 function setMicActive(active) {
   const micBtn = document.getElementById('mic-btn');
@@ -60,11 +59,17 @@ function setMicActive(active) {
   }
 }
 
-function startSession() {
-  // Snapshot current textarea value as the baseline for this session
+function renderTextarea() {
   const textarea = document.getElementById('raw-prompt');
-  textAtSessionStart = textarea ? textarea.value.trimEnd() : '';
-  lastResultIndex = 0;
+  if (!textarea) return;
+  const base = committedText.trimEnd();
+  const live = interimText.trim();
+  textarea.value = base + (base && live ? ' ' : '') + live + (live ? ' ' : (base ? ' ' : ''));
+  updateGenerateButtonState();
+}
+
+function startSession() {
+  interimText = '';
   try {
     recognition.start();
   } catch (e) {
@@ -76,10 +81,8 @@ function startSession() {
 
 if (SpeechRecognition) {
   recognition = new SpeechRecognition();
-  // Do NOT use continuous:true — it is unreliable on Android Chrome.
-  // We manage continuity ourselves via onend restarts.
-  recognition.continuous = false;
-  recognition.interimResults = false;
+  recognition.continuous = true;    // keeps session alive on desktop; mobile ignores this
+  recognition.interimResults = true; // show words in real time as the user speaks
   recognition.lang = 'en-US';
 
   recognition.onstart = () => {
@@ -90,8 +93,9 @@ if (SpeechRecognition) {
 
   recognition.onend = () => {
     isListening = false;
+    interimText = ''; // clear any dangling interim on session end
     if (!stoppedByUser) {
-      // Auto-stop from silence — restart immediately
+      // Mobile auto-stopped due to silence — restart transparently
       isRestarting = true;
       setTimeout(() => {
         if (!stoppedByUser) {
@@ -103,32 +107,31 @@ if (SpeechRecognition) {
       }, 100);
     } else {
       isRestarting = false;
+      renderTextarea(); // flush final state without interim
       setMicActive(false);
     }
   };
 
   recognition.onresult = (event) => {
-    const textarea = document.getElementById('raw-prompt');
-    // Process only result indices we haven't handled yet this session
-    let newChunks = '';
-    for (let i = lastResultIndex; i < event.results.length; i++) {
+    // Process only the NEW results since the last event (event.resultIndex is the delta start)
+    let newFinal = '';
+    let newInterim = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const transcript = event.results[i][0].transcript;
       if (event.results[i].isFinal) {
-        const chunk = event.results[i][0].transcript.trim();
-        if (chunk) {
-          newChunks += (newChunks ? ' ' : '') + chunk;
-        }
-        lastResultIndex = i + 1;
+        newFinal += transcript;
+      } else {
+        newInterim += transcript;
       }
     }
-    if (newChunks) {
-      // Rebuild from baseline to guarantee no cross-session duplicates
-      const base = textAtSessionStart;
-      textarea.value = (base ? base + ' ' : '') + newChunks + ' ';
-      // Update baseline so the NEXT result in this session appends correctly
-      textAtSessionStart = textarea.value.trimEnd();
-      lastResultIndex = 0; // indices reset relative to updated baseline
+    if (newFinal) {
+      committedText = committedText.trimEnd() + (committedText.trim() ? ' ' : '') + newFinal.trim();
+      interimText = ''; // final result clears the interim for that phrase
     }
-    updateGenerateButtonState();
+    if (newInterim) {
+      interimText = newInterim; // replace (not append) — interim is always the current live phrase
+    }
+    renderTextarea();
   };
 
   recognition.onerror = (event) => {
@@ -147,11 +150,15 @@ function toggleMicrophone() {
 
   if (isListening || isRestarting) {
     stoppedByUser = true;
-    try { recognition.stop(); } catch (e) { /* already stopped */ }
     isRestarting = false;
+    try { recognition.stop(); } catch (e) { /* already stopped */ }
     setMicActive(false);
   } else {
+    // Fresh dictation — reset all state but preserve existing textarea content
     stoppedByUser = false;
+    const textarea = document.getElementById('raw-prompt');
+    committedText = textarea ? textarea.value.trimEnd() : '';
+    interimText = '';
     startSession();
   }
 }
