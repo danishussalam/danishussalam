@@ -67,6 +67,13 @@ if (downloadBtn) {
   downloadBtn.addEventListener('click', downloadTranscript);
 }
 
+// Stop speech on page unload or tab switch
+window.addEventListener('beforeunload', () => window.speechSynthesis.cancel());
+window.addEventListener('pagehide', () => window.speechSynthesis.cancel());
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') window.speechSynthesis.cancel();
+});
+
 // Pre-load voices as soon as browser has them ready (Chrome loads async)
 let voicesReady = false;
 function ensureVoicesLoaded() {
