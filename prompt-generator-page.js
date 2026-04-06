@@ -29,18 +29,24 @@ function optimizeForDevice() {
 }
 
 // Speech-to-text setup
-let isListening = false;
-let stoppedByUser = false;
-// committedText holds everything finalised across all recognition sessions.
-// Each time the browser auto-restarts (mobile silence cut-off), a fresh session
-// starts at index 0 — so we never append from event.results directly to the
-// textarea. Instead, we rebuild the textarea value as committedText + current
-// session finals, preventing cross-session duplicates.
-let committedText = '';
-let sessionFinalText = ''; // finals accumulated within the current session only
-let isRestarting = false;  // guard to prevent overlapping restart attempts
+//
+// Android Chrome ignores continuous:true and hard-stops after ~5s of silence.
+// Strategy: treat each recognition session as a short burst. When onend fires
+// without the user stopping, restart immediately. To prevent duplicates across
+// sessions, we snapshot the textarea value at the START of each session
+// (textAtSessionStart). Within a session we only process result indices we
+// haven't seen yet (lastResultIndex). The textarea is always written as:
+//   textAtSessionStart + newly_finalised_chunks_this_session
+// This is immune to cross-session re-indexing because each session has its own
+// baseline snapshot.
+
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = null;
+let isListening = false;
+let stoppedByUser = false;
+let isRestarting = false;
+let textAtSessionStart = ''; // textarea content captured when each session begins
+let lastResultIndex = 0;     // highest result index processed in current session
 
 function setMicActive(active) {
   const micBtn = document.getElementById('mic-btn');
@@ -54,42 +60,47 @@ function setMicActive(active) {
   }
 }
 
+function startSession() {
+  // Snapshot current textarea value as the baseline for this session
+  const textarea = document.getElementById('raw-prompt');
+  textAtSessionStart = textarea ? textarea.value.trimEnd() : '';
+  lastResultIndex = 0;
+  try {
+    recognition.start();
+  } catch (e) {
+    console.error('recognition.start() failed:', e);
+    isRestarting = false;
+    setMicActive(false);
+  }
+}
+
 if (SpeechRecognition) {
   recognition = new SpeechRecognition();
-  recognition.continuous = true;
-  recognition.interimResults = false; // final results only — avoids interim duplicates on mobile
+  // Do NOT use continuous:true — it is unreliable on Android Chrome.
+  // We manage continuity ourselves via onend restarts.
+  recognition.continuous = false;
+  recognition.interimResults = false;
   recognition.lang = 'en-US';
 
   recognition.onstart = () => {
     isListening = true;
     isRestarting = false;
-    sessionFinalText = ''; // fresh slate for this session's finals
     setMicActive(true);
   };
 
   recognition.onend = () => {
     isListening = false;
-    // Commit whatever this session captured before restarting
-    committedText += sessionFinalText;
-    sessionFinalText = '';
-
-    if (!stoppedByUser && !isRestarting) {
-      // Browser cut off due to silence — restart transparently
+    if (!stoppedByUser) {
+      // Auto-stop from silence — restart immediately
       isRestarting = true;
       setTimeout(() => {
         if (!stoppedByUser) {
-          try {
-            recognition.start();
-          } catch (e) {
-            // Restart failed — treat as user stop
-            isRestarting = false;
-            setMicActive(false);
-          }
+          startSession();
         } else {
           isRestarting = false;
           setMicActive(false);
         }
-      }, 150); // small delay lets the old session fully close before reopening
+      }, 100);
     } else {
       isRestarting = false;
       setMicActive(false);
@@ -98,18 +109,25 @@ if (SpeechRecognition) {
 
   recognition.onresult = (event) => {
     const textarea = document.getElementById('raw-prompt');
-    // Collect only final results from this session
-    for (let i = 0; i < event.results.length; i++) {
+    // Process only result indices we haven't handled yet this session
+    let newChunks = '';
+    for (let i = lastResultIndex; i < event.results.length; i++) {
       if (event.results[i].isFinal) {
         const chunk = event.results[i][0].transcript.trim();
         if (chunk) {
-          sessionFinalText += (sessionFinalText ? ' ' : '') + chunk;
+          newChunks += (newChunks ? ' ' : '') + chunk;
         }
+        lastResultIndex = i + 1;
       }
     }
-    // Write committed text + this session's finals to textarea
-    const combined = (committedText + (committedText && sessionFinalText ? ' ' : '') + sessionFinalText).trim();
-    textarea.value = combined ? combined + ' ' : '';
+    if (newChunks) {
+      // Rebuild from baseline to guarantee no cross-session duplicates
+      const base = textAtSessionStart;
+      textarea.value = (base ? base + ' ' : '') + newChunks + ' ';
+      // Update baseline so the NEXT result in this session appends correctly
+      textAtSessionStart = textarea.value.trimEnd();
+      lastResultIndex = 0; // indices reset relative to updated baseline
+    }
     updateGenerateButtonState();
   };
 
@@ -127,22 +145,14 @@ function toggleMicrophone() {
     return;
   }
 
-  try {
-    if (isListening || isRestarting) {
-      stoppedByUser = true;
-      recognition.stop();
-    } else {
-      // Fresh dictation session — reset all state
-      stoppedByUser = false;
-      committedText = '';
-      sessionFinalText = '';
-      const textarea = document.getElementById('raw-prompt');
-      textarea.focus();
-      recognition.start();
-    }
-  } catch (error) {
-    console.error('Microphone error:', error);
-    showError('Microphone access error. Please check your browser permissions.');
+  if (isListening || isRestarting) {
+    stoppedByUser = true;
+    try { recognition.stop(); } catch (e) { /* already stopped */ }
+    isRestarting = false;
+    setMicActive(false);
+  } else {
+    stoppedByUser = false;
+    startSession();
   }
 }
 
