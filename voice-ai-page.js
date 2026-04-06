@@ -67,6 +67,16 @@ if (downloadBtn) {
   downloadBtn.addEventListener('click', downloadTranscript);
 }
 
+// Pre-load voices as soon as browser has them ready (Chrome loads async)
+let voicesReady = false;
+function ensureVoicesLoaded() {
+  if (window.speechSynthesis.getVoices().length > 0) {
+    voicesReady = true;
+  }
+}
+ensureVoicesLoaded();
+window.speechSynthesis.onvoiceschanged = () => { voicesReady = true; };
+
 // Enable/disable start button based on selections
 [roleSelect, levelSelect, toneSelect, genderSelect].forEach(select => {
   select.addEventListener('change', updateStartButtonState);
@@ -86,8 +96,8 @@ async function startInterview() {
   state.sessionId = Math.random().toString(36).substring(2, 9);
   state.firstAnswer = null;
   state.secondAnswer = null;
-  // Lock voice for the entire session
-  state.selectedVoice = pickVoiceForGender(state.gender);
+  // Lock voice now if voices already loaded, otherwise speakText will lock it on first call
+  state.selectedVoice = voicesReady ? pickVoiceForGender(state.gender) : null;
 
   // Disable controls
   roleSelect.disabled = true;
@@ -171,12 +181,31 @@ function pickVoiceForGender(gender) {
 function speakText(text) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  if (state.selectedVoice) utterance.voice = state.selectedVoice;
-  utterance.rate = 0.92;
-  utterance.pitch = 0.95;
-  utterance.volume = 1;
-  setTimeout(() => window.speechSynthesis.speak(utterance), 100);
+
+  function doSpeak() {
+    // Re-lock voice if not yet set (voices may have loaded after interview started)
+    if (!state.selectedVoice && state.gender) {
+      state.selectedVoice = pickVoiceForGender(state.gender);
+    }
+    const utterance = new SpeechSynthesisUtterance(text);
+    if (state.selectedVoice) utterance.voice = state.selectedVoice;
+    utterance.rate = 0.92;
+    utterance.pitch = 0.95;
+    utterance.volume = 1;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  if (voicesReady) {
+    setTimeout(doSpeak, 100);
+  } else {
+    // Wait for voices to load then speak
+    const original = window.speechSynthesis.onvoiceschanged;
+    window.speechSynthesis.onvoiceschanged = () => {
+      voicesReady = true;
+      window.speechSynthesis.onvoiceschanged = original;
+      setTimeout(doSpeak, 100);
+    };
+  }
 }
 
 function toggleRecording() {
