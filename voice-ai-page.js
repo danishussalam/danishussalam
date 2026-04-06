@@ -47,6 +47,7 @@ const emptyState = document.getElementById('empty-state');
 const errorDiv = document.getElementById('error');
 const errorText = document.getElementById('error-text');
 const loadingDiv = document.getElementById('loading');
+const stopSpeechButton = document.getElementById('stop-speech-button');
 const retryButton = document.getElementById('retry-button');
 const restartButton = document.getElementById('restart-button');
 const thankYouMessage = document.getElementById('thank-you-message');
@@ -54,7 +55,11 @@ const thankYouMessage = document.getElementById('thank-you-message');
 // Event Listeners
 startButton.addEventListener('click', startInterview);
 submitButton.addEventListener('click', submitAnswer);
-micButton.addEventListener('click', toggleRecording);
+micButton.addEventListener('click', () => {
+  window.speechSynthesis.cancel(); // stop narration if playing
+  toggleRecording();
+});
+stopSpeechButton.addEventListener('click', () => window.speechSynthesis.cancel());
 repeatButton.addEventListener('click', () => {
   if (state.question) speakText(state.stage === 'second-answer' ? state.followup : state.question);
 });
@@ -142,6 +147,7 @@ async function startInterview() {
 
     // Show submit button and mic
     micButton.disabled = false;
+    stopSpeechButton.disabled = false;
     repeatButton.disabled = false;
     submitButton.style.display = 'block';
     submitButton.disabled = false;
@@ -439,6 +445,8 @@ function displayResults(data) {
   resultsPanel.classList.remove('hidden');
   micButton.disabled = true;
   micButton.style.display = 'none'; // Hide mic button after feedback is shown
+  stopSpeechButton.disabled = true;
+  stopSpeechButton.style.display = 'none';
   repeatButton.disabled = true;
   repeatButton.style.display = 'none';
   submitButton.style.display = 'none';
@@ -458,6 +466,8 @@ function retryQuestion() {
   submitButton.textContent = 'Submit Answer';
   micButton.disabled = false;
   micButton.style.display = 'flex'; // Show mic button again for next question
+  stopSpeechButton.disabled = false;
+  stopSpeechButton.style.display = 'flex';
   repeatButton.disabled = false;
   repeatButton.style.display = 'flex';
 
@@ -523,6 +533,7 @@ function reset() {
   micButton.disabled = true;
   micButton.style.background = '#f0f4f8';
   micButton.style.color = '#097fe8';
+  stopSpeechButton.disabled = true;
   repeatButton.disabled = true;
 
   questionDisplay.classList.add('hidden');

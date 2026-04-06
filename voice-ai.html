@@ -707,9 +707,9 @@
             <p class="thank-you-msg">Thank you! Click below for your feedback</p>
           </div>
 
-          <!-- Mic + Repeat Buttons -->
+          <!-- Mic + Stop + Repeat Buttons -->
           <div style="display:flex; justify-content:center; align-items:center; gap:16px; margin-bottom:24px;">
-            <button id="mic-button" class="mic-button" disabled>
+            <button id="mic-button" class="mic-button" disabled title="Record answer">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 1a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
                 <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
@@ -717,7 +717,12 @@
                 <line x1="8" y1="23" x2="16" y2="23"></line>
               </svg>
             </button>
-            <button id="repeat-button" class="mic-button" disabled title="Repeat question">
+            <button id="stop-speech-button" class="mic-button" disabled title="Stop interviewer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+              </svg>
+            </button>
+            <button id="repeat-button" class="mic-button" disabled title="Replay question">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="17 1 21 5 17 9"></polyline>
                 <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
