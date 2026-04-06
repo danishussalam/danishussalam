@@ -428,14 +428,13 @@ function displayResults(data) {
   document.getElementById('score-technical').textContent = `${scores.technical || 7}/10`;
   document.getElementById('score-confidence').textContent = `${scores.confidence || 6}/10`;
 
+  // Weighted: Technical 40%, Clarity 15%, Structure 15%, Tone 15%, Confidence 15%
   const overall = Math.round(
-    (
-      (scores.clarity || 7) +
-      (scores.structure || 6) +
-      (scores.tone || 8) +
-      (scores.technical || 7) +
-      (scores.confidence || 6)
-    ) / 5
+    (scores.technical || 0) * 0.40 +
+    (scores.clarity   || 0) * 0.15 +
+    (scores.structure || 0) * 0.15 +
+    (scores.tone      || 0) * 0.15 +
+    (scores.confidence|| 0) * 0.15
   );
   document.getElementById('score-overall').textContent = `${overall}/10`;
 
@@ -585,14 +584,13 @@ function downloadTranscript() {
 
   const timestamp = new Date().toLocaleString();
   const scores = state.currentFeedback.scores;
+  // Weighted: Technical 40%, Clarity 15%, Structure 15%, Tone 15%, Confidence 15%
   const overall = Math.round(
-    (
-      (scores.clarity || 0) +
-      (scores.structure || 0) +
-      (scores.tone || 0) +
-      (scores.technical || 0) +
-      (scores.confidence || 0)
-    ) / 5
+    (scores.technical || 0) * 0.40 +
+    (scores.clarity   || 0) * 0.15 +
+    (scores.structure || 0) * 0.15 +
+    (scores.tone      || 0) * 0.15 +
+    (scores.confidence|| 0) * 0.15
   );
 
   const transcript = `VOICEAI INTERVIEW TRANSCRIPT
