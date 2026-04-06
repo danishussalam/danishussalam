@@ -335,6 +335,13 @@ function stopRecording() {
 }
 
 async function submitAnswer() {
+  // If still recording, stop first then let the answer save via recognition.onend
+  if (state.isRecording) {
+    stopRecording();
+    // recognition.onend will store the answer — give it a tick to complete
+    await new Promise(resolve => setTimeout(resolve, 200));
+  }
+
   if (!state.firstAnswer && state.stage === 'first-answer') {
     showError('Please record an answer first.');
     return;
@@ -624,11 +631,39 @@ Feedback & Scores
 Overall Score: ${overall}/10
 
 Individual Scores:
-- Clarity: ${scores.clarity || 0}/10
-- Structure: ${scores.structure || 0}/10
-- Professional Tone: ${scores.tone || 0}/10
-- Technical Depth: ${scores.technical || 0}/10
-- Confidence: ${scores.confidence || 0}/10
+- Technical Depth:    ${scores.technical || 0}/10  (weight: 40%)
+- Clarity:            ${scores.clarity || 0}/10  (weight: 15%)
+- Structure:          ${scores.structure || 0}/10  (weight: 15%)
+- Professional Tone:  ${scores.tone || 0}/10  (weight: 15%)
+- Confidence:         ${scores.confidence || 0}/10  (weight: 15%)
+
+How Scores Are Calculated
+--------------------------
+The overall score is a weighted average, not a simple mean. Technical Depth
+carries the most weight (40%) because this is an accounting interview — knowing
+your subject is the primary indicator of job readiness.
+
+  Overall = (Technical × 0.40) + (Clarity × 0.15) + (Structure × 0.15)
+           + (Tone × 0.15) + (Confidence × 0.15)
+
+Score Definitions:
+  Technical Depth  — Accounting knowledge demonstrated: specific facts, examples,
+                     and metrics. "I don't know" = 0. Vague definition only = 3–4.
+  Clarity          — Whether every sentence directly addresses the question asked,
+                     without drifting off-topic. Not about fluency — about focus.
+  Structure        — Logical organisation: clear opening, development, conclusion.
+                     Requires substance — a well-spoken "I don't know" still = 0.
+  Professional Tone — Professional vocabulary and phrasing appropriate to the role.
+  Confidence       — Directness and certainty; absence of filler words and hesitation.
+
+Score Ranges:
+  0–2   Did not attempt to answer
+  3–4   Very weak — major gaps in knowledge or communication
+  5–6   Below expectations for the role
+  6–7   Adequate — meets minimum bar but needs improvement
+  7–8   Good — solid answer with minor areas to improve
+  8–9   Strong — above expectations
+  9–10  Excellent — ready for the role
 
 Areas to Improve:
 ${state.currentFeedback.weaknesses.map((w, i) => `${i + 1}. ${w}`).join('\n')}
