@@ -124,14 +124,24 @@ async function startInterview() {
   }
 }
 
-function speakText(text) {
-  if ('speechSynthesis' in window) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 1;
-    utterance.pitch = 1;
-    utterance.volume = 1;
-    window.speechSynthesis.cancel(); // Cancel any ongoing speech
-    window.speechSynthesis.speak(utterance);
+async function speakText(text) {
+  try {
+    const response = await fetch(WORKER_URL + '/speak', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    });
+
+    if (!response.ok) throw new Error('TTS fetch failed');
+
+    const audioBlob = await response.blob();
+    const audioUrl = URL.createObjectURL(audioBlob);
+    const audio = new Audio(audioUrl);
+    audio.play();
+    audio.onended = () => URL.revokeObjectURL(audioUrl);
+  } catch (err) {
+    // Silent fallback — interview continues without voice
+    console.warn('ElevenLabs TTS failed:', err.message);
   }
 }
 
