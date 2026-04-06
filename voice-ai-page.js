@@ -87,7 +87,7 @@ async function startInterview() {
   roleSelect.disabled = true;
   levelSelect.disabled = true;
   toneSelect.disabled = true;
-  startButton.hidden = true;
+  startButton.style.display = 'none';
 
   // Show question display
   questionDisplay.classList.remove('hidden');
@@ -119,7 +119,8 @@ async function startInterview() {
     // Show submit button and mic
     micButton.disabled = false;
     repeatButton.disabled = false;
-    submitButton.hidden = false;
+    submitButton.style.display = 'block';
+    submitButton.disabled = false;
     submitButton.textContent = 'Submit Answer';
 
     hideLoading();
@@ -398,10 +399,11 @@ function retryQuestion() {
   state.questionNumber++; // Increment question number for next question
   resultsPanel.classList.add('hidden');
   questionDisplay.classList.remove('hidden');
-  submitButton.style.display = 'none';
+  submitButton.style.display = 'block';
+  submitButton.disabled = false;
   submitButton.textContent = 'Submit Answer';
   micButton.disabled = false;
-  micButton.style.display = 'block'; // Show mic button again for next question
+  micButton.style.display = 'flex'; // Show mic button again for next question
   repeatButton.disabled = false;
   repeatButton.style.display = 'flex';
 
@@ -458,9 +460,9 @@ function reset() {
   levelSelect.value = '';
   toneSelect.value = '';
 
-  startButton.hidden = false;
+  startButton.style.display = 'block';
   startButton.disabled = true;
-  submitButton.hidden = true;
+  submitButton.style.display = 'none';
   micButton.disabled = true;
   micButton.style.background = '#f0f4f8';
   micButton.style.color = '#097fe8';
