@@ -30,6 +30,8 @@ function optimizeForDevice() {
 
 // Speech-to-text setup
 let isListening = false;
+let stoppedByUser = false;  // distinguishes user stop from browser auto-stop on silence
+let finalTranscriptIndex = 0; // tracks how many final results we've already appended
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = null;
 
@@ -50,6 +52,16 @@ if (SpeechRecognition) {
 
   recognition.onend = () => {
     isListening = false;
+    // If the user didn't explicitly stop, restart to keep listening through silences
+    if (!stoppedByUser) {
+      try {
+        recognition.start();
+        return; // stay in listening state, don't update button
+      } catch (e) {
+        // If restart fails, fall through to reset UI
+      }
+    }
+    // User-initiated stop: reset button appearance
     const micBtn = document.getElementById('mic-btn');
     if (micBtn) {
       micBtn.classList.remove('bg-red-500', 'text-white');
@@ -58,31 +70,27 @@ if (SpeechRecognition) {
   };
 
   recognition.onresult = (event) => {
-    let transcript = '';
-    // Only process final results to avoid duplicates
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-      if (event.results[i].isFinal) {
-        transcript += event.results[i][0].transcript + ' ';
-      }
-    }
-
     const textarea = document.getElementById('raw-prompt');
-    // Only add transcript if there's actual new final content
-    if (transcript.trim()) {
-      if (textarea.value && !textarea.value.endsWith(' ')) {
-        textarea.value += ' ';
+    // Append only newly finalised results (those beyond what we've already processed)
+    for (let i = finalTranscriptIndex; i < event.results.length; i++) {
+      if (event.results[i].isFinal) {
+        const chunk = event.results[i][0].transcript.trim();
+        if (chunk) {
+          if (textarea.value && !textarea.value.endsWith(' ')) {
+            textarea.value += ' ';
+          }
+          textarea.value += chunk + ' ';
+        }
+        finalTranscriptIndex = i + 1;
       }
-      textarea.value += transcript.trim() + ' ';
     }
-
-    // Update button state
     updateGenerateButtonState();
   };
 
   recognition.onerror = (event) => {
     console.error('Speech recognition error:', event.error);
-    // Only show error if it's a real problem, ignore 'no-speech' when stopping
-    if (event.error !== 'no-speech' && isListening) {
+    // Ignore no-speech (normal silence) and aborted (triggered by our own stop call)
+    if (event.error !== 'no-speech' && event.error !== 'aborted') {
       showError('Microphone error: ' + event.error);
     }
   };
@@ -96,8 +104,11 @@ function toggleMicrophone() {
 
   try {
     if (isListening) {
+      stoppedByUser = true;
       recognition.stop();
     } else {
+      stoppedByUser = false;
+      finalTranscriptIndex = 0; // reset index for new session
       const textarea = document.getElementById('raw-prompt');
       textarea.focus();
       recognition.start();
@@ -277,6 +288,12 @@ async function generatePrompt() {
   if (!framework || !rawPrompt) {
     showError('Please select a framework and enter your prompt.');
     return;
+  }
+
+  // Stop microphone if active when the user triggers generation
+  if (isListening && recognition) {
+    stoppedByUser = true;
+    recognition.stop();
   }
 
   clearMessages();
