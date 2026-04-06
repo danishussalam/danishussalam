@@ -6,151 +6,589 @@
   <title>VoiceAI – Interview Simulation Platform for Accountants</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --black: #0e0f0c;
+      --green: #9fe870;
+      --dark-green: #163300;
+      --mint: #e2f6d5;
+      --gray: #868685;
+      --warm-dark: #454745;
+      --light: #e8ebe6;
+      --danger: #d03238;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      color: var(--black);
+      background: var(--white);
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.44;
+      font-feature-settings: "calt" 1;
       -webkit-font-smoothing: antialiased;
-      scroll-behavior: smooth;
     }
     details summary { list-style: none; cursor: pointer; }
     details summary::-webkit-details-marker { display: none; }
-  </style>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'du-dark': '#16213e',
-            'du-blue':  '#097fe8',
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif'],
-          }
-        }
-      }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      height: 64px;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(14,15,12,0.08);
+      display: flex; align-items: center;
     }
-  </script>
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand {
+      font-size: 16px; font-weight: 700; color: var(--black);
+      text-decoration: none; letter-spacing: -0.2px;
+    }
+    .nav-links {
+      display: flex; gap: 28px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px; font-weight: 600; color: var(--warm-dark);
+      text-decoration: none; transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--black); }
+    .nav-links-mobile {
+      display: none; gap: 16px;
+    }
+    .nav-links-mobile a {
+      font-size: 13px; font-weight: 600; color: var(--warm-dark);
+      text-decoration: none;
+    }
+    .nav-cta {
+      display: inline-block;
+      background: rgba(14,15,12,0.06); color: var(--black);
+      padding: 7px 18px; border-radius: 9999px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .nav-cta:hover { transform: scale(1.05); }
+    .nav-cta:active { transform: scale(0.95); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links-mobile { display: flex; }
+    }
+
+    /* Hero */
+    .hero {
+      padding: 128px 24px 80px;
+      background: var(--white);
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--mint); color: var(--dark-green);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 9999px;
+      margin-bottom: 32px;
+      border: 1px solid rgba(159,232,112,0.4);
+    }
+    .hero h1 {
+      font-size: clamp(56px, 8vw, 96px);
+      font-weight: 900;
+      line-height: 0.85;
+      color: var(--black);
+      font-feature-settings: "calt" 1;
+      margin-bottom: 28px;
+      letter-spacing: -1px;
+    }
+    .hero h1 span { color: var(--dark-green); }
+    .hero p {
+      font-size: 18px; font-weight: 400;
+      color: var(--warm-dark);
+      max-width: 600px; margin: 0 auto 40px;
+      line-height: 1.55; letter-spacing: 0.18px;
+    }
+    .hero-buttons {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .btn-green {
+      display: inline-block;
+      background: var(--green); color: var(--dark-green);
+      padding: 14px 32px; border-radius: 9999px;
+      font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .btn-green:hover { transform: scale(1.05); }
+    .btn-green:active { transform: scale(0.95); }
+    .btn-subtle {
+      display: inline-block;
+      background: rgba(22,51,0,0.08); color: var(--black);
+      padding: 14px 32px; border-radius: 9999px;
+      font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .btn-subtle:hover { transform: scale(1.05); }
+    .btn-subtle:active { transform: scale(0.95); }
+    .hero-trust {
+      display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+      font-size: 14px; font-weight: 600; color: var(--gray);
+    }
+
+    /* Sections */
+    .section { padding: 80px 24px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px; font-weight: 600; color: var(--gray);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 900; line-height: 0.85;
+      font-feature-settings: "calt" 1;
+      letter-spacing: -0.5px;
+      color: var(--black);
+      margin-bottom: 48px;
+    }
+    .section-title-center { text-align: center; }
+    .section-subtitle {
+      font-size: 18px; font-weight: 400;
+      color: var(--warm-dark); letter-spacing: 0.18px;
+      margin-bottom: 48px;
+    }
+
+    /* Card system */
+    .card {
+      background: var(--white);
+      border: 1px solid rgba(14,15,12,0.12);
+      border-radius: 30px;
+      padding: 32px;
+    }
+    .card-dark {
+      background: var(--black);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 30px;
+      padding: 32px;
+    }
+    .card-mint {
+      background: var(--mint);
+      border: 1px solid rgba(159,232,112,0.3);
+      border-radius: 30px;
+      padding: 32px;
+    }
+
+    /* Problem section */
+    .problem-bg { background: rgba(14,15,12,0.02); }
+
+    /* Grid */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 900px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-3 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 576px) {
+      .grid-4 { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    /* Tag badges */
+    .badge-negative {
+      display: inline-block;
+      background: rgba(208,50,56,0.08); color: var(--danger);
+      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 4px 12px; border-radius: 9999px;
+      border: 1px solid rgba(208,50,56,0.2);
+      margin-bottom: 20px;
+    }
+    .badge-positive {
+      display: inline-block;
+      background: var(--mint); color: var(--dark-green);
+      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      padding: 4px 12px; border-radius: 9999px;
+      border: 1px solid rgba(159,232,112,0.4);
+      margin-bottom: 20px;
+    }
+
+    /* Step cards */
+    .step-number {
+      font-size: 72px; font-weight: 900; line-height: 1;
+      color: var(--black); opacity: 0.06;
+      margin-bottom: 16px;
+      font-feature-settings: "calt" 1;
+    }
+    .step-title {
+      font-size: 22px; font-weight: 600;
+      color: var(--black); margin-bottom: 10px;
+      letter-spacing: -0.396px;
+    }
+    .step-desc {
+      font-size: 16px; font-weight: 400;
+      color: var(--warm-dark); line-height: 1.5;
+    }
+
+    /* Simulator section */
+    .simulator-bg { background: rgba(14,15,12,0.02); }
+
+    /* Form elements */
+    .form-label {
+      display: block; font-size: 11px; font-weight: 600;
+      color: var(--warm-dark); text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+    .form-select {
+      width: 100%; background: var(--white); color: var(--black);
+      border: 1px solid rgba(14,15,12,0.12);
+      padding: 12px 16px; border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 500;
+      outline: none; cursor: pointer;
+      transition: box-shadow 0.15s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23868685' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .form-select:focus { box-shadow: rgba(14,15,12,0.12) 0px 0px 0px 1px, 0 0 0 2px var(--green); }
+
+    /* Score cards */
+    .score-card {
+      background: rgba(14,15,12,0.04);
+      border-radius: 16px; padding: 16px;
+      border: 1px solid rgba(14,15,12,0.06);
+    }
+    .score-label { font-size: 11px; font-weight: 600; color: var(--gray); margin-bottom: 4px; }
+    .score-value { font-size: 28px; font-weight: 900; color: var(--black); }
+
+    /* Simulator panels */
+    .sim-panel {
+      background: var(--white);
+      border: 1px solid rgba(14,15,12,0.12);
+      border-radius: 40px;
+      padding: 36px;
+      display: flex; flex-direction: column;
+    }
+    .sim-panel-title {
+      font-size: 18px; font-weight: 600;
+      color: var(--black); margin-bottom: 24px;
+      letter-spacing: -0.18px;
+    }
+    .divider { height: 1px; background: rgba(14,15,12,0.08); margin: 24px 0; }
+
+    /* Question display */
+    .question-box {
+      background: var(--mint);
+      border: 1px solid rgba(159,232,112,0.4);
+      border-radius: 16px; padding: 20px;
+      font-size: 16px; font-weight: 600;
+      color: var(--dark-green); line-height: 1.5;
+    }
+
+    /* Recording */
+    .timer-display {
+      font-size: 40px; font-weight: 900;
+      color: var(--black); text-align: center; padding: 24px 0;
+    }
+
+    /* Mic button */
+    .mic-button {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(14,15,12,0.06); color: var(--warm-dark);
+      border: none; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: transform 0.2s, background 0.2s;
+      margin: 0 auto;
+    }
+    .mic-button:hover:not(:disabled) { transform: scale(1.05); background: var(--mint); color: var(--dark-green); }
+    .mic-button:active:not(:disabled) { transform: scale(0.95); }
+    .mic-button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .mic-button.recording {
+      background: rgba(208,50,56,0.1); color: var(--danger);
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(208,50,56,0.3); }
+      50% { box-shadow: 0 0 0 10px rgba(208,50,56,0); }
+    }
+
+    /* Action buttons */
+    .btn-dark {
+      display: block; width: 100%;
+      background: var(--black); color: var(--white);
+      padding: 16px 24px; border-radius: 9999px;
+      font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600;
+      border: none; cursor: pointer; text-align: center;
+      transition: transform 0.2s;
+    }
+    .btn-dark:hover:not(:disabled) { transform: scale(1.02); }
+    .btn-dark:active:not(:disabled) { transform: scale(0.98); }
+    .btn-dark:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-ghost {
+      display: block; width: 100%;
+      background: rgba(14,15,12,0.06); color: var(--black);
+      padding: 16px 24px; border-radius: 9999px;
+      font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600;
+      border: none; cursor: pointer; text-align: center;
+      transition: transform 0.2s;
+    }
+    .btn-ghost:hover { transform: scale(1.02); }
+    .btn-ghost:active { transform: scale(0.98); }
+
+    /* Results header */
+    .results-header {
+      background: var(--black); color: var(--white);
+      border-radius: 20px; padding: 20px 24px; margin-bottom: 20px;
+    }
+    .results-header-label {
+      font-size: 11px; font-weight: 600; opacity: 0.5;
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;
+    }
+    .results-header-title { font-size: 22px; font-weight: 600; }
+
+    /* Overall score */
+    .overall-score-box {
+      background: var(--green); color: var(--dark-green);
+      border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px;
+    }
+    .overall-score-label {
+      font-size: 11px; font-weight: 700; opacity: 0.7;
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;
+    }
+    .overall-score-value { font-size: 56px; font-weight: 900; line-height: 1; }
+
+    /* Empty state */
+    .empty-state {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; flex: 1; text-align: center; padding: 48px 24px;
+    }
+    .empty-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(14,15,12,0.06);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; color: var(--gray);
+    }
+    .empty-text { font-size: 15px; color: var(--gray); font-weight: 500; }
+
+    /* Roles section */
+    .roles-bg { background: var(--black); }
+    .role-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 24px;
+    }
+    .role-title { font-size: 18px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+    .role-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+    /* Scoring section */
+    .metric-row { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 28px; }
+    .metric-icon {
+      width: 48px; height: 48px; border-radius: 16px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900;
+    }
+    .metric-title { font-size: 18px; font-weight: 600; color: var(--black); margin-bottom: 4px; }
+    .metric-desc { font-size: 15px; color: var(--warm-dark); }
+
+    /* FAQ */
+    .faq-bg { background: rgba(14,15,12,0.02); }
+    .faq-item {
+      background: var(--white);
+      border: 1px solid rgba(14,15,12,0.10);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .faq-summary {
+      padding: 22px 24px; display: flex; align-items: center; justify-content: space-between;
+      font-size: 16px; font-weight: 600; color: var(--black);
+      transition: background 0.15s;
+    }
+    .faq-summary:hover { background: rgba(14,15,12,0.02); }
+    .faq-chevron { flex-shrink: 0; color: var(--gray); transition: transform 0.2s; }
+    details[open] .faq-chevron { transform: rotate(180deg); }
+    .faq-body { padding: 0 24px 20px; font-size: 15px; color: var(--warm-dark); line-height: 1.6; }
+
+    /* CTA Banner */
+    .cta-banner { background: var(--black); padding: 80px 24px; text-align: center; }
+    .cta-banner h2 {
+      font-size: clamp(40px, 5vw, 64px); font-weight: 900; line-height: 0.85;
+      color: var(--white); margin-bottom: 20px; letter-spacing: -0.5px;
+      font-feature-settings: "calt" 1;
+    }
+    .cta-banner h2 span { color: var(--green); }
+    .cta-banner p { font-size: 18px; color: rgba(255,255,255,0.5); margin-bottom: 36px; }
+
+    /* Footer */
+    .footer {
+      background: var(--black); border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 28px 24px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; justify-content: space-between;
+      align-items: center; gap: 16px;
+    }
+    .footer-name { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.6); }
+    .footer-role { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 2px; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 12px; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+
+    /* Error / Loading */
+    .error-box {
+      background: rgba(208,50,56,0.06); border: 1px solid rgba(208,50,56,0.2);
+      border-radius: 16px; padding: 16px 20px; margin-top: 16px;
+      color: var(--danger); font-size: 15px; font-weight: 500;
+    }
+    .loading-overlay {
+      position: fixed; inset: 0; background: rgba(14,15,12,0.4);
+      display: flex; align-items: center; justify-content: center; z-index: 100;
+    }
+    .loading-box {
+      background: var(--white); border-radius: 30px; padding: 40px;
+      text-align: center; box-shadow: rgba(14,15,12,0.12) 0px 0px 0px 1px;
+    }
+    .spinner {
+      width: 44px; height: 44px; border: 3px solid rgba(14,15,12,0.1);
+      border-top-color: var(--green); border-radius: 50%;
+      animation: spin 0.7s linear infinite; margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: 16px; font-weight: 600; color: var(--black); }
+
+    /* Improved answer box */
+    .improved-answer-box {
+      background: var(--mint); border: 1px solid rgba(159,232,112,0.4);
+      border-radius: 16px; padding: 20px;
+      font-size: 14px; color: var(--dark-green);
+      font-family: 'Inter', monospace; line-height: 1.6; white-space: pre-wrap;
+      max-height: 180px; overflow-y: auto;
+    }
+
+    /* Weaknesses list */
+    .weakness-item {
+      display: flex; gap: 10px; padding: 10px 0;
+      border-bottom: 1px solid rgba(14,15,12,0.06);
+      font-size: 14px; color: var(--warm-dark);
+    }
+    .weakness-item:last-child { border-bottom: none; }
+    .weakness-dot { color: var(--danger); font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+    /* Thank you message */
+    .thank-you-msg { text-align: center; font-size: 16px; font-weight: 600; color: var(--black); margin-bottom: 16px; }
+  </style>
 </head>
-<body class="bg-white">
+<body>
+
   <!-- Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200" style="height:64px;">
-    <div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
-      <a href="/" class="font-bold text-[16px] text-gray-900 tracking-tight">Danish Us-Salam</a>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand">Danish Us-Salam</a>
 
-      <!-- Desktop Menu -->
-      <div class="hidden md:flex gap-7">
-        <a href="/" class="text-[13px] text-gray-500 font-medium hover:text-gray-900 transition-colors" data-link="home">Home</a>
-        <a href="/publications.html" class="text-[13px] text-gray-500 font-medium hover:text-gray-900 transition-colors" data-link="publications">Publications</a>
-        <a href="/wip.html" class="text-[13px] text-gray-500 font-medium hover:text-gray-900 transition-colors" data-link="wip">Work in Progress</a>
-        <a href="/research-tools.html" class="text-[13px] text-gray-500 font-medium hover:text-gray-900 transition-colors" data-link="tools">Research Tools</a>
+      <!-- Desktop -->
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/publications.html">Publications</a></li>
+        <li><a href="/wip.html">Work in Progress</a></li>
+        <li><a href="/research-tools.html">Research Tools</a></li>
+      </ul>
+
+      <!-- Mobile -->
+      <div class="nav-links-mobile">
+        <a href="/">Home</a>
+        <a href="/publications.html">Pub</a>
+        <a href="/wip.html">WIP</a>
+        <a href="/research-tools.html">Tools</a>
       </div>
 
-      <!-- Mobile Menu -->
-      <div class="md:hidden flex gap-4">
-        <a href="/" class="text-[13px] text-gray-600 font-medium hover:text-gray-900 transition-colors" data-link="home">Home</a>
-        <a href="/publications.html" class="text-[13px] text-gray-600 font-medium hover:text-gray-900 transition-colors" data-link="publications">Pub</a>
-        <a href="/wip.html" class="text-[13px] text-gray-600 font-medium hover:text-gray-900 transition-colors" data-link="wip">WIP</a>
-        <a href="/research-tools.html" class="text-[13px] text-gray-600 font-medium hover:text-gray-900 transition-colors" data-link="tools">Tools</a>
-      </div>
-
-      <a href="https://danishussalam.github.io/cv.pdf" target="_blank" class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">CV</a>
+      <a href="https://danishussalam.github.io/cv.pdf" target="_blank" class="nav-cta">CV</a>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="bg-du-dark pt-32 sm:pt-40 pb-16 sm:pb-24 text-white">
-    <div class="max-w-[900px] mx-auto px-6 text-center">
-      <div class="inline-block mb-6 px-4 py-2 bg-white/10 rounded-full border border-white/20">
-        <span class="text-[12px] font-semibold uppercase tracking-widest">For Accounting Professionals</span>
-      </div>
+  <section class="hero">
+    <div style="max-width:900px; margin:0 auto;">
+      <div class="hero-badge">For Accounting Professionals</div>
 
-      <h1 class="text-[42px] sm:text-[56px] font-black leading-[1.1] mb-6 text-white">
-        Practice Interviews That Feel Real
-      </h1>
+      <h1>Practice interviews<br>that feel <span>real</span></h1>
 
-      <p class="text-[16px] sm:text-[18px] text-white/70 leading-relaxed mb-10 max-w-[700px] mx-auto">
-        Accountants don't fail interviews because they lack technical knowledge. They fail because they cannot communicate effectively under pressure. VoiceAI fixes that.
-      </p>
+      <p>Accountants don't fail interviews because they lack technical knowledge. They fail because they cannot communicate effectively under pressure. VoiceAI fixes that.</p>
 
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-        <button onclick="document.getElementById('simulator').scrollIntoView({behavior: 'smooth'})" class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-lg font-semibold text-[16px] transition-colors">
+      <div class="hero-buttons">
+        <button onclick="document.getElementById('simulator').scrollIntoView({behavior:'smooth'})" class="btn-green">
           Start Free Interview
         </button>
-        <button class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-[16px] hover:bg-white/10 transition-colors">
-          Watch Demo
-        </button>
+        <button class="btn-subtle">Watch Demo</button>
       </div>
 
-      <div class="flex flex-col sm:flex-row gap-8 justify-center text-center text-[14px] text-white/60">
-        <div>✓ Voice-First</div>
-        <div>✓ AI Evaluation</div>
-        <div>✓ Accounting-Focused</div>
+      <div class="hero-trust">
+        <span>Voice-First</span>
+        <span>AI Evaluation</span>
+        <span>Accounting-Focused</span>
       </div>
     </div>
   </section>
 
   <!-- The Problem Section -->
-  <section class="bg-white py-12 sm:py-24">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <div class="text-center mb-12">
-        <p class="text-[12px] font-bold text-gray-900 uppercase tracking-wider mb-3">THE PROBLEM</p>
-        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 leading-[1.1] tracking-tight">
-          Technical skills aren't enough
-        </h2>
+  <section class="section problem-bg">
+    <div class="section-inner">
+      <div style="text-align:center; margin-bottom:48px;">
+        <p class="section-label">The Problem</p>
+        <h2 class="section-title section-title-center">Technical skills<br>aren't enough</h2>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8">
+      <div class="grid-2">
         <!-- Without VoiceAI -->
-        <div class="border-2 border-red-200 rounded-3xl p-8 bg-white">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-[12px] font-semibold text-red-600 bg-red-50 border border-red-300 px-3 py-1 rounded-full">WITHOUT VOICEAI</span>
-          </div>
-          <h3 class="text-[24px] font-bold text-gray-900 mb-6">Traditional Approaches</h3>
-          <ul class="space-y-4 text-[15px] text-gray-700">
-            <li class="flex gap-3">
-              <span class="text-red-600 mt-1">✗</span>
+        <div class="card" style="border-color: rgba(208,50,56,0.2);">
+          <div class="badge-negative">Without VoiceAI</div>
+          <h3 style="font-size:22px; font-weight:600; color:var(--black); margin-bottom:24px; letter-spacing:-0.396px;">Traditional Approaches</h3>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:16px;">
+            <li style="display:flex; gap:12px; font-size:15px; color:var(--warm-dark);">
+              <span style="color:var(--danger); font-weight:700; flex-shrink:0;">✗</span>
               <span>Generic interview prep tools focused on English proficiency, not accounting communication</span>
             </li>
-            <li class="flex gap-3">
-              <span class="text-red-600 mt-1">✗</span>
+            <li style="display:flex; gap:12px; font-size:15px; color:var(--warm-dark);">
+              <span style="color:var(--danger); font-weight:700; flex-shrink:0;">✗</span>
               <span>No real-time feedback — you finish practicing without knowing what to fix</span>
             </li>
-            <li class="flex gap-3">
-              <span class="text-red-600 mt-1">✗</span>
+            <li style="display:flex; gap:12px; font-size:15px; color:var(--warm-dark);">
+              <span style="color:var(--danger); font-weight:700; flex-shrink:0;">✗</span>
               <span>Text-based practice feels artificial, not like a real interview</span>
             </li>
-            <li class="flex gap-3">
-              <span class="text-red-600 mt-1">✗</span>
+            <li style="display:flex; gap:12px; font-size:15px; color:var(--warm-dark);">
+              <span style="color:var(--danger); font-weight:700; flex-shrink:0;">✗</span>
               <span>No accounting context — scenarios don't match real financial roles</span>
             </li>
           </ul>
         </div>
 
         <!-- With VoiceAI -->
-        <div class="border-2 border-emerald-500 rounded-3xl p-8 bg-white">
-          <div class="flex items-center gap-3 mb-6">
-            <span class="text-[12px] font-semibold bg-emerald-500 text-white border border-emerald-500 px-3 py-1 rounded-full">WITH VOICEAI</span>
-          </div>
-          <h3 class="text-[24px] font-bold text-gray-900 mb-6">Built for Accountants</h3>
-          <ul class="space-y-4 text-[15px] text-gray-700">
-            <li class="flex gap-3">
-              <span class="text-emerald-600 mt-1">✓</span>
-              <span>Accounting-specific scenarios: Staff roles, Controllers, FP&A, tax specialists</span>
+        <div class="card" style="border-color: rgba(159,232,112,0.5);">
+          <div class="badge-positive">With VoiceAI</div>
+          <h3 style="font-size:22px; font-weight:600; color:var(--black); margin-bottom:24px; letter-spacing:-0.396px;">Built for Accountants</h3>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:16px;">
+            <li style="display:flex; gap:12px; font-size:15px; color:var(--warm-dark);">
+              <span style="color:var(--dark-green); font-weight:700; flex-shrink:0;">✓</span>
+              <span>Accounting-specific scenarios: Staff roles, Controllers, FP&amp;A, tax specialists</span>
             </li>
-            <li class="flex gap-3">
-              <span class="text-emerald-600 mt-1">✓</span>
+            <li style="display:flex; gap:12px; font-size:15px; color:var(--warm-dark);">
+              <span style="color:var(--dark-green); font-weight:700; flex-shrink:0;">✓</span>
               <span>Real-time feedback after each answer — know exactly what to improve</span>
             </li>
-            <li class="flex gap-3">
-              <span class="text-emerald-600 mt-1">✓</span>
+            <li style="display:flex; gap:12px; font-size:15px; color:var(--warm-dark);">
+              <span style="color:var(--dark-green); font-weight:700; flex-shrink:0;">✓</span>
               <span>Voice simulation feels like sitting across from a real interviewer</span>
             </li>
-            <li class="flex gap-3">
-              <span class="text-emerald-600 mt-1">✓</span>
+            <li style="display:flex; gap:12px; font-size:15px; color:var(--warm-dark);">
+              <span style="color:var(--dark-green); font-weight:700; flex-shrink:0;">✓</span>
               <span>Evaluate clarity, structure, tone, and technical depth — not just language</span>
             </li>
           </ul>
@@ -160,137 +598,109 @@
   </section>
 
   <!-- How It Works Section -->
-  <section class="bg-[#f6f5f4] py-12 sm:py-24">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <div class="text-center mb-12">
-        <p class="text-[12px] font-bold text-gray-900 uppercase tracking-wider mb-3">HOW IT WORKS</p>
-        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 leading-[1.1] tracking-tight">
-          4 steps to interview confidence
-        </h2>
+  <section class="section">
+    <div class="section-inner">
+      <div style="text-align:center; margin-bottom:48px;">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-title section-title-center">4 steps to interview<br>confidence</h2>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Step 1 -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-200 relative">
-          <div class="text-[56px] font-black text-gray-200 opacity-30 mb-4">1</div>
-          <h3 class="text-[20px] font-bold text-gray-900 mb-3">Setup Interview</h3>
-          <p class="text-[14px] text-gray-600 leading-relaxed">
-            Choose your role, seniority level, and interviewer tone — then start.
-          </p>
+      <div class="grid-4">
+        <div class="card">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Setup Interview</h3>
+          <p class="step-desc">Choose your role, seniority level, and interviewer tone — then start.</p>
         </div>
-
-        <!-- Step 2 -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-200 relative">
-          <div class="text-[56px] font-black text-gray-200 opacity-30 mb-4">2</div>
-          <h3 class="text-[20px] font-bold text-gray-900 mb-3">Answer Questions</h3>
-          <p class="text-[14px] text-gray-600 leading-relaxed">
-            AI asks a realistic interview question. Record your voice answer.
-          </p>
+        <div class="card">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Answer Questions</h3>
+          <p class="step-desc">AI asks a realistic interview question. Record your voice answer.</p>
         </div>
-
-        <!-- Step 3 -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-200 relative">
-          <div class="text-[56px] font-black text-gray-200 opacity-30 mb-4">3</div>
-          <h3 class="text-[20px] font-bold text-gray-900 mb-3">Get Follow-Up</h3>
-          <p class="text-[14px] text-gray-600 leading-relaxed">
-            AI asks one targeted follow-up to probe deeper or clarify weak spots.
-          </p>
+        <div class="card">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Get Follow-Up</h3>
+          <p class="step-desc">AI asks one targeted follow-up to probe deeper or clarify weak spots.</p>
         </div>
-
-        <!-- Step 4 -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-200 relative">
-          <div class="text-[56px] font-black text-gray-200 opacity-30 mb-4">4</div>
-          <h3 class="text-[20px] font-bold text-gray-900 mb-3">Get Feedback</h3>
-          <p class="text-[14px] text-gray-600 leading-relaxed">
-            See your scores, weaknesses, and improved answer you should have given.
-          </p>
+        <div class="card">
+          <div class="step-number">4</div>
+          <h3 class="step-title">Get Feedback</h3>
+          <p class="step-desc">See your scores, weaknesses, and improved answer you should have given.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Interview Simulator -->
-  <section id="simulator" class="bg-white py-12 sm:py-24">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <p class="text-sm font-bold text-gray-900 uppercase tracking-wide mb-3">INTERACTIVE TOOL</p>
-        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 leading-[1.1] tracking-tight mb-3">
-          Try your first interview
-        </h2>
-        <p class="text-[16px] text-gray-600 max-w-[600px] mx-auto">
-          Select your role and start practicing now. Real AI, real feedback, real improvement.
-        </p>
+  <section id="simulator" class="section simulator-bg">
+    <div style="max-width:1100px; margin:0 auto; padding:0 24px;">
+      <div style="text-align:center; margin-bottom:48px;">
+        <p class="section-label">Interactive Tool</p>
+        <h2 class="section-title section-title-center">Try your first<br>interview</h2>
+        <p class="section-subtitle" style="margin-top:16px; margin-bottom:0;">Select your role and start practicing now. Real AI, real feedback, real improvement.</p>
       </div>
 
       <!-- Tool Grid -->
-      <div class="grid md:grid-cols-2 gap-8">
+      <div class="grid-2" style="gap:16px;">
         <!-- Left Panel: Setup & Record -->
-        <div class="bg-white rounded-3xl p-8 border-2 border-gray-500 flex flex-col">
-          <div class="mb-6">
-            <h3 class="text-[18px] font-bold text-gray-900 mb-4">Interview Setup</h3>
+        <div class="sim-panel">
+          <h3 class="sim-panel-title">Interview Setup</h3>
 
-            <!-- Role Select -->
-            <div class="mb-5">
-              <label class="text-xs font-bold uppercase tracking-wide text-gray-700 block mb-2">Role</label>
-              <select id="role-select" class="w-full px-5 py-3 border-2 border-gray-500 rounded-xl text-gray-700 focus:outline-none focus:border-gray-900 bg-white font-medium">
-                <option value="">Select a role...</option>
-                <option value="staff-accountant">Staff Accountant</option>
-                <option value="senior-accountant">Senior Accountant</option>
-                <option value="controller">Controller</option>
-                <option value="fpa">FP&A</option>
-                <option value="ar-ap">AR/AP Specialist</option>
-                <option value="tax">Tax Specialist</option>
-              </select>
-            </div>
-
-            <!-- Level Select -->
-            <div class="mb-5">
-              <label class="text-xs font-bold uppercase tracking-wide text-gray-700 block mb-2">Level</label>
-              <select id="level-select" class="w-full px-5 py-3 border-2 border-gray-500 rounded-xl text-gray-700 focus:outline-none focus:border-gray-900 bg-white font-medium">
-                <option value="">Select a level...</option>
-                <option value="junior">Junior</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="senior">Senior</option>
-              </select>
-            </div>
-
-            <!-- Tone Select -->
-            <div class="mb-6">
-              <label class="text-xs font-bold uppercase tracking-wide text-gray-700 block mb-2">Interviewer Tone</label>
-              <select id="tone-select" class="w-full px-5 py-3 border-2 border-gray-500 rounded-xl text-gray-700 focus:outline-none focus:border-gray-900 bg-white font-medium">
-                <option value="">Select a tone...</option>
-                <option value="friendly">Friendly</option>
-                <option value="neutral">Neutral</option>
-                <option value="strict">Strict</option>
-              </select>
-            </div>
-
-            <div class="h-px bg-gray-200 my-6"></div>
+          <div style="margin-bottom:20px;">
+            <label class="form-label">Role</label>
+            <select id="role-select" class="form-select">
+              <option value="">Select a role...</option>
+              <option value="staff-accountant">Staff Accountant</option>
+              <option value="senior-accountant">Senior Accountant</option>
+              <option value="controller">Controller</option>
+              <option value="fpa">FP&amp;A</option>
+              <option value="ar-ap">AR/AP Specialist</option>
+              <option value="tax">Tax Specialist</option>
+            </select>
           </div>
 
+          <div style="margin-bottom:20px;">
+            <label class="form-label">Level</label>
+            <select id="level-select" class="form-select">
+              <option value="">Select a level...</option>
+              <option value="junior">Junior</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="senior">Senior</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom:24px;">
+            <label class="form-label">Interviewer Tone</label>
+            <select id="tone-select" class="form-select">
+              <option value="">Select a tone...</option>
+              <option value="friendly">Friendly</option>
+              <option value="neutral">Neutral</option>
+              <option value="strict">Strict</option>
+            </select>
+          </div>
+
+          <div class="divider"></div>
+
           <!-- Question Display -->
-          <div id="question-display" class="mb-8 hidden">
-            <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-3">Question</p>
-            <p id="current-question" class="text-[16px] text-gray-900 leading-relaxed font-medium bg-blue-50 p-4 rounded-xl border border-blue-200"></p>
+          <div id="question-display" class="hidden" style="margin-bottom:24px;">
+            <p style="font-size:11px; font-weight:600; color:var(--gray); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;">Question</p>
+            <div class="question-box" id="current-question"></div>
           </div>
 
           <!-- Recording State -->
-          <div id="recording-state" class="mb-8 hidden">
-            <p class="text-xs font-bold uppercase tracking-wide text-gray-500 mb-3" id="recording-label">Recording...</p>
-            <div class="flex items-center justify-center py-6">
-              <div id="timer" class="text-[32px] font-bold text-gray-900">0:00</div>
-            </div>
+          <div id="recording-state" class="hidden" style="margin-bottom:24px;">
+            <p id="recording-label" style="font-size:11px; font-weight:600; color:var(--gray); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px; text-align:center;">Recording...</p>
+            <div class="timer-display" id="timer">0:00</div>
           </div>
 
           <!-- Thank You Message -->
-          <div id="thank-you-message" class="mb-6 hidden text-center">
-            <p class="text-[16px] font-medium text-gray-900">Thank you! Click below for your feedback</p>
+          <div id="thank-you-message" class="hidden">
+            <p class="thank-you-msg">Thank you! Click below for your feedback</p>
           </div>
 
           <!-- Mic Button -->
-          <div class="flex justify-center mb-6">
-            <button id="mic-button" class="p-4 rounded-full transition-colors" style="background: #f0f4f8; color: #097fe8;" disabled>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <div style="display:flex; justify-content:center; margin-bottom:24px;">
+            <button id="mic-button" class="mic-button" disabled>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 1a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
                 <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
                 <line x1="12" y1="19" x2="12" y2="23"></line>
@@ -300,83 +710,73 @@
           </div>
 
           <!-- Start/Submit Button -->
-          <button id="start-button" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-5 rounded-xl transition-colors text-base disabled:opacity-50 disabled:cursor-not-allowed">
-            Start Interview
-          </button>
-          <button id="submit-button" class="w-full bg-gray-900 hover:bg-black text-white font-bold py-5 rounded-xl transition-colors text-base hidden disabled:opacity-50 disabled:cursor-not-allowed" style="display: none;">
-            Submit Answer
-          </button>
+          <button id="start-button" class="btn-dark" disabled>Start Interview</button>
+          <button id="submit-button" class="btn-dark" style="display:none;" disabled>Submit Answer</button>
         </div>
 
         <!-- Right Panel: Results -->
-        <div class="bg-white rounded-3xl p-8 border-2 border-gray-500 flex flex-col">
+        <div class="sim-panel">
           <div id="results-panel" class="hidden">
             <!-- Header -->
-            <div class="bg-gray-900 text-white rounded-xl p-6 mb-6">
-              <p class="text-xs font-bold opacity-70 uppercase tracking-wide mb-2">Your Results</p>
-              <h3 class="text-xl font-bold">Feedback</h3>
+            <div class="results-header">
+              <p class="results-header-label">Your Results</p>
+              <h3 class="results-header-title">Feedback</h3>
             </div>
 
             <!-- Score Grid -->
-            <div id="scores-grid" class="grid grid-cols-2 gap-3 mb-6">
-              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <p class="text-xs text-gray-600 font-semibold mb-1">Clarity</p>
-                <p id="score-clarity" class="text-2xl font-bold text-gray-900">7/10</p>
+            <div id="scores-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
+              <div class="score-card">
+                <p class="score-label">Clarity</p>
+                <p id="score-clarity" class="score-value">7/10</p>
               </div>
-              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <p class="text-xs text-gray-600 font-semibold mb-1">Structure</p>
-                <p id="score-structure" class="text-2xl font-bold text-gray-900">6/10</p>
+              <div class="score-card">
+                <p class="score-label">Structure</p>
+                <p id="score-structure" class="score-value">6/10</p>
               </div>
-              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <p class="text-xs text-gray-600 font-semibold mb-1">Professional Tone</p>
-                <p id="score-tone" class="text-2xl font-bold text-gray-900">8/10</p>
+              <div class="score-card">
+                <p class="score-label">Professional Tone</p>
+                <p id="score-tone" class="score-value">8/10</p>
               </div>
-              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <p class="text-xs text-gray-600 font-semibold mb-1">Technical Depth</p>
-                <p id="score-technical" class="text-2xl font-bold text-gray-900">7/10</p>
+              <div class="score-card">
+                <p class="score-label">Technical Depth</p>
+                <p id="score-technical" class="score-value">7/10</p>
               </div>
-              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <p class="text-xs text-gray-600 font-semibold mb-1">Confidence</p>
-                <p id="score-confidence" class="text-2xl font-bold text-gray-900">6/10</p>
+              <div class="score-card">
+                <p class="score-label">Confidence</p>
+                <p id="score-confidence" class="score-value">6/10</p>
               </div>
             </div>
 
             <!-- Overall Score -->
-            <div class="bg-du-blue text-white rounded-xl p-6 mb-6 text-center">
-              <p class="text-xs font-bold opacity-70 uppercase tracking-wide mb-2">Overall</p>
-              <p id="score-overall" class="text-[48px] font-black">7/10</p>
+            <div class="overall-score-box">
+              <p class="overall-score-label">Overall</p>
+              <p id="score-overall" class="overall-score-value">7/10</p>
             </div>
 
             <!-- Weaknesses -->
-            <div class="mb-6">
-              <p class="text-xs font-bold uppercase tracking-wide text-gray-700 mb-3">Areas to Improve</p>
-              <ul id="weaknesses-list" class="space-y-2 text-sm text-gray-700">
-                <li class="flex gap-2"><span class="text-red-600">•</span><span>Vague on specific project metrics</span></li>
-                <li class="flex gap-2"><span class="text-red-600">•</span><span>Lacked confidence in technical response</span></li>
-                <li class="flex gap-2"><span class="text-red-600">•</span><span>Could have used more professional terminology</span></li>
+            <div style="margin-bottom:20px;">
+              <p style="font-size:11px; font-weight:600; color:var(--gray); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;">Areas to Improve</p>
+              <ul id="weaknesses-list" style="list-style:none;">
+                <li class="weakness-item"><span class="weakness-dot">•</span><span>Vague on specific project metrics</span></li>
+                <li class="weakness-item"><span class="weakness-dot">•</span><span>Lacked confidence in technical response</span></li>
+                <li class="weakness-item"><span class="weakness-dot">•</span><span>Could have used more professional terminology</span></li>
               </ul>
             </div>
 
             <!-- Improved Answer -->
-            <div class="mb-6">
-              <p class="text-xs font-bold uppercase tracking-wide text-gray-700 mb-3">Better Answer (How You Should Have Answered)</p>
-              <div class="bg-blue-50 p-5 rounded-xl border-2 border-gray-500 text-sm text-gray-700 leading-relaxed font-mono whitespace-pre-wrap" id="improved-answer" style="max-height: 180px; overflow-y: auto;">
-                "In my current role, I process 150-200 journal entries monthly. I verify that debits equal credits, reconcile to supporting documents, and ensure proper account coding. For example, last month I caught a $50K misallocation in the AR aging report—I traced it back to an incorrectly coded invoice, corrected it, and implemented a new control to flag similar issues. I'm now responsible for training junior staff on our procedures."
-              </div>
+            <div style="margin-bottom:20px;">
+              <p style="font-size:11px; font-weight:600; color:var(--gray); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;">Better Answer</p>
+              <div class="improved-answer-box" id="improved-answer">"In my current role, I process 150-200 journal entries monthly. I verify that debits equal credits, reconcile to supporting documents, and ensure proper account coding. For example, last month I caught a $50K misallocation in the AR aging report—I traced it back to an incorrectly coded invoice, corrected it, and implemented a new control to flag similar issues. I'm now responsible for training junior staff on our procedures."</div>
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex gap-3 flex-col">
-              <div class="flex gap-3">
-                <button id="retry-button" class="flex-1 bg-gray-900 hover:bg-black text-white font-bold py-4 rounded-xl transition-colors">
-                  Try Another Question
-                </button>
-                <button id="restart-button" class="flex-1 border-2 border-gray-300 text-gray-900 hover:bg-gray-50 font-bold py-4 rounded-xl transition-colors">
-                  Reset
-                </button>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <button id="retry-button" class="btn-dark">Try Another</button>
+                <button id="restart-button" class="btn-ghost">Reset</button>
               </div>
-              <button id="download-button" class="w-full bg-du-blue hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <button id="download-button" class="btn-green" style="border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                 </svg>
                 Download Transcript
@@ -385,8 +785,8 @@
           </div>
 
           <!-- Empty State -->
-          <div id="empty-state" class="flex flex-col items-center justify-center h-full py-12 text-center">
-            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+          <div id="empty-state" class="empty-state">
+            <div class="empty-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 1a3 3 0 0 0-3 3v12a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
                 <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
@@ -394,242 +794,204 @@
                 <line x1="8" y1="23" x2="16" y2="23"></line>
               </svg>
             </div>
-            <p class="text-gray-600 text-sm">Start an interview to see your feedback</p>
+            <p class="empty-text">Start an interview to see your feedback</p>
           </div>
         </div>
       </div>
 
       <!-- Error Display -->
-      <div id="error" class="hidden bg-red-50 border-2 border-red-200 text-red-700 px-6 py-4 rounded-xl mt-6">
+      <div id="error" class="error-box hidden">
         <p id="error-text"></p>
       </div>
 
       <!-- Loading State -->
-      <div id="loading" class="hidden fixed inset-0 bg-black/30 flex items-center justify-center z-40">
-        <div class="bg-white rounded-2xl p-8 text-center">
-          <div class="w-12 h-12 border-3 border-du-blue border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p class="text-gray-900 font-medium">Processing your response...</p>
+      <div id="loading" class="loading-overlay hidden">
+        <div class="loading-box">
+          <div class="spinner"></div>
+          <p class="loading-text">Processing your response...</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Interview Roles Section -->
-  <section class="bg-du-dark py-12 sm:py-24">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-[42px] sm:text-[56px] font-black text-white leading-[1.1] tracking-tight mb-3">
-          Built for every accounting role
-        </h2>
-        <p class="text-[16px] text-white/70">Practice for the exact position you're interviewing for</p>
+  <section class="section roles-bg">
+    <div class="section-inner">
+      <div style="text-align:center; margin-bottom:48px;">
+        <h2 class="section-title section-title-center" style="color:var(--white);">Built for every<br>accounting role</h2>
+        <p style="font-size:18px; color:rgba(255,255,255,0.45); margin-top:16px;">Practice for the exact position you're interviewing for</p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
-          <h3 class="text-[18px] font-bold text-white mb-2">Staff Accountant</h3>
-          <p class="text-[13px] text-white/70">Entry-level accounting operations, AP/AR, reconciliation</p>
+      <div class="grid-3">
+        <div class="role-card">
+          <h3 class="role-title">Staff Accountant</h3>
+          <p class="role-desc">Entry-level accounting operations, AP/AR, reconciliation</p>
         </div>
-        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
-          <h3 class="text-[18px] font-bold text-white mb-2">Senior Accountant</h3>
-          <p class="text-[13px] text-white/70">Financial close, GAAP, audit prep, team management</p>
+        <div class="role-card">
+          <h3 class="role-title">Senior Accountant</h3>
+          <p class="role-desc">Financial close, GAAP, audit prep, team management</p>
         </div>
-        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
-          <h3 class="text-[18px] font-bold text-white mb-2">Controller</h3>
-          <p class="text-[13px] text-white/70">Strategic planning, compliance, internal controls</p>
+        <div class="role-card">
+          <h3 class="role-title">Controller</h3>
+          <p class="role-desc">Strategic planning, compliance, internal controls</p>
         </div>
-        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
-          <h3 class="text-[18px] font-bold text-white mb-2">FP&A</h3>
-          <p class="text-[13px] text-white/70">Budgeting, forecasting, variance analysis, storytelling</p>
+        <div class="role-card">
+          <h3 class="role-title">FP&amp;A</h3>
+          <p class="role-desc">Budgeting, forecasting, variance analysis, storytelling</p>
         </div>
-        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
-          <h3 class="text-[18px] font-bold text-white mb-2">AR/AP Specialist</h3>
-          <p class="text-[13px] text-white/70">Billing, collections, vendor management, automation</p>
+        <div class="role-card">
+          <h3 class="role-title">AR/AP Specialist</h3>
+          <p class="role-desc">Billing, collections, vendor management, automation</p>
         </div>
-        <div class="bg-white/10 rounded-2xl p-6 border border-white/20">
-          <h3 class="text-[18px] font-bold text-white mb-2">Tax Specialist</h3>
-          <p class="text-[13px] text-white/70">Tax strategy, compliance, regulations, documentation</p>
+        <div class="role-card">
+          <h3 class="role-title">Tax Specialist</h3>
+          <p class="role-desc">Tax strategy, compliance, regulations, documentation</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Scoring System Section -->
-  <section class="bg-white py-12 sm:py-24">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 leading-[1.1] tracking-tight mb-3">
-          Know exactly where you stand
-        </h2>
-        <p class="text-[16px] text-gray-600">Five metrics that matter in real interviews</p>
+  <section class="section">
+    <div class="section-inner" style="max-width:900px;">
+      <div style="text-align:center; margin-bottom:48px;">
+        <h2 class="section-title section-title-center">Know exactly<br>where you stand</h2>
+        <p class="section-subtitle" style="text-align:center; margin-top:16px; margin-bottom:0;">Five metrics that matter in real interviews</p>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8">
-        <div class="flex gap-4">
-          <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-            <span class="text-lg font-bold text-du-blue">C</span>
-          </div>
+      <div class="grid-2" style="gap:24px;">
+        <div class="metric-row">
+          <div class="metric-icon" style="background:var(--mint); color:var(--dark-green);">C</div>
           <div>
-            <h3 class="text-[18px] font-bold text-gray-900 mb-1">Clarity</h3>
-            <p class="text-[14px] text-gray-600">How well you articulate your ideas. Are you concise or rambling?</p>
+            <h3 class="metric-title">Clarity</h3>
+            <p class="metric-desc">How well you articulate your ideas. Are you concise or rambling?</p>
           </div>
         </div>
-
-        <div class="flex gap-4">
-          <div class="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0">
-            <span class="text-lg font-bold text-emerald-600">S</span>
-          </div>
+        <div class="metric-row">
+          <div class="metric-icon" style="background:rgba(22,51,0,0.08); color:var(--dark-green);">S</div>
           <div>
-            <h3 class="text-[18px] font-bold text-gray-900 mb-1">Structure</h3>
-            <p class="text-[14px] text-gray-600">Do you have a logical flow? Beginning, middle, end?</p>
+            <h3 class="metric-title">Structure</h3>
+            <p class="metric-desc">Do you have a logical flow? Beginning, middle, end?</p>
           </div>
         </div>
-
-        <div class="flex gap-4">
-          <div class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
-            <span class="text-lg font-bold text-purple-600">T</span>
-          </div>
+        <div class="metric-row">
+          <div class="metric-icon" style="background:rgba(14,15,12,0.06); color:var(--warm-dark);">T</div>
           <div>
-            <h3 class="text-[18px] font-bold text-gray-900 mb-1">Professional Tone</h3>
-            <p class="text-[14px] text-gray-600">Do you sound confident and knowledgeable?</p>
+            <h3 class="metric-title">Professional Tone</h3>
+            <p class="metric-desc">Do you sound confident and knowledgeable?</p>
           </div>
         </div>
-
-        <div class="flex gap-4">
-          <div class="w-12 h-12 rounded-lg bg-orange-100 flex items-center justify-center flex-shrink-0">
-            <span class="text-lg font-bold text-orange-600">D</span>
-          </div>
+        <div class="metric-row">
+          <div class="metric-icon" style="background:rgba(14,15,12,0.06); color:var(--warm-dark);">D</div>
           <div>
-            <h3 class="text-[18px] font-bold text-gray-900 mb-1">Technical Depth</h3>
-            <p class="text-[14px] text-gray-600">Do you show mastery of accounting concepts?</p>
+            <h3 class="metric-title">Technical Depth</h3>
+            <p class="metric-desc">Do you show mastery of accounting concepts?</p>
           </div>
         </div>
       </div>
-
-      <div class="flex gap-4 max-w-4xl mx-auto">
-        <div class="w-12 h-12 rounded-lg bg-red-100 flex items-center justify-center flex-shrink-0">
-          <span class="text-lg font-bold text-red-600">K</span>
-        </div>
+      <div class="metric-row" style="margin-top:8px; max-width:420px;">
+        <div class="metric-icon" style="background:rgba(208,50,56,0.08); color:var(--danger);">K</div>
         <div>
-          <h3 class="text-[18px] font-bold text-gray-900 mb-1">Confidence</h3>
-          <p class="text-[14px] text-gray-600">Do you pause, filler words, or hesitation suggest uncertainty?</p>
+          <h3 class="metric-title">Confidence</h3>
+          <p class="metric-desc">Do pauses, filler words, or hesitation suggest uncertainty?</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FAQ Section -->
-  <section class="bg-[#f6f5f4] py-12 sm:py-24">
-    <div class="max-w-[800px] mx-auto px-6">
-      <div class="text-center mb-12">
-        <p class="text-[18px] font-semibold text-du-blue uppercase tracking-widest mb-3">Support</p>
-        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 tracking-tight leading-[1.1]">
-          Frequently Asked Questions
-        </h2>
+  <section class="section faq-bg">
+    <div style="max-width:720px; margin:0 auto; padding:0 24px;">
+      <div style="text-align:center; margin-bottom:48px;">
+        <p class="section-label">Support</p>
+        <h2 class="section-title section-title-center">Frequently asked<br>questions</h2>
       </div>
 
-      <div class="space-y-3">
-        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
-          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
-            <span class="text-[16px] font-medium text-gray-900">What is VoiceAI?</span>
-            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <div>
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span>What is VoiceAI?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </summary>
-          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
-            VoiceAI is a voice-first interview simulator built specifically for accounting professionals. It uses AI to ask realistic questions, listen to your voice answers, and provide instant feedback on how well you communicate — clarity, structure, tone, technical depth, and confidence.
-          </div>
+          <div class="faq-body">VoiceAI is a voice-first interview simulator built specifically for accounting professionals. It uses AI to ask realistic questions, listen to your voice answers, and provide instant feedback on how well you communicate — clarity, structure, tone, technical depth, and confidence.</div>
         </details>
 
-        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
-          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
-            <span class="text-[16px] font-medium text-gray-900">How does the voice recording work?</span>
-            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span>How does the voice recording work?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </summary>
-          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
-            We use your browser's built-in speech recognition (free, no app needed). Click the mic button, speak your answer, and it automatically converts to text. Your answer goes to our AI for evaluation. No recordings are stored — only the text and feedback.
-          </div>
+          <div class="faq-body">We use your browser's built-in speech recognition (free, no app needed). Click the mic button, speak your answer, and it automatically converts to text. Your answer goes to our AI for evaluation. No recordings are stored — only the text and feedback.</div>
         </details>
 
-        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
-          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
-            <span class="text-[16px] font-medium text-gray-900">How is my answer scored?</span>
-            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span>How is my answer scored?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </summary>
-          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
-            Our AI evaluates your response across five dimensions: Clarity (how easy it is to follow), Structure (logical flow), Professional Tone (confidence and vocabulary), Technical Depth (accounting knowledge), and Confidence (absence of hesitation). Each gets a 0–10 score, and we average them for your overall score.
-          </div>
+          <div class="faq-body">Our AI evaluates your response across five dimensions: Clarity (how easy it is to follow), Structure (logical flow), Professional Tone (confidence and vocabulary), Technical Depth (accounting knowledge), and Confidence (absence of hesitation). Each gets a 0–10 score, and we average them for your overall score.</div>
         </details>
 
-        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
-          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
-            <span class="text-[16px] font-medium text-gray-900">Is my voice/data private?</span>
-            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span>Is my voice/data private?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </summary>
-          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
-            Yes. Your audio is never recorded or stored. We only see the text transcript that your browser converts from your voice. Your interview answers and feedback are kept private — we don't sell data or train models on your content.
-          </div>
+          <div class="faq-body">Yes. Your audio is never recorded or stored. We only see the text transcript that your browser converts from your voice. Your interview answers and feedback are kept private — we don't sell data or train models on your content.</div>
         </details>
 
-        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
-          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
-            <span class="text-[16px] font-medium text-gray-900">Is VoiceAI free?</span>
-            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span>Is VoiceAI free?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </summary>
-          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
-            VoiceAI is in beta and currently free for all users. We're gathering feedback to improve the product. Future pricing (if any) will be announced clearly — no surprise charges.
-          </div>
+          <div class="faq-body">VoiceAI is in beta and currently free for all users. We're gathering feedback to improve the product. Future pricing (if any) will be announced clearly — no surprise charges.</div>
         </details>
 
-        <details class="bg-white rounded-xl border border-gray-200 overflow-hidden group">
-          <summary class="px-6 py-5 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-between">
-            <span class="text-[16px] font-medium text-gray-900">How is VoiceAI different from other interview tools?</span>
-            <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <details class="faq-item">
+          <summary class="faq-summary">
+            <span>How is VoiceAI different from other interview tools?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </summary>
-          <div class="px-6 pb-5 text-[13px] text-gray-600 leading-relaxed">
-            Most interview prep tools focus on language learning or offer generic feedback. VoiceAI is built by accounting professionals, for accountants. We ask role-specific questions, evaluate communication skills (not English proficiency), and give actionable feedback in seconds. No scripts, no templates—just you, a real interviewer, and honest feedback.
-          </div>
+          <div class="faq-body">Most interview prep tools focus on language learning or offer generic feedback. VoiceAI is built by accounting professionals, for accountants. We ask role-specific questions, evaluate communication skills (not English proficiency), and give actionable feedback in seconds. No scripts, no templates — just you, a real interviewer, and honest feedback.</div>
         </details>
       </div>
     </div>
   </section>
 
   <!-- Final CTA Banner -->
-  <section class="bg-du-dark py-12 sm:py-20">
-    <div class="max-w-[800px] mx-auto px-6 text-center">
-      <h2 class="text-[42px] sm:text-[56px] font-black text-white leading-[1.1] mb-4">
-        Start your first interview today
-      </h2>
-      <p class="text-[16px] text-white/70 mb-8">
-        No sign-up required. Free. Confidential. Get real feedback in 5 minutes.
-      </p>
-      <button onclick="document.getElementById('simulator').scrollIntoView({behavior: 'smooth'})" class="bg-emerald-500 hover:bg-emerald-600 text-white px-8 py-4 rounded-lg font-semibold text-[16px] transition-colors">
-        Get Started
-      </button>
-    </div>
+  <section class="cta-banner">
+    <h2>Start your first<br>interview <span>today</span></h2>
+    <p>No sign-up required. Free. Confidential. Get real feedback in 5 minutes.</p>
+    <button onclick="document.getElementById('simulator').scrollIntoView({behavior:'smooth'})" class="btn-green">
+      Get Started
+    </button>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-[#0b1628] border-t border-white/8 py-8">
-    <div class="max-w-[1200px] mx-auto px-6 flex flex-wrap justify-between items-center gap-4">
+  <footer class="footer">
+    <div class="footer-inner">
       <div>
-        <p class="text-[13px] font-semibold text-white">Danish Us-Salam</p>
-        <p class="text-[11px] text-white/35">Economist & Researcher</p>
+        <p class="footer-name">Danish Us-Salam</p>
+        <p class="footer-role">Economist &amp; Researcher</p>
       </div>
-      <div class="flex items-center gap-5 text-[12px]">
-        <a href="mailto:danish.ussalam@centralbank.ie" class="text-white/35 hover:text-white/65 transition-colors">Email</a>
-        <a href="https://linkedin.com/in/danishussalam" target="_blank" class="text-white/35 hover:text-white/65 transition-colors">LinkedIn</a>
-        <a href="https://twitter.com/danishussalam" target="_blank" class="text-white/35 hover:text-white/65 transition-colors">Twitter</a>
-        <a href="https://danishussalam.github.io/cv.pdf" target="_blank" class="text-white/35 hover:text-white/65 transition-colors">CV</a>
+      <div class="footer-links">
+        <a href="mailto:danish.ussalam@centralbank.ie">Email</a>
+        <a href="https://linkedin.com/in/danishussalam" target="_blank">LinkedIn</a>
+        <a href="https://twitter.com/danishussalam" target="_blank">Twitter</a>
+        <a href="https://danishussalam.github.io/cv.pdf" target="_blank">CV</a>
       </div>
     </div>
   </footer>
