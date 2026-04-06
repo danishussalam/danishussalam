@@ -15,6 +15,7 @@ let state = {
   role: null,
   level: null,
   tone: null,
+  gender: null,
   question: null,
   followup: null,
   firstAnswer: null,
@@ -24,12 +25,14 @@ let state = {
   sessionId: null,
   questionNumber: 1,
   currentFeedback: null, // Store feedback for download
+  selectedVoice: null, // Locked voice for the session
 };
 
 // DOM Elements
 const roleSelect = document.getElementById('role-select');
 const levelSelect = document.getElementById('level-select');
 const toneSelect = document.getElementById('tone-select');
+const genderSelect = document.getElementById('gender-select');
 const startButton = document.getElementById('start-button');
 const submitButton = document.getElementById('submit-button');
 const micButton = document.getElementById('mic-button');
@@ -65,12 +68,12 @@ if (downloadBtn) {
 }
 
 // Enable/disable start button based on selections
-[roleSelect, levelSelect, toneSelect].forEach(select => {
+[roleSelect, levelSelect, toneSelect, genderSelect].forEach(select => {
   select.addEventListener('change', updateStartButtonState);
 });
 
 function updateStartButtonState() {
-  const isEnabled = roleSelect.value && levelSelect.value && toneSelect.value;
+  const isEnabled = roleSelect.value && levelSelect.value && toneSelect.value && genderSelect.value;
   startButton.disabled = !isEnabled;
 }
 
@@ -78,15 +81,19 @@ async function startInterview() {
   state.role = roleSelect.value;
   state.level = levelSelect.value;
   state.tone = toneSelect.value;
+  state.gender = genderSelect.value;
   state.stage = 'first-answer';
   state.sessionId = Math.random().toString(36).substring(2, 9);
   state.firstAnswer = null;
   state.secondAnswer = null;
+  // Lock voice for the entire session
+  state.selectedVoice = pickVoiceForGender(state.gender);
 
   // Disable controls
   roleSelect.disabled = true;
   levelSelect.disabled = true;
   toneSelect.disabled = true;
+  genderSelect.disabled = true;
   startButton.style.display = 'none';
 
   // Show question display
@@ -130,31 +137,42 @@ async function startInterview() {
   }
 }
 
-const VOICE_PRIORITY = [
+// Preferred voices by gender — most natural sounding first
+const FEMALE_VOICES = [
   'Google US English',
   'Microsoft Aria Online (Natural) - English (United States)',
-  'Microsoft Guy Online (Natural) - English (United States)',
   'Samantha',
   'Karen',
+  'Victoria',
+  'Moira',
+];
+const MALE_VOICES = [
+  'Microsoft Guy Online (Natural) - English (United States)',
+  'Microsoft Ryan Online (Natural) - English (United Kingdom)',
   'Daniel',
+  'Alex',
+  'Fred',
+  'Tom',
 ];
 
-function getBestVoice() {
+function pickVoiceForGender(gender) {
   const voices = window.speechSynthesis.getVoices();
   const enVoices = voices.filter(v => v.lang.startsWith('en'));
-  for (const name of VOICE_PRIORITY) {
+  const priority = gender === 'male' ? MALE_VOICES : FEMALE_VOICES;
+  for (const name of priority) {
     const match = enVoices.find(v => v.name === name);
     if (match) return match;
   }
-  return enVoices.find(v => v.lang === 'en-US') || enVoices[0] || null;
+  // Fallback: pick any en-US voice not in the opposite gender list
+  const opposite = gender === 'male' ? FEMALE_VOICES : MALE_VOICES;
+  return enVoices.find(v => !opposite.includes(v.name)) || enVoices[0] || null;
 }
 
 function speakText(text) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
-  const voice = getBestVoice();
-  if (voice) utterance.voice = voice;
+  if (state.selectedVoice) utterance.voice = state.selectedVoice;
   utterance.rate = 0.92;
   utterance.pitch = 0.95;
   utterance.volume = 1;
@@ -456,9 +474,12 @@ function reset() {
   roleSelect.disabled = false;
   levelSelect.disabled = false;
   toneSelect.disabled = false;
+  genderSelect.disabled = false;
   roleSelect.value = '';
   levelSelect.value = '';
   toneSelect.value = '';
+  genderSelect.value = '';
+  state.selectedVoice = null;
 
   startButton.style.display = 'block';
   startButton.disabled = true;
