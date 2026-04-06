@@ -59,7 +59,10 @@ micButton.addEventListener('click', () => {
   window.speechSynthesis.cancel(); // stop narration if playing
   toggleRecording();
 });
-stopSpeechButton.addEventListener('click', () => window.speechSynthesis.cancel());
+stopSpeechButton.addEventListener('click', () => {
+  window.speechSynthesis.cancel();
+  setSpeechStopped();
+});
 repeatButton.addEventListener('click', () => {
   if (state.question) speakText(state.stage === 'second-answer' ? state.followup : state.question);
 });
@@ -147,7 +150,7 @@ async function startInterview() {
 
     // Show submit button and mic
     micButton.disabled = false;
-    stopSpeechButton.disabled = false;
+    stopSpeechButton.disabled = true; // activates via onstart when speech begins
     repeatButton.disabled = false;
     submitButton.style.display = 'block';
     submitButton.disabled = false;
@@ -191,6 +194,14 @@ function pickVoiceForGender(gender) {
   return enVoices.find(v => !opposite.includes(v.name)) || enVoices[0] || null;
 }
 
+function setSpeechStopped() {
+  stopSpeechButton.disabled = true;
+}
+
+function setSpeechPlaying() {
+  stopSpeechButton.disabled = false;
+}
+
 function speakText(text) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
@@ -205,6 +216,9 @@ function speakText(text) {
     utterance.rate = 0.92;
     utterance.pitch = 0.95;
     utterance.volume = 1;
+    utterance.onstart = () => setSpeechPlaying();
+    utterance.onend = () => setSpeechStopped();
+    utterance.onerror = () => setSpeechStopped();
     window.speechSynthesis.speak(utterance);
   }
 
@@ -466,7 +480,7 @@ function retryQuestion() {
   submitButton.textContent = 'Submit Answer';
   micButton.disabled = false;
   micButton.style.display = 'flex'; // Show mic button again for next question
-  stopSpeechButton.disabled = false;
+  stopSpeechButton.disabled = true; // activates via onstart when speech begins
   stopSpeechButton.style.display = 'flex';
   repeatButton.disabled = false;
   repeatButton.style.display = 'flex';
