@@ -30,66 +30,91 @@ function optimizeForDevice() {
 
 // Speech-to-text setup
 let isListening = false;
-let stoppedByUser = false;  // distinguishes user stop from browser auto-stop on silence
-let finalTranscriptIndex = 0; // tracks how many final results we've already appended
+let stoppedByUser = false;
+// committedText holds everything finalised across all recognition sessions.
+// Each time the browser auto-restarts (mobile silence cut-off), a fresh session
+// starts at index 0 — so we never append from event.results directly to the
+// textarea. Instead, we rebuild the textarea value as committedText + current
+// session finals, preventing cross-session duplicates.
+let committedText = '';
+let sessionFinalText = ''; // finals accumulated within the current session only
+let isRestarting = false;  // guard to prevent overlapping restart attempts
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = null;
+
+function setMicActive(active) {
+  const micBtn = document.getElementById('mic-btn');
+  if (!micBtn) return;
+  if (active) {
+    micBtn.classList.add('bg-red-500', 'text-white');
+    micBtn.classList.remove('bg-blue-50', 'text-blue-600');
+  } else {
+    micBtn.classList.remove('bg-red-500', 'text-white');
+    micBtn.classList.add('bg-blue-50', 'text-blue-600');
+  }
+}
 
 if (SpeechRecognition) {
   recognition = new SpeechRecognition();
   recognition.continuous = true;
-  recognition.interimResults = true;
+  recognition.interimResults = false; // final results only — avoids interim duplicates on mobile
   recognition.lang = 'en-US';
 
   recognition.onstart = () => {
     isListening = true;
-    const micBtn = document.getElementById('mic-btn');
-    if (micBtn) {
-      micBtn.classList.add('bg-red-500', 'text-white');
-      micBtn.classList.remove('bg-blue-50', 'text-blue-600');
-    }
+    isRestarting = false;
+    sessionFinalText = ''; // fresh slate for this session's finals
+    setMicActive(true);
   };
 
   recognition.onend = () => {
     isListening = false;
-    // If the user didn't explicitly stop, restart to keep listening through silences
-    if (!stoppedByUser) {
-      try {
-        recognition.start();
-        return; // stay in listening state, don't update button
-      } catch (e) {
-        // If restart fails, fall through to reset UI
-      }
-    }
-    // User-initiated stop: reset button appearance
-    const micBtn = document.getElementById('mic-btn');
-    if (micBtn) {
-      micBtn.classList.remove('bg-red-500', 'text-white');
-      micBtn.classList.add('bg-blue-50', 'text-blue-600');
+    // Commit whatever this session captured before restarting
+    committedText += sessionFinalText;
+    sessionFinalText = '';
+
+    if (!stoppedByUser && !isRestarting) {
+      // Browser cut off due to silence — restart transparently
+      isRestarting = true;
+      setTimeout(() => {
+        if (!stoppedByUser) {
+          try {
+            recognition.start();
+          } catch (e) {
+            // Restart failed — treat as user stop
+            isRestarting = false;
+            setMicActive(false);
+          }
+        } else {
+          isRestarting = false;
+          setMicActive(false);
+        }
+      }, 150); // small delay lets the old session fully close before reopening
+    } else {
+      isRestarting = false;
+      setMicActive(false);
     }
   };
 
   recognition.onresult = (event) => {
     const textarea = document.getElementById('raw-prompt');
-    // Append only newly finalised results (those beyond what we've already processed)
-    for (let i = finalTranscriptIndex; i < event.results.length; i++) {
+    // Collect only final results from this session
+    for (let i = 0; i < event.results.length; i++) {
       if (event.results[i].isFinal) {
         const chunk = event.results[i][0].transcript.trim();
         if (chunk) {
-          if (textarea.value && !textarea.value.endsWith(' ')) {
-            textarea.value += ' ';
-          }
-          textarea.value += chunk + ' ';
+          sessionFinalText += (sessionFinalText ? ' ' : '') + chunk;
         }
-        finalTranscriptIndex = i + 1;
       }
     }
+    // Write committed text + this session's finals to textarea
+    const combined = (committedText + (committedText && sessionFinalText ? ' ' : '') + sessionFinalText).trim();
+    textarea.value = combined ? combined + ' ' : '';
     updateGenerateButtonState();
   };
 
   recognition.onerror = (event) => {
     console.error('Speech recognition error:', event.error);
-    // Ignore no-speech (normal silence) and aborted (triggered by our own stop call)
     if (event.error !== 'no-speech' && event.error !== 'aborted') {
       showError('Microphone error: ' + event.error);
     }
@@ -103,12 +128,14 @@ function toggleMicrophone() {
   }
 
   try {
-    if (isListening) {
+    if (isListening || isRestarting) {
       stoppedByUser = true;
       recognition.stop();
     } else {
+      // Fresh dictation session — reset all state
       stoppedByUser = false;
-      finalTranscriptIndex = 0; // reset index for new session
+      committedText = '';
+      sessionFinalText = '';
       const textarea = document.getElementById('raw-prompt');
       textarea.focus();
       recognition.start();
