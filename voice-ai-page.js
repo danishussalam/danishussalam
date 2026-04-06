@@ -33,6 +33,7 @@ const toneSelect = document.getElementById('tone-select');
 const startButton = document.getElementById('start-button');
 const submitButton = document.getElementById('submit-button');
 const micButton = document.getElementById('mic-button');
+const repeatButton = document.getElementById('repeat-button');
 const questionDisplay = document.getElementById('question-display');
 const currentQuestion = document.getElementById('current-question');
 const recordingState = document.getElementById('recording-state');
@@ -51,6 +52,9 @@ const thankYouMessage = document.getElementById('thank-you-message');
 startButton.addEventListener('click', startInterview);
 submitButton.addEventListener('click', submitAnswer);
 micButton.addEventListener('click', toggleRecording);
+repeatButton.addEventListener('click', () => {
+  if (state.question) speakText(state.stage === 'second-answer' ? state.followup : state.question);
+});
 retryButton.addEventListener('click', retryQuestion);
 restartButton.addEventListener('click', reset);
 
@@ -114,6 +118,7 @@ async function startInterview() {
 
     // Show submit button and mic
     micButton.disabled = false;
+    repeatButton.disabled = false;
     submitButton.hidden = false;
     submitButton.textContent = 'Submit Answer';
 
@@ -124,25 +129,35 @@ async function startInterview() {
   }
 }
 
-async function speakText(text) {
-  try {
-    const response = await fetch(WORKER_URL + '/speak', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text }),
-    });
+const VOICE_PRIORITY = [
+  'Google US English',
+  'Microsoft Aria Online (Natural) - English (United States)',
+  'Microsoft Guy Online (Natural) - English (United States)',
+  'Samantha',
+  'Karen',
+  'Daniel',
+];
 
-    if (!response.ok) throw new Error('TTS fetch failed');
-
-    const audioBlob = await response.blob();
-    const audioUrl = URL.createObjectURL(audioBlob);
-    const audio = new Audio(audioUrl);
-    audio.play();
-    audio.onended = () => URL.revokeObjectURL(audioUrl);
-  } catch (err) {
-    // Silent fallback — interview continues without voice
-    console.warn('ElevenLabs TTS failed:', err.message);
+function getBestVoice() {
+  const voices = window.speechSynthesis.getVoices();
+  const enVoices = voices.filter(v => v.lang.startsWith('en'));
+  for (const name of VOICE_PRIORITY) {
+    const match = enVoices.find(v => v.name === name);
+    if (match) return match;
   }
+  return enVoices.find(v => v.lang === 'en-US') || enVoices[0] || null;
+}
+
+function speakText(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  const voice = getBestVoice();
+  if (voice) utterance.voice = voice;
+  utterance.rate = 0.92;
+  utterance.pitch = 0.95;
+  utterance.volume = 1;
+  setTimeout(() => window.speechSynthesis.speak(utterance), 100);
 }
 
 function toggleRecording() {
@@ -369,6 +384,8 @@ function displayResults(data) {
   resultsPanel.classList.remove('hidden');
   micButton.disabled = true;
   micButton.style.display = 'none'; // Hide mic button after feedback is shown
+  repeatButton.disabled = true;
+  repeatButton.style.display = 'none';
   submitButton.style.display = 'none';
   questionDisplay.classList.add('hidden');
 }
@@ -385,6 +402,8 @@ function retryQuestion() {
   submitButton.textContent = 'Submit Answer';
   micButton.disabled = false;
   micButton.style.display = 'block'; // Show mic button again for next question
+  repeatButton.disabled = false;
+  repeatButton.style.display = 'flex';
 
   // Fetch new question
   showLoading();
@@ -445,6 +464,7 @@ function reset() {
   micButton.disabled = true;
   micButton.style.background = '#f0f4f8';
   micButton.style.color = '#097fe8';
+  repeatButton.disabled = true;
 
   questionDisplay.classList.add('hidden');
   recordingState.classList.add('hidden');
