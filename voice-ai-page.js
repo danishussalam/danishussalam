@@ -429,11 +429,11 @@ function displayResults(data) {
 
   // Populate scores
   const scores = data.scores || {};
-  document.getElementById('score-clarity').textContent = `${scores.clarity || 7}/10`;
-  document.getElementById('score-structure').textContent = `${scores.structure || 6}/10`;
-  document.getElementById('score-tone').textContent = `${scores.tone || 8}/10`;
-  document.getElementById('score-technical').textContent = `${scores.technical || 7}/10`;
-  document.getElementById('score-confidence').textContent = `${scores.confidence || 6}/10`;
+  document.getElementById('score-clarity').textContent = `${scores.clarity ?? 0}/10`;
+  document.getElementById('score-structure').textContent = `${scores.structure ?? 0}/10`;
+  document.getElementById('score-tone').textContent = `${scores.tone ?? 0}/10`;
+  document.getElementById('score-technical').textContent = `${scores.technical ?? 0}/10`;
+  document.getElementById('score-confidence').textContent = `${scores.confidence ?? 0}/10`;
 
   // Weighted: Technical 40%, Clarity 15%, Structure 15%, Tone 15%, Confidence 15%
   const overall = Math.round(
