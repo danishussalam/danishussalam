@@ -6,14 +6,40 @@
   <title>Danish Us-Salam – Economist</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            'du-dark': '#1f2937',
-            'du-blue': '#10b981',
+            'du-dark': '#0e0f0c',
+            'du-blue': '#163300',
+            'wise-green': '#9fe870',
+            'wise-dark-green': '#163300',
+            'wise-mint': '#e2f6d5',
+            'wise-black': '#0e0f0c',
+            gray: {
+              50:  '#f7f9f5', 100: '#eef1ec', 200: '#e8ebe6', 300: '#d3d7d0',
+              400: '#868685', 500: '#868685', 600: '#454745', 700: '#3a3c39',
+              800: '#212320', 900: '#0e0f0c',
+            },
+            green: {
+              50:  '#f2fbe9', 100: '#e2f6d5', 200: '#cdffad', 300: '#9fe870',
+              400: '#9fe870', 500: '#163300', 600: '#163300',
+              700: '#163300', 800: '#054d28', 900: '#0a1a00',
+            },
+            blue: {
+              50:  '#e2f6d5', 100: '#cdffad', 200: '#cdffad', 300: '#9fe870',
+              400: '#9fe870', 500: '#163300', 600: '#163300',
+              700: '#163300', 800: '#0f2400', 900: '#0a1a00',
+            },
+            emerald: {
+              50:  '#f2fbe9', 100: '#e2f6d5', 300: '#9fe870', 400: '#9fe870',
+              500: '#163300', 600: '#163300', 700: '#163300',
+            },
+          },
+          borderRadius: {
+            lg: '16px', xl: '20px', '2xl': '30px', '3xl': '40px',
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -24,10 +50,22 @@
   </script>
   <style>
     * { box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "calt" 1;
+      color: #0e0f0c;
+    }
     html { scroll-behavior: smooth; }
 
+    /* Wise display type: weight 900 at a 0.85 line-height */
+    h1, h2 { font-feature-settings: "calt" 1; }
 
+    /* Wise buttons grow on hover rather than changing colour */
+    .wise-cta { transition: transform .2s ease; }
+    .wise-cta:hover { transform: scale(1.05); }
+    .wise-cta:active { transform: scale(.95); }
   </style>
 
 </head>
@@ -35,7 +73,7 @@
 
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200" style="height:64px;">
-    <div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 h-full flex items-center justify-between">
       <div class="flex items-center gap-10">
         <span class="font-bold text-[16px] text-gray-900 tracking-tight">Danish Us-Salam</span>
                 <div class="hidden md:flex items-center gap-7 text-[13px] text-gray-500 font-medium">
@@ -55,7 +93,7 @@
           <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Tools</a>
         </div>
         <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank"
-           class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">
+           class="bg-[#9fe870] text-[#163300] px-4 py-2 rounded-full wise-cta hover:bg-[#cdffad] font-semibold text-[13px] transition-colors">
           Download CV
         </a>
       </div>
@@ -78,9 +116,9 @@
   </script>
 
   <!-- ─── Hero ─────────────────────────────────── -->
-  <section class="bg-gradient-to-br from-du-dark via-du-dark to-[#0f172a] pt-24 pb-12">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <h1 class="text-[56px] md:text-[72px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
+  <section class="bg-gradient-to-br from-du-dark via-du-dark to-[#0e0f0c] pt-24 pb-12">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+      <h1 class="text-[40px] sm:text-[56px] md:text-[96px] font-black text-white leading-[0.85] tracking-[-0.03em] mb-4">
         Consultancy Portfolio
       </h1>
       <p class="text-[17px] text-white/60 max-w-[640px] leading-[1.75]">
@@ -91,9 +129,9 @@
 
   <!-- ─── Consultancies (most recent first) ────────── -->
   <section class="pt-24 pb-4 bg-white">
-    <div class="max-w-[1200px] mx-auto px-6">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
       <div class="max-w-[780px]">
-        <h2 class="text-[28px] md:text-[32px] font-bold text-gray-900 mb-6 leading-tight tracking-[-0.02rem]">
+        <h2 class="text-[32px] md:text-[40px] font-black text-gray-900 mb-6 leading-[0.85] tracking-[-0.03em]">
           What I do
         </h2>
         <p class="text-[16px] text-gray-600 leading-[1.85] mb-5">
@@ -115,11 +153,11 @@
   </section>
 
   <section class="pt-10 pb-16 bg-white">
-    <div class="max-w-[1200px] mx-auto px-6">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
       <div class="flex flex-col gap-6">
 
         <!-- Save the Children (2025) -->
-        <div class="bg-[#f6f5f4] rounded-xl p-8 md:p-10">
+        <div class="bg-[#e8ebe6] rounded-xl p-8 md:p-10">
           <div class="grid md:grid-cols-[220px_1fr] gap-8 md:gap-10 items-start">
 
             <!-- Logo + year -->
@@ -131,7 +169,7 @@
             </div>
 
             <!-- Detail -->
-            <div>
+            <div class="max-w-[900px]">
               <h3 class="text-[20px] font-bold text-gray-900 mb-5 leading-snug">
                 Save the Children
               </h3>
@@ -149,7 +187,7 @@
                 <p class="text-[11px] text-gray-400 uppercase tracking-widest mb-2">Output</p>
                 <a href="https://resourcecentre.savethechildren.net/document/resilient-economic-development-gains-red-project-final-evaluation/"
                    target="_blank"
-                   class="text-[15px] text-[#097fe8] font-medium hover:underline">
+                   class="text-[15px] text-[#163300] font-medium hover:underline">
                   Resilient Economic Development Gains (RED) Project Final Evaluation, Malawi 2025 &rarr;
                 </a>
               </div>
@@ -158,7 +196,7 @@
         </div>
 
         <!-- 3ie (2023) -->
-        <div class="bg-[#f6f5f4] rounded-xl p-8 md:p-10">
+        <div class="bg-[#e8ebe6] rounded-xl p-8 md:p-10">
           <div class="grid md:grid-cols-[220px_1fr] gap-8 md:gap-10 items-start">
 
             <!-- Logo + year -->
@@ -170,7 +208,7 @@
             </div>
 
             <!-- Detail -->
-            <div>
+            <div class="max-w-[900px]">
               <h3 class="text-[20px] font-bold text-gray-900 mb-5 leading-snug">
                 International Initiative for Impact Evaluation (3ie)
               </h3>
@@ -199,7 +237,7 @@
                     <span class="text-[28px] font-bold text-gray-900 leading-none">1,767</span>
                     <span class="text-[12px] text-gray-500">systematic review records</span>
                   </div>
-                  <span class="text-[13px] text-[#097fe8] font-semibold group-hover:underline">
+                  <span class="text-[13px] text-[#163300] font-semibold group-hover:underline">
                     Visit the portal &rarr;
                   </span>
                 </a>
@@ -216,7 +254,7 @@
                     Funders and researchers use them to decide what to commission next, and policymakers use them to
                     find the evidence that already exists before designing a programme.
                   </p>
-                  <span class="text-[13px] text-[#097fe8] font-semibold group-hover:underline">
+                  <span class="text-[13px] text-[#163300] font-semibold group-hover:underline">
                     Explore the maps &rarr;
                   </span>
                 </a>
@@ -226,7 +264,7 @@
         </div>
 
         <!-- World Bank (2021) -->
-        <div class="bg-[#f6f5f4] rounded-xl p-8 md:p-10">
+        <div class="bg-[#e8ebe6] rounded-xl p-8 md:p-10">
           <div class="grid md:grid-cols-[220px_1fr] gap-8 md:gap-10 items-start">
 
             <!-- Logo + year -->
@@ -238,7 +276,7 @@
             </div>
 
             <!-- Detail -->
-            <div>
+            <div class="max-w-[900px]">
               <h3 class="text-[20px] font-bold text-gray-900 mb-5 leading-snug">
                 The World Bank Group
               </h3>
@@ -252,7 +290,7 @@
                 <p class="text-[11px] text-gray-400 uppercase tracking-widest mb-2">Output</p>
                 <a href="https://policycommons.net/artifacts/4305881/multisectoral-nutrition-programming-in-action/5116052/"
                    target="_blank"
-                   class="text-[15px] text-[#097fe8] font-medium hover:underline">
+                   class="text-[15px] text-[#163300] font-medium hover:underline">
                   Multisectoral Nutrition Programming in Action: Impact Evaluation Report &rarr;
                 </a>
               </div>
@@ -261,7 +299,7 @@
         </div>
 
         <!-- BRAC Uganda (2019) -->
-        <div class="bg-[#f6f5f4] rounded-xl p-8 md:p-10">
+        <div class="bg-[#e8ebe6] rounded-xl p-8 md:p-10">
           <div class="grid md:grid-cols-[220px_1fr] gap-8 md:gap-10 items-start">
 
             <!-- Logo + year -->
@@ -273,7 +311,7 @@
             </div>
 
             <!-- Detail -->
-            <div>
+            <div class="max-w-[900px]">
               <h3 class="text-[20px] font-bold text-gray-900 mb-5 leading-snug">
                 BRAC Uganda
               </h3>
@@ -294,7 +332,7 @@
                 <p class="text-[11px] text-gray-400 uppercase tracking-widest mb-2">Output</p>
                 <a href="https://idl-bnc-idrc.dspacedirect.org/bitstreams/d2367603-989d-40d6-be9c-1313f824e84b/download"
                    target="_blank"
-                   class="text-[15px] text-[#097fe8] font-medium hover:underline">
+                   class="text-[15px] text-[#163300] font-medium hover:underline">
                   The Ultra Poor Graduation Programme: Endline Report &rarr;
                 </a>
                 <p class="text-[13px] text-gray-400 mt-2">with Patrick Olobo and Munshi Sulaiman</p>
@@ -304,7 +342,7 @@
         </div>
 
         <!-- Educate! (2017) -->
-        <div class="bg-[#f6f5f4] rounded-xl p-8 md:p-10">
+        <div class="bg-[#e8ebe6] rounded-xl p-8 md:p-10">
           <div class="grid md:grid-cols-[220px_1fr] gap-8 md:gap-10 items-start">
 
             <!-- Logo + year -->
@@ -316,7 +354,7 @@
             </div>
 
             <!-- Detail -->
-            <div>
+            <div class="max-w-[900px]">
               <h3 class="text-[20px] font-bold text-gray-900 mb-5 leading-snug">
                 Educate!
               </h3>
@@ -337,7 +375,7 @@
                 <p class="text-[11px] text-gray-400 uppercase tracking-widest mb-2">Output</p>
                 <a href="https://static1.squarespace.com/static/520111afe4b0748af59ffc18/t/5b1065f6f950b70548c384cd/1527801341728/PSM+End+of+Course+Report+-+with+Preface.pdf"
                    target="_blank"
-                   class="text-[15px] text-[#097fe8] font-medium hover:underline">
+                   class="text-[15px] text-[#163300] font-medium hover:underline">
                   Educate! Experience: End of Course Evaluation Report &rarr;
                 </a>
                 <p class="text-[13px] text-gray-400 mt-2">with Patrick Okello Olobo and Robert Mpiira</p>
@@ -352,10 +390,10 @@
 
   <!-- ─── Commissioning ──────────────────────── -->
   <section class="pb-24 bg-white">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <div class="bg-gradient-to-br from-du-dark to-[#0f172a] rounded-2xl p-10 md:p-12">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+      <div class="bg-gradient-to-br from-du-dark to-[#0e0f0c] rounded-2xl p-10 md:p-12">
         <div class="max-w-[720px]">
-          <h2 class="text-[24px] md:text-[28px] font-bold text-white mb-4 leading-tight">
+          <h2 class="text-[28px] md:text-[36px] font-black text-white mb-4 leading-[0.85] tracking-[-0.03em]">
             Commissioning work
           </h2>
           <p class="text-[16px] text-white/60 leading-[1.85] mb-7">
@@ -364,7 +402,7 @@
             I will tell you plainly whether I am the right person for it.
           </p>
           <a href="mailto:ussalamd@tcd.ie"
-             class="inline-flex items-center gap-2 bg-white text-gray-900 px-5 py-3 rounded-lg text-[14px] font-semibold hover:bg-gray-100 transition-colors">
+             class="inline-flex items-center gap-2 bg-[#9fe870] text-[#163300] px-5 py-3 rounded-full wise-cta text-[14px] font-semibold hover:bg-[#cdffad] transition-colors">
             ussalamd@tcd.ie
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
           </a>
@@ -374,8 +412,8 @@
   </section>
 
   <!-- ─── Footer ───────────────────────────────────────────────── -->
-  <footer class="bg-[#0b1628] border-t border-white/8 py-8">
-    <div class="max-w-[1200px] mx-auto px-6 flex flex-wrap justify-between items-center gap-4">
+  <footer class="bg-[#0e0f0c] border-t border-white/8 py-8">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 flex flex-wrap justify-between items-center gap-4">
       <div>
         <p class="text-[13px] font-semibold text-white mb-0.5">Danish Us-Salam</p>
         <p class="text-[11px] text-white/35">Economist · Central Bank of Ireland · Dublin, Ireland</p>

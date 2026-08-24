@@ -6,14 +6,40 @@
   <title>Prompt Generator – Danish Us-Salam</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            'du-dark': '#16213e',
-            'du-blue': '#097fe8',
+            'du-dark': '#0e0f0c',
+            'du-blue': '#163300',
+            'wise-green': '#9fe870',
+            'wise-dark-green': '#163300',
+            'wise-mint': '#e2f6d5',
+            'wise-black': '#0e0f0c',
+            gray: {
+              50:  '#f7f9f5', 100: '#eef1ec', 200: '#e8ebe6', 300: '#d3d7d0',
+              400: '#868685', 500: '#868685', 600: '#454745', 700: '#3a3c39',
+              800: '#212320', 900: '#0e0f0c',
+            },
+            green: {
+              50:  '#f2fbe9', 100: '#e2f6d5', 200: '#cdffad', 300: '#9fe870',
+              400: '#9fe870', 500: '#163300', 600: '#163300',
+              700: '#163300', 800: '#054d28', 900: '#0a1a00',
+            },
+            blue: {
+              50:  '#e2f6d5', 100: '#cdffad', 200: '#cdffad', 300: '#9fe870',
+              400: '#9fe870', 500: '#163300', 600: '#163300',
+              700: '#163300', 800: '#0f2400', 900: '#0a1a00',
+            },
+            emerald: {
+              50:  '#f2fbe9', 100: '#e2f6d5', 300: '#9fe870', 400: '#9fe870',
+              500: '#163300', 600: '#163300', 700: '#163300',
+            },
+          },
+          borderRadius: {
+            lg: '16px', xl: '20px', '2xl': '30px', '3xl': '40px',
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -24,100 +50,29 @@
   </script>
   <style>
     * { box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "calt" 1;
+      color: #0e0f0c;
+    }
     html { scroll-behavior: smooth; }
 
-    .spinner {
-      border: 3px solid rgba(9, 127, 232, 0.1);
-      border-top: 3px solid #097fe8;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    /* Wise display type: weight 900 at a 0.85 line-height */
+    h1, h2 { font-feature-settings: "calt" 1; }
 
-    details summary { list-style: none; cursor: pointer; }
-    details summary::-webkit-details-marker { display: none; }
-
-    /* Framework Details Modal (Design 2 - Center Modal) */
-    .framework-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0);
-      transition: background-color 0.3s ease;
-      pointer-events: none;
-      z-index: 40;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .framework-overlay.active {
-      background-color: rgba(0, 0, 0, 0.5);
-      pointer-events: all;
-    }
-    .framework-panel {
-      position: relative;
-      background: white;
-      border-radius: 24px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      max-width: 520px;
-      width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
-      transform: scale(0.9);
-      opacity: 0;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 50;
-    }
-    .framework-overlay.active .framework-panel {
-      transform: scale(1);
-      opacity: 1;
-    }
-    .framework-panel-header {
-      background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
-      color: white;
-      padding: 32px;
-      border-radius: 24px 24px 0 0;
-      position: relative;
-      z-index: 10;
-    }
-    .framework-panel-content {
-      padding: 32px;
-    }
-    .close-btn {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(255,255,255,0.2);
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      transition: all 0.2s;
-      color: white;
-    }
-    .close-btn:hover {
-      background: rgba(255,255,255,0.4);
-    }
+    /* Wise buttons grow on hover rather than changing colour */
+    .wise-cta { transition: transform .2s ease; }
+    .wise-cta:hover { transform: scale(1.05); }
+    .wise-cta:active { transform: scale(.95); }
   </style>
 </head>
 <body class="bg-white text-gray-900">
 
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200" style="height:64px;">
-    <div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 h-full flex items-center justify-between">
       <div class="flex items-center gap-10">
         <span class="font-bold text-[16px] text-gray-900 tracking-tight">Danish Us-Salam</span>
         <div class="hidden md:flex items-center gap-7 text-[13px] text-gray-500 font-medium">
@@ -137,7 +92,7 @@
           <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Tools</a>
         </div>
         <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank"
-           class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">
+           class="bg-[#9fe870] text-[#163300] px-4 py-2 rounded-full wise-cta hover:bg-[#cdffad] font-semibold text-[13px] transition-colors">
           Download CV
         </a>
       </div>
@@ -285,7 +240,7 @@
   </section>
   <!-- Framework Guide Section -->
   <section id="framework-section" class="pt-8 sm:pt-12 pb-5 sm:pb-10 bg-white">
-    <div class="max-w-[1200px] mx-auto px-6">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
       <div class="mb-8 sm:mb-10 text-center px-4 sm:px-0">
         <h2 class="text-[48px] sm:text-[64px] font-black text-gray-900 tracking-tight mb-6 leading-[1.1]">12 Specialized AI Agents.<br/>One Objective. Perfect Prompts.</h2>
         <p class="text-[18px] text-gray-600 max-w-[700px] mx-auto leading-relaxed">
@@ -618,7 +573,7 @@
       <div class="space-y-4">
 
         <!-- Q1 -->
-        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+        <details class="bg-[#e8ebe6] rounded-xl border border-gray-200 overflow-hidden group">
           <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
             <span class="text-[16px] font-medium text-gray-900">What is prompt engineering?</span>
             <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -633,7 +588,7 @@
         </details>
 
         <!-- Q2 -->
-        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+        <details class="bg-[#e8ebe6] rounded-xl border border-gray-200 overflow-hidden group">
           <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
             <span class="text-[16px] font-medium text-gray-900">How is this different from just typing into ChatGPT directly?</span>
             <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -648,7 +603,7 @@
         </details>
 
         <!-- Q3 -->
-        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+        <details class="bg-[#e8ebe6] rounded-xl border border-gray-200 overflow-hidden group">
           <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
             <span class="text-[16px] font-medium text-gray-900">Which framework should I choose?</span>
             <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -663,7 +618,7 @@
         </details>
 
         <!-- Q4 -->
-        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+        <details class="bg-[#e8ebe6] rounded-xl border border-gray-200 overflow-hidden group">
           <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
             <span class="text-[16px] font-medium text-gray-900">Can I use the outputs for professional or published work?</span>
             <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -678,7 +633,7 @@
         </details>
 
         <!-- Q5 -->
-        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+        <details class="bg-[#e8ebe6] rounded-xl border border-gray-200 overflow-hidden group">
           <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
             <span class="text-[16px] font-medium text-gray-900">Is my input stored or shared?</span>
             <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -693,7 +648,7 @@
         </details>
 
         <!-- Q6 -->
-        <details class="bg-[#f6f5f4] rounded-xl border border-gray-200 overflow-hidden group">
+        <details class="bg-[#e8ebe6] rounded-xl border border-gray-200 overflow-hidden group">
           <summary class="px-6 py-5 cursor-pointer hover:bg-gray-100 transition-colors flex items-center justify-between">
             <span class="text-[16px] font-medium text-gray-900">What if the output doesn't look right?</span>
             <svg class="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -715,7 +670,7 @@
   <section class="pt-8 pb-20 bg-white">
     <div class="max-w-[750px] mx-auto px-6">
       <div class="text-center mb-12">
-        <h2 class="text-[48px] sm:text-[56px] font-black text-gray-900 leading-[1.1] mb-4 whitespace-nowrap">Help Us Improve</h2>
+        <h2 class="text-[36px] sm:text-[56px] font-black text-gray-900 leading-[1.1] mb-4 whitespace-nowrap">Help Us Improve</h2>
         <p class="text-[16px] text-gray-600">Your feedback shapes how we build. Share your thoughts in seconds.</p>
       </div>
 
@@ -796,8 +751,8 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-[#0b1628] border-t border-white/8 py-8">
-    <div class="max-w-[1200px] mx-auto px-6 flex flex-wrap justify-between items-center gap-4">
+  <footer class="bg-[#0e0f0c] border-t border-white/8 py-8">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 flex flex-wrap justify-between items-center gap-4">
       <div>
         <p class="text-[13px] font-semibold text-white mb-0.5">Danish Us-Salam</p>
         <p class="text-[11px] text-white/35">Economist · Central Bank of Ireland · Dublin, Ireland</p>

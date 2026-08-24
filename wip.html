@@ -6,14 +6,40 @@
   <title>Danish Us-Salam – Economist</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            'du-dark': '#1f2937',
-            'du-blue': '#10b981',
+            'du-dark': '#0e0f0c',
+            'du-blue': '#163300',
+            'wise-green': '#9fe870',
+            'wise-dark-green': '#163300',
+            'wise-mint': '#e2f6d5',
+            'wise-black': '#0e0f0c',
+            gray: {
+              50:  '#f7f9f5', 100: '#eef1ec', 200: '#e8ebe6', 300: '#d3d7d0',
+              400: '#868685', 500: '#868685', 600: '#454745', 700: '#3a3c39',
+              800: '#212320', 900: '#0e0f0c',
+            },
+            green: {
+              50:  '#f2fbe9', 100: '#e2f6d5', 200: '#cdffad', 300: '#9fe870',
+              400: '#9fe870', 500: '#163300', 600: '#163300',
+              700: '#163300', 800: '#054d28', 900: '#0a1a00',
+            },
+            blue: {
+              50:  '#e2f6d5', 100: '#cdffad', 200: '#cdffad', 300: '#9fe870',
+              400: '#9fe870', 500: '#163300', 600: '#163300',
+              700: '#163300', 800: '#0f2400', 900: '#0a1a00',
+            },
+            emerald: {
+              50:  '#f2fbe9', 100: '#e2f6d5', 300: '#9fe870', 400: '#9fe870',
+              500: '#163300', 600: '#163300', 700: '#163300',
+            },
+          },
+          borderRadius: {
+            lg: '16px', xl: '20px', '2xl': '30px', '3xl': '40px',
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -24,10 +50,22 @@
   </script>
   <style>
     * { box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: "calt" 1;
+      color: #0e0f0c;
+    }
     html { scroll-behavior: smooth; }
 
+    /* Wise display type: weight 900 at a 0.85 line-height */
+    h1, h2 { font-feature-settings: "calt" 1; }
 
+    /* Wise buttons grow on hover rather than changing colour */
+    .wise-cta { transition: transform .2s ease; }
+    .wise-cta:hover { transform: scale(1.05); }
+    .wise-cta:active { transform: scale(.95); }
   </style>
 
 </head>
@@ -35,7 +73,7 @@
 
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200" style="height:64px;">
-    <div class="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 h-full flex items-center justify-between">
       <div class="flex items-center gap-10">
         <span class="font-bold text-[16px] text-gray-900 tracking-tight">Danish Us-Salam</span>
         <div class="hidden md:flex items-center gap-7 text-[13px] text-gray-500 font-medium">
@@ -55,7 +93,7 @@
           <a href="research-tools.html" class="hover:text-gray-900 transition-colors">Tools</a>
         </div>
         <a href="https://danishussalam.github.io/assets/Danish_CV.pdf" target="_blank"
-           class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-[13px] transition-colors">
+           class="bg-[#9fe870] text-[#163300] px-4 py-2 rounded-full wise-cta hover:bg-[#cdffad] font-semibold text-[13px] transition-colors">
           Download CV
         </a>
       </div>
@@ -78,17 +116,17 @@
   </script>
 
   <!-- ─── Hero ─────────────────────────────────────────────────── -->
-  <section class="bg-gradient-to-br from-du-dark via-du-dark to-[#0f172a] pt-24 pb-12">
-    <div class="max-w-[1200px] mx-auto px-6">
-      <h1 class="text-[56px] md:text-[72px] font-bold text-white leading-[1.03] tracking-[-0.09rem] mb-4">
+  <section class="bg-gradient-to-br from-du-dark via-du-dark to-[#0e0f0c] pt-24 pb-12">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
+      <h1 class="text-[40px] sm:text-[56px] md:text-[96px] font-black text-white leading-[0.85] tracking-[-0.03em] mb-4">
         Work in Progress
       </h1>
     </div>
   </section>
 
   <!-- ─── Work in Progress ─────────────────────────────────────── -->
-  <section class="py-24 bg-[#f6f5f4]" id="wip">
-    <div class="max-w-[1200px] mx-auto px-6">
+  <section class="py-24 bg-[#e8ebe6]" id="wip">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10">
       <div class="mb-0">
 
       <div class="grid md:grid-cols-3 gap-4">
@@ -208,8 +246,8 @@
 
   <!-- ─── Background ───────────────────────────────────────────── -->
   <!-- ─── Footer ───────────────────────────────────────────────── -->
-  <footer class="bg-[#0b1628] border-t border-white/8 py-8">
-    <div class="max-w-[1200px] mx-auto px-6 flex flex-wrap justify-between items-center gap-4">
+  <footer class="bg-[#0e0f0c] border-t border-white/8 py-8">
+    <div class="max-w-[1600px] mx-auto px-6 lg:px-10 flex flex-wrap justify-between items-center gap-4">
       <div>
         <p class="text-[13px] font-semibold text-white mb-0.5">Danish Us-Salam</p>
         <p class="text-[11px] text-white/35">Economist · Central Bank of Ireland · Dublin, Ireland</p>
